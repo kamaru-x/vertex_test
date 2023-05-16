@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- END: Head -->
+    <body class="py-5">
+        {% include 'header.html' %}
+    <!-- BEGIN: Content -->
+    <div class="content">
+
+              <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">Assign Target</h2>
+         <!--   <div class="intro-y box py-10 sm:py-20 mt-5">
+        <h2 style=" font-size: 30px; font-weight: 500; text-align: center;
+        color: #1e40af;">Add Category</h2>
+    </div> -->
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 flex flex-wrap xl:flex-nowrap items-center mt-2">
+            
+            <div class="hidden xl:block mx-auto text-slate-500"></div>
+            <div class="w-full xl:w-auto flex items-center mt-3 xl:mt-0">
+                 
+                 <a href="{% url 'target-setup' %}"><button class="btn btn-primary shadow-md mr-2">Setup Target</button></a>
+                
+            </div>
+        </div>
+        <!-- BEGIN: Data List -->
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                    <tr>
+                        <th class="whitespace-nowrap">SL. NO.</th>
+                        <th class="whitespace-nowrap">YEAR</th>
+                        <th class="text-center whitespace-nowrap">NO. OF SALESMAN</th>
+                        <th class="whitespace-nowrap">TOTAL TARGET</th>
+                        <th class="whitespace-nowrap">TARGET ACHIEVED</th>
+                        <th class="whitespace-nowrap">BALANCE</th>
+                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for d in data %}
+                    <tr class="intro-x">
+                        <td class="w-40">
+                            <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                        </td>
+                        <td class="w-40">
+                            <div class="font-medium whitespace-nowrap">{{ d.year }}</div>
+                        </td>
+                        <td class="text-center">
+                            <div class="flex items-center justify-center whitespace-nowrap text-primary">
+                                {{ d.salesmans }}
+                            </div>
+                        </td>
+                        <td class="w-64 text-primary">
+                            <div>{{ d.total }}</div>
+                        </td>
+                        <td>
+                            <div class="whitespace-nowrap text-warning">{{ d.archived }}</div>
+                        </td>
+                        <td>
+                            <div class="whitespace-nowrap text-{{ d.color }}">{{ d.balance }}</div>
+                        </td>
+                        <td class="table-report__action">
+                            <div class="flex justify-center items-center">
+                                <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{% url 'target-view' d.year %}" title="View">
+                                    <i data-lucide="eye" class="w-4 h-4 mr-1"></i> 
+                                </a> 
+                            </div>
+                        </td>
+                    </tr> 
+                    {% endfor %}  
+                </tbody>
+            </table>
+        </div>
+        <!-- END: Data List -->
+        <!-- BEGIN: Pagination -->
+        <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+            <nav class="w-full sm:w-auto sm:mr-auto">
+                <ul class="pagination">
+                    {% if data.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{data.previous_page_number}}">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-left"></i>
+                        </a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li> -->
+                    {% for n in nums %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+                    </li>
+                    {% endfor %}
+                    <!-- <li class="page-item active">
+                        <a class="page-link" href="#">2</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-right"></i>
+                        </a>
+                    </li> -->
+                    {% if data.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{data.next_page_number}}">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <select class="w-20 form-select box mt-3 sm:mt-0">
+                <option>10</option>
+                <option>25</option>
+                <option>35</option>
+                <option>50</option>
+            </select>
+        </div>
+        <!-- END: Pagination -->
+    </div>
+    <!-- BEGIN: Delete Confirmation Modal -->
+    <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="p-5 text-center">
+                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                        <div class="text-3xl mt-5">Are you sure?</div>
+                        <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
+                    </div>
+                    <div class="px-5 pb-8 text-center">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                        <button type="button" class="btn btn-danger w-24">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Delete Confirmation Modal -->
+    </div>
+    <!-- END: Content -->
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        }
+        
+    </style>
+    </body>
+{% endblock content %}
+</html>

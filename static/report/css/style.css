@@ -1,0 +1,101 @@
+body{
+	 margin: 0px;
+     padding: 0px;
+     border: none;
+     outline: none;
+}
+.header {
+	background-color: #333;
+	padding: 20px;
+	text-align: center;
+}
+.header img {
+	max-width: 100%!important;
+	height: auto;
+}
+.logo{
+	width: 100%;
+	float: left;
+}
+.logo img{
+	float: left;
+	width: auto;
+	height: 100px;
+}
+.introduction{
+	float: left;
+	width: 100%;
+	padding: 30px 0px;
+}
+.introduction h2{
+	text-align: center;
+}
+.section{
+	width: 100%;
+	float: left;
+}
+/*.report-section{
+	page-break-after: always;
+}*/
+.footer {
+	background-color: #333;
+	padding: 20px;
+	text-align: center;
+}
+.footer img {
+	max-width: 100%!important;
+	height: auto;
+}
+.page-break {
+	page-break-after: always;
+}
+.intro{
+	padding-top: 30px;
+	float: right;
+	width: 100%;
+}
+.table-container {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .table-row {
+    display: table-row;
+  }
+  .table-header {
+    display: table-header-group;
+    font-weight: bold;
+  }
+  .table-cell {
+    display: table-cell;
+    padding: 8px;
+    border: 1px solid #b2b0b0;
+  }
+  .table-cell:nth-child(2) {
+    width: 60%;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+  td {
+    border: 1px solid black;
+    padding: 10px;
+  }
+  .desc {
+    width: 50%; /* half the size of the 3rd column */
+  }
+  .small {
+    width: 25%; /* half the size of the 3rd column */
+  }
+  .introduction1{
+	float: left;
+	width: 100%;
+	padding: 70px 0px 70px;
+}
+
+
+
+
+
+

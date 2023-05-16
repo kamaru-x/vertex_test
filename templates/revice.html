@@ -1,0 +1,537 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+{{ block.super }}
+{% endblock %}
+{% block content %}
+    <body class="py-5">
+        {% include 'header.html' %}
+      
+     <!-- BEGIN: Content -->
+    <div class="content">
+        <div class="mt-8">
+            {% if messages %}
+            <div class="mt-6 -mb-6 intro-y">
+                {% for message in messages %}<div class="alert alert-success text-white show flex items-center mb-2" role="alert"> <i data-lucide="alert-circle" class="w-6 h-6 mr-2"></i>{{message}}<button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button></div>{% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+    <!-- BEGIN: Wizard Layout -->
+    <div class="intro-y box py-10 sm:py-8">
+        <!-- <div class="relative before:hidden before:lg:block before:absolute before:w-[69%] before:h-[3px] before:top-0 before:bottom-0 before:mt-4 before:bg-slate-100 before:dark:bg-darkmode-400 flex flex-col lg:flex-row justify-center px-5 sm:px-20">
+            <div class="intro-x lg:text-center flex items-center lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary">1</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto">Lead Generated</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary">2</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto">Converted to Opportunity</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary">3</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto">Created Proposal / Client</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400">4</button>
+                <div class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400">Proposal Acceptance</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400">5</button>
+                <div class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400">Project</div>
+            </div>
+
+        </div> -->
+        <!-- <br><br><hr>  -->
+        <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc21;">Revise Proposal</h2>
+        <div class="px-5 sm:px-20 mt-10">
+            <!--  <div class="font-medium text-base">Add / Manage Products</div> -->
+            <form action="" method="post">
+                {% csrf_token %}
+                    <!-- <input type="hidden" name="grand_total" id="grand_total"> -->
+                    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+        
+                        <div class="intro-y col-span-6">
+                            <label>Proposal Title</label>
+                            <div class="mt-2">
+                            <input type="text" name="proposal_title" value="{{proposal.Proposal_Title}}" placeholder="enter proposal Title" class="form-control" required>
+                            </div>
+                        </div>
+        
+                        <div class="intro-y col-span-6">
+                            <label>Project Name</label>
+                            <div class="mt-2">
+                            <input type="text" name="project_name" value="{{proposal.Project_Name}}" placeholder="Enter Project Name" class="form-control" required>
+                            </div>
+                        </div>
+        
+                        <div class="intro-y col-span-6">
+                            <label>Proposal Date</label>
+                            <div class="mt-2">
+                                <input type="date"  value="{{proposal.Proposal_Date | date:'Y-m-d'}}" name="proposal_date" class="form-control" required>
+                            </div>
+                        </div>
+        
+                        <div class="intro-y col-span-6">
+                            <label>Expire Date</label>
+                            <div class="mt-2">
+                                <input type="date" value="{{proposal.Expire_Date | date:'Y-m-d'}}" name="expire_date" class="form-control" required>
+                            </div>
+                        </div>
+        
+                        <div class="intro-y col-span-6">
+                            <label>Subject</label>
+                            <div class="mt-2">
+                                <input type="text" name="subject" value="{{proposal.Subject}}" placeholder="Enter Subject" class="form-control" required>
+                            </div>
+                        </div>
+        
+                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                            <!-- <button class="btn btn-secondary w-24">Add</button> -->
+                            <button class="btn btn-primary w-24 ml-2" type="submit" style="width: 12rem;">Submit</button>
+                        </div>  
+                    </div>
+                </form>
+            </div>
+
+<div class="container" style="padding: 40px;">
+<ul class="nav nav-link-tabs" role="tablist">
+    <li id="example-5-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2 active" data-tw-toggle="pill" data-tw-target="#example-tab-5" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+            Add Products
+        </button>
+    </li>
+    <li id="example-6-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-6" type="button" role="tab" aria-controls="example-tab-6" aria-selected="false">
+            Scope of Work
+        </button>
+    </li>
+    <li id="example-7-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-7" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+            Payment Terms
+        </button>
+    </li>
+    <li id="example-8-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-8" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+            Exclusions
+        </button>
+    </li>
+    <li id="example-9-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-9" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+          Terms & Conditions
+        </button>
+    </li>
+    <!-- <li id="example-10-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-10" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+          Opportunity Info
+        </button>
+    </li> -->
+    
+</ul>
+<div class="tab-content mt-5">
+    <div id="example-tab-5" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-5-tab">
+        <div class="intro-y box">
+        
+        <div class="px-5 sm:px-20 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+           <!--  <div class="font-medium text-base">Add / Manage Products</div> -->
+           <form action="" method="post" id="product-form">
+            {% csrf_token %}
+                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                    
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                    
+                        <!-- <button class="btn btn-primary ml-2" style="width: 8rem;">Create Proposal</button> -->
+
+                    </div>
+                    
+                    
+                    <div class="intro-y col-span-12 sm:col-span-4">
+                    <label>Select Product</label>
+                            <div class="mt-2">
+                                <select data-placeholder="Select Product" name="product" id="product" class="tom-select w-full">
+                                    <option value=" ">Select Product</option>
+                                    {% for product in products %}
+                                        <option value="{{ product.id }}">{{ product.Name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>        
+                    </div>
+
+                    <div class="intro-y col-span-2">
+                        <label>Selling Price</label>
+                        <div class="mt-2">
+                        <input type="number" id='p_p' class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="intro-y col-span-2">
+                        <label>Offer Price</label>
+                        <div class="mt-2">
+                        <input type="number" name="price" id='s_p' class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="intro-y col-span-2">
+                        <label>Quantity</label>
+                        <div class="mt-2">
+                            <input type="number" name="quantity" id='p_q' class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="intro-y col-span-2">
+                        <label>Total Price</label>
+                        <div class="mt-2">
+                            <input type="number" name="total" id='total' class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                        <!-- <button class="btn btn-secondary w-24">Add</button> -->
+                        <input type="hidden" name="" id="ProposalId" value="{{ proposal.id }}">
+                        <button class="btn btn-primary w-24 ml-2" type="button" style="width: 12rem;" id="AddProduct">Add Product</button>
+                    </div>  
+                </div>
+            </form>
+        </div>
+
+         <!--   <div class="intro-y box py-10 sm:py-20 mt-5">
+        <h2 style=" font-size: 30px; font-weight: 500; text-align: center;
+        color: #1e40af;">Add Category</h2>
+    </div> -->
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 flex flex-wrap xl:flex-nowrap items-center mt-2">
+            
+            <div class="hidden xl:block mx-auto text-slate-500"></div>
+            <div class="w-full xl:w-auto flex items-center mt-3 xl:mt-0">
+                <!-- <button class="btn btn-primary shadow-md mr-2">
+                    <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export to Excel
+                </button> -->
+             
+            </div>
+        </div>
+        <!-- BEGIN: Data List -->
+        {% if pros %}
+         <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2" id="mytable">
+                <thead>
+                    <tr>
+                        <!-- <th class="whitespace-nowrap">
+                            <input class="form-check-input" type="checkbox">
+                        </th> -->
+                        <th class="whitespace-nowrap">SL. NO.</th>
+                        <th class="whitespace-nowrap">REF. NO.</th>
+                        <th class="whitespace-nowrap">PART NUMBER</th>
+                        <th class="whitespace-nowrap">SECTION NAME</th>
+                        <th class="whitespace-nowrap">PRICE</th>
+                        <th class="whitespace-nowrap">QUANTITY</th>
+                        <th class="whitespace-nowrap">TOTAL</th>
+                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody id="mytablebody">
+                    {% for product in pros %}
+                        <tr class="intro-x">
+                            
+                            <td class="w-40">
+                                <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                            </td>
+                            <td class="w-40">
+                                <a href="" class="font-medium whitespace-nowrap">{{ product.Product.Reference }}</a>  
+                            </td>
+                            <td>
+                                <div class="whitespace-nowrap">{{ product.Product.Name }}</div>
+                            </td>
+                            <td class="w-64">
+                                <div>{{ product.Product.Category.Name }}</div>
+                            </td>
+                            <td class="w-64">
+                                <div>{{ product.Sell_Price }}</div>
+                            </td>
+                            <td class="w-64">
+                                <div>{{ product.Quantity }}</div>
+                            </td>
+                            <td class="w-64">
+                                <div id="total" class="total-{{forloop.counter}}">{{ product.Total }}</div>
+                            </td>
+                            <td class="table-report__action">
+                                <div class="flex justify-center items-center">
+                                    <!--  -->
+                                    <a class="flex items-center text-danger whitespace-nowrap" style="cursor: pointer;" onclick="pop('{{product.id}}')" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal">
+                                        <i data-lucide="trash" class="w-4 h-4 mr-1"></i> Remove
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <table class="table table-report -mt-2">
+                <tbody>
+                    <tr class="intro-x">    
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64">Total Amount</td>
+                        <td class="w-64 text-center" id="product_total">{{t}}</td>
+                        <td class="w-64"></td>
+                    </tr>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <tr class="intro-x">
+                            <td class="w-40 text-center">Discount</td>
+                            <td class="w-64" colspan="2">
+                                <select class="form-control" name="method" id="method">
+                                    {% if proposal.Method == 1 %}
+                                        <option value="1">flat</option>
+                                        <option value="2">percentage</option>
+                                    {% elif proposal.Method == 2 %}
+                                        <option value="2">percentage</option>
+                                        <option value="1">flat</option>
+                                    {% else %}
+                                        <option value="">Apply Discount</option>
+                                        <option value="1">flat</option>
+                                        <option value="2">percentage</option>
+                                    {% endif %}
+                                </select>
+                            </td>
+                            <td class="w-40" colspan="2">
+                                <input type="number" name="discount" id="discount_percentage" class="form-control" {% if proposal.Discount %} value="{{proposal.Discount}}" {% endif %}>
+                            </td>
+                            <!-- <td class="w-40" colspan="2">
+                                <input type="number" id="desplay" class="form-control">
+                            </td> -->
+                            <td class="w-64">Discount</td>
+                            <td class="w-64 text-center" id="temp_discount"></td>
+                            <td></td>
+                        </tr>
+                    </form>
+                    <tr class="intro-x">    
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64">Grand Total</td>
+                        <td class="w-64 text-center" id="temp_grand">{{t}}</td>
+                        <td class="w-64"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <table class="table table-report -mt-2">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <tr class="intro-x">    
+                        <td class="w-40"></td>
+                        <td class="w-40"></td>
+                        <td class="w-40"><b>Discount</b></td>
+                        <td class="w-64" colspan="2">
+                            <select class="form-control" name="method" id="method">
+                                {% if proposal.Method == 1 %}
+                                    <option value="1">flat</option>
+                                    <option value="2">percentage</option>
+                                {% elif proposal.Method == 2 %}
+                                    <option value="2">percentage</option>
+                                    <option value="1">flat</option>
+                                {% else %}
+                                    <option value="">selet method</option>
+                                    <option value="1">flat</option>
+                                    <option value="2">percentage</option>
+                                {% endif %}
+                            </select>
+                        </td>
+                        <td class="w-40" colspan="2">
+                            <input type="number" id="discount_percentage" name="discount" class="form-control" {% if proposal.Discount %} value="{{proposal.Discount}}" {% endif %}>
+                        </td>
+                        <td class="w-40" colspan="2">
+                            <input type="number" id="desplay" class="form-control">
+                        </td>
+                    </tr>
+                </form>
+            </table> -->
+        </div>
+        {% else %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <tbody>
+                    <tr class="intro-x width"> 
+                        <td class=" width" style="width:100%;">
+                            <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                                background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                            </i>
+                        <div style="text-align: center;">No data available!</div>
+                        </td>   
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+
+    </div>
+    </div>
+    <!--  -->
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="grand_total" id="grand_total">
+    <input type="hidden" value="{{proposal.Grand_Total}}" name="current_value" id="current_value">
+    <input type="hidden" id="current_method" value="{{proposal.Method}}">
+    <input type="hidden" id="desplay" value="">
+    <div id="example-tab-6" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-6-tab">
+        <div class="post__content tab-content">
+        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
+            
+            </div>
+            <div class="">
+                <!-- <div class="font-medium flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
+                    <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Description
+                </div> -->
+                    <div class="mt-5">
+                        <!-- <div  style="float:right;"><a href="#" data-tw-toggle="modal" data-tw-target="#new-order-modal2"><button class="btn btn-primary shadow-md mr-2">Reply</button></a></div> -->
+                        <div>
+                            {% if proposal.Scope %}
+                                <textarea class="form-control" name="scope" id="" cols="30" rows="10" placeholder="Enter Scope of work">{{ proposal.Scope }}</textarea>
+                            {% else %}
+                                <textarea class="form-control" name="scope" id="" cols="30" rows="10" placeholder="Enter Scope of work"></textarea>
+                            {% endif %}
+                        </div>
+                    </div>
+                <!--  -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline -->
+
+    <div id="example-tab-7" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-7-tab">
+        <div class="post__content tab-content">
+        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
+            </div>
+            <div class="">
+                <div class="mt-5">
+                    <div>
+                        {% if proposal.Payment %}
+                            <textarea class="form-control" name="payment" id="" cols="30" rows="10" placeholder="Enter payment terms">{{ proposal.Payment }}</textarea>
+                        {% else %}
+                            <textarea class="form-control" name="payment" id="" cols="30" rows="10" placeholder="Enter payment terms"></textarea>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status -->
+    <div id="example-tab-8" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-8-tab">
+
+        <div class="post__content tab-content">
+        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
+            </div>
+            <div class="">
+                <div class="mt-5">
+                    <div>
+                        {% if proposal.Exclusion %}
+                            <textarea class="form-control" name="exclusion" id="" cols="30" rows="10" placeholder="Enter Exclusion">{{ proposal.Exclusion }}</textarea>
+                        {% else %}
+                            <textarea class="form-control" name="exclusion" id="" cols="30" rows="10" placeholder="Enter Exclusion"></textarea>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attatchments -->
+    <div id="example-tab-9" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-9-tab">
+        <div class="post__content tab-content">
+        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
+            </div>
+            <div class="">
+                <div class="mt-5">
+                    <div>
+                        {% if proposal.Terms_Condition %}
+                            <textarea class="form-control" name="terms" id="" cols="30" rows="10" placeholder="Enter Terms And condition">{{ proposal.Terms_Condition }}</textarea>
+                        {% else %}
+                            <textarea class="form-control" name="terms" id="" cols="30" rows="10" placeholder="Enter Terms And condition"></textarea>
+                        {% endif %}
+                    </div>
+                    <div style="margin-left: auto;
+                        margin-right: auto;display: block;margin-top: 10px; width:90px;"><button type="submit" class="btn btn-primary shadow-md mr-2">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+    <!-- Opportunity-->
+<!--/previous meeting  -->
+</div>
+</div>   
+</div>
+
+    <!-- END: Wizard Layout -->
+    </div>
+
+    <!--  -->
+
+
+
+    <!-- END: Content -->
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        }
+        
+    </style>
+    <script>
+        function pop(id){
+            $('#id').val(id);
+        }
+    </script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/proposal.js' %}"></script>
+    <script>
+        // CKEDITOR.replace('scope');
+        // CKEDITOR.replace('payment');
+        // CKEDITOR.replace('exclusion');
+        // CKEDITOR.replace('terms');
+        function pop(id){
+            $('#id').val(id);
+        }
+    </script>
+    <!-- BEGIN: Delete Confirmation Modal -->
+    <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="id" name="id">
+                <div class="modal-body p-0">
+                    <div class="p-5 text-center">
+                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                        <div class="text-3xl mt-5">Are you sure?</div>
+                        <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
+                    </div>
+                    <div class="px-5 pb-8 text-center">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                        <button type="submit" class="btn btn-danger w-24">Delete</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END: Delete Confirmation Modal -->
+        <!-- BEGIN: Dark Mode Switcher-->
+        <div data-url="top-menu-dark-regular-form.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+            <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+            <div class="dark-mode-switcher__toggle border"></div>
+        </div>
+        <!-- END: Dark Mode Switcher-->
+    </body>
+{% endblock content %}

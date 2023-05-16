@@ -1,0 +1,577 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <body class="py-5">
+        {% include 'header.html' %}
+      
+     <!-- BEGIN: Content -->
+    <div class="content">
+            <div class="flex items-center mt-8"></div>
+
+    <!-- BEGIN: Wizard Layout -->
+    <div class="intro-y box py-10 sm:py-20 mt-5">
+        <div class="relative before:hidden before:lg:block before:absolute before:w-[69%] before:h-[3px] before:top-0 before:bottom-0 before:mt-4 before:bg-slate-100 before:dark:bg-darkmode-400 flex flex-col lg:flex-row justify-center px-5 sm:px-20">
+            <div class="intro-x lg:text-center flex items-center lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary">1</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto">Lead Generated</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400">2</button>
+                <div class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400">Converted to Opportunity</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400">3</button>
+                <div class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400">Created Proposal</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400">4</button>
+                <div class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400">Proposal Acceptance</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400">5</button>
+                <div class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400">Project  </div>
+            </div>
+
+        </div>
+        <br><br><hr>
+
+<!-- <div class="container" style="padding: 40px;">
+<ul class="nav nav-link-tabs" role="tablist">
+    <li id="example-5-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2 active" data-tw-toggle="pill" data-tw-target="#example-tab-5" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+            Lead info
+        </button>
+    </li>
+    <li id="example-6-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-6" type="button" role="tab" aria-controls="example-tab-6" aria-selected="false">
+            Customer need details
+        </button>
+    </li>
+    <li id="example-7-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-7" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+            Timeline
+        </button>
+    </li>
+    <li id="example-8-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-8" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+            Status
+        </button>
+    </li>
+    <li id="example-9-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-9" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+            Attachments
+        </button>
+    </li>
+    <li id="example-10-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-10" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+            Opportunity Info 
+        </button>
+    </li>
+</ul> -->
+<style>
+    .title{
+    font-size: 16px;
+    color: #1E40AF;
+    font-weight: 700;
+    }
+    .head{
+            font-weight: 500;
+        color: #455dbe;
+    }
+</style>
+    
+<h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc21;">Lead Information</h2>
+
+   <!-- BEGIN: General Report -->
+                        <div class="col-span-12 xl:col-span-9 mt-8">
+                            
+                            <div class="report-box-2 intro-y mt-5">
+                                <div class="box grid grid-cols-12">
+                                    <div class="col-span-12 lg:col-span-4 px-8 py-12 flex flex-col justify-center" style="    background: #d4e1ff;">
+                                        <i data-lucide="pie-chart" class="w-10 h-10 text-pending"></i> 
+                                        <div class="justify-start flex items-center text-slate-600 dark:text-slate-300"> </div>
+                                        <div class="flex items-center justify-start mt-4">
+                                            <div class="relative text-2xl font-medium ml-0.5"> <span class="absolute text-xl font-medium top-0 left-0 -ml-0.5"></span>{{ lead.Company }}<br>{{ lead.Phone }} / {{ lead.Email }}</div>
+                                            <a class="text-slate-500 ml-4" href=""></a>
+                                        </div>
+                                        <!-- <div class="mt-4 text-slate-500 text-xs">Last updated 1 hour ago</div> -->
+                                        <a data-tw-toggle="modal" data-tw-target="#button-modal-preview"><button class="btn btn-outline-secondary relative justify-start rounded-full w-60 mt-12" style="    background: #36a920; color:#fff;">
+                                            Convert to opportunity 
+                                        <span class="w-8 h-8 absolute flex justify-center items-center  text-white rounded-full right-0 top-0 bottom-0 my-auto ml-auto mr-0.5"> <i data-lucide="arrow-right" class="w-4 h-4"></i> </span>
+                                        </button></a>
+                                    </div>
+                                    <div class="col-span-12 lg:col-span-8 p-8 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-darkmode-300 border-dashed">
+                                      
+                                        <div class="tab-content px-5 pb-5">
+                                            <div class="tab-pane active grid grid-cols-12 gap-y-8 gap-x-10" id="weekly-report" role="tabpanel" aria-labelledby="weekly-report-tab">
+                                                <div class="col-span-6 sm:col-span-6 md:col-span-4">
+                                                    <div class="text-slate-500 head">Reference No</div>
+                                                    <div class="mt-1.5 flex items-center">
+                                                        <div class="text-base">{{ lead.Reference }}</div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                                                    <div class="text-slate-500 head">Salesman</div>
+                                                    <div class="mt-1.5 flex items-center">
+                                                        <div class="text-base">{{ lead.Salesman.first_name }}<br>{{ lead.Salesman.Mobile }}<br>{{ lead.Salesman.email }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                                                    <div class="text-slate-500 head">Company Name</div>
+                                                    <div class="mt-1.5 flex items-center">
+                                                        <div class="text-base">{{ lead.Company }}<br>{{ lead.Phone }} / {{ lead.Email }}</div>
+                                                    </div>
+                                                </div> -->
+                                                <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                                                    <div class="text-slate-500 head">Address</div>
+                                                    <div class="mt-1.5 flex items-center">
+                                                        <div class="text-base">{{ lead.Address }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                                                    <div class="text-slate-500 head">Closing Date</div>
+                                                    <div class="mt-1.5 flex items-center">
+                                                        <div class="text-base">{{ lead.ECDate | date:"d M Y" }}</div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                                                    <div class="text-slate-500 head">Expected Value</div>
+                                                    <div class="mt-1.5 flex items-center">
+                                                        <div class="text-base">{{ lead.ESValue }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                                                    <div class="text-slate-500 head">Primary Contact</div>
+                                                    <div class="mt-1.5 flex items-center">
+                                                        <div class="text-base">{{ lead.CName }}<br>{{ lead.CNumber }}<br>{{ lead.Designation }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                                                    <div class="text-slate-500 head">Status</div>
+                                                    <div class="mt-1.5 flex items-center">
+                                                        {% if lead.State == '1' %}
+                                                            <div class="text-base">Hot</div>
+                                                        {% else %}
+                                                            <div class="text-base">Cold</div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: General Report -->
+                       
+
+
+                        <div class="container" style="padding: 40px; padding-top: 100px;">
+                            <ul class="nav nav-link-tabs" role="tablist">
+                                <li id="example-5-tab" class="nav-item flex-1" role="presentation">
+                                    <button class="nav-link w-full py-2 active" data-tw-toggle="pill" data-tw-target="#example-tab-5" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+                                        Updates
+                                    </button>
+                                </li>
+                                <li id="example-6-tab" class="nav-item flex-1" role="presentation">
+                                    <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-6" type="button" role="tab" aria-controls="example-tab-6" aria-selected="false">
+                                        Previous Meeting
+                                    </button>
+                                </li>
+                                
+                                <li id="example-7-tab" class="nav-item flex-1" role="presentation">
+                                    <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-7" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+                                       Upcoming Meeting
+                                    </button>
+                                </li>
+                                
+                            </ul>
+                            <div class="tab-content mt-5">
+                                <div id="example-tab-5" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-5-tab">
+                                <div  style="float:right; margin-right:20px;"><a href="#" data-tw-toggle="modal" data-tw-target="#new-order-modal"><button class="btn btn-primary shadow-md mr-2">Add Update</button></a></div><br><br>   
+                                {% if lead_update %}
+                                {% for update in lead_update %}  
+                                     <div class="post intro-y overflow-hidden box mt-5"><br><br>
+                                                    
+                                                    <div class="post__content tab-content"> 
+                                                        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
+                                                            <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
+                                                                <div class="mt-1.5 flex items-center" style="float:right;">
+                                                                    <div class="text-base btn-rounded btn-primary-soft px-3 py-1 mb-2">{{ update.AddedDate | date:"d M Y" }}</div><br>               
+                                                                </div>
+                                                                <div class="font-medium flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"> <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Description </div>
+                            
+                            
+                                                                <div class="mt-5">
+                                                                    <div class="editor">
+                                                                        <p>{{ update.Description }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {% if update.Attachments.all %}
+                                                            <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5 mt-5">
+                                                                <div class="font-medium flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"> <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Files & Attachments </div>
+                                                                <div class="mt-5">
+                                                                   
+                                                                    <div class="flex items-center mt-5">
+                                                                        {% for u in update.Attachments.all %}
+                                                                        {% if u.Format == 'image' %}
+                                                                        <a href="{{ u.Attachment.url }}" target="_blank"><div class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in mr-5">
+                                                                            <img class="rounded-md" alt="" src="{{ u.Attachment.url }}">
+                                                                            <!-- <div title="Remove this image?" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2"> <i data-lucide="x" class="w-4 h-4"></i> </div> -->
+                                                                        </div></a>
+                                                                        {% else %}
+                                                                            <div class="file">
+                                                                                <a href="{{ u.Attachment.url }}" class="">
+                                                                                    <div><img src="https://cdn-icons-png.flaticon.com/512/3917/3917330.png"></div>
+                                                                                </a>
+                                                                            </div>
+                                        
+                                                                            <div class="ml-4">
+                                                                                <a class="font-medium" href="">{{ u.Name }}</a> 
+                                                                                <!-- <div class="text-slate-500 text-xs mt-0.5">40 KB</div> -->
+                                                                            </div><br>
+                                                                        {% endif %}
+                                                                        {% endfor %}
+                                                            </div>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                        </div>
+                                {% endfor %}
+                                {% else %}
+                                <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+                                    <table class="table table-report -mt-2">
+                                        <tbody>
+                                            <tr class="intro-x width"> 
+                                                <td class=" width" style="width:100%;">
+                                                    <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                                                        background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                                                    </i>
+                                                <div style="text-align: center;">No data available!</div>
+                                                </td>   
+                                            </tr>    
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {% endif %}
+                            
+                                </div>
+                                <!--  -->
+                                <div id="example-tab-6" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-6-tab">
+                            
+                                     <!-- previous meeting -->
+                            
+                                    <br>
+                                     <div  style="float:right; margin-right:20px;"><a href="#" data-tw-toggle="modal" data-tw-target="#new-order-modal1"><button class="btn btn-primary shadow-md mr-2">Add Schedule</button></a></div><br>
+                                    {% if previous %}
+                                    <div class="px-5 sm:px-20 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+                                        <!-- <div class="font-medium text-base">Add / Manage Products</div> -->
+                                                                <div class="col-span-12">
+                                            
+                                                                    <div class="overflow-x-auto">
+                                                                        <table class="table">
+                                                                            <thead class="table-dark">
+                                                                                <tr>
+                                                                                    <th class="whitespace-nowrap">Date</th>
+                                                                                    <th class="whitespace-nowrap">Meeting Reference</th>
+                                                                                    <th class="whitespace-nowrap">Description</th>
+                                                                                    <th class="whitespace-nowrap">Mode Of Meeting</th>
+                                                                                    <th class="whitespace-nowrap">Time</th>
+                                                                                    
+                                                                                    <th>Remark</th>
+                                                                                    <th class="whitespace-nowrap">Action</th>
+                                                                                
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                {% for p in previous %}
+                                                                                <tr>
+                                                                                    <td>{{ p.AddedDate | date:"d M Y" }}</td>
+                                                                                     <td class="w-60 text-primary">
+                                                                                        MEETING-{{ p.id }}   
+                                                                                    </td>
+                                                                                    <td class="w-60">
+                                                                                        {{ p.Description }}
+                                                                                    </td>
+                                                                                    <td>Direct</td>
+                                                                                    <td class="text-primary w-60">{{ p.From | time:"" }} - {{ p.To | time:"" }}</td>   
+                                                                                    {% if p.Update_Date %}<td>Status updated</td>{% else %}<td>Status not updated</td>{% endif %}
+                                                                                    <td class="table-report__action w-60">
+                                                                                        <div class="flex justify-center items-center">      <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{% url 'p-meeting-d' p.id %}" title="view">
+                                                                                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i> 
+                                                                                        </a>
+                                                                                        {% if p.Update_Date %}
+                                                                                        {% else %}
+                                                                                            <a class="text-primary" onclick="pop('{{p.id}}')" data-tw-toggle="modal" data-tw-target="#new-order-modal2" title="Add Update"> <i data-lucide="file-text" class="w-4 h-4 mr-1"></i> </a>
+                                                                                        {% endif %}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        
+                                                                                    </td>
+                                                                                </tr>
+                                                                                {% endfor %}
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                            
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+                                        <table class="table table-report -mt-2">
+                                            <tbody>
+                                                <tr class="intro-x width"> 
+                                                    <td class=" width" style="width:100%;">
+                                                        <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                                                            background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                                                        </i>
+                                                    <div style="text-align: center;">No data available!</div>
+                                                    </td>   
+                                                </tr>    
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {% endif %}
+                            <!-- /previous meeting -->
+                                </div>
+                            
+                                <!-- upcoming meeting -->
+
+                                {% if upcoming %}
+                                <div id="example-tab-7" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-7-tab">
+                            
+                                   
+                             
+                                    <div class="px-5 sm:px-20 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+                                       
+                                                                <div class="col-span-12">
+                                            
+                                                                    <div class="overflow-x-auto">
+                                                                        <table class="table">
+                                                                            <thead class="table-dark">
+                                                                                <tr>
+                                                                                    <th class="whitespace-nowrap">Date</th>
+                                                                                    <th class="whitespace-nowrap">Meeting Reference</th>
+                                                                                    <th class="whitespace-nowrap">Description</th>
+                                                                                    <th class="whitespace-nowrap">Mode Of Meeting</th>
+                                                                                    <th class="whitespace-nowrap">Time</th>
+                                                                                    <!-- <th class="whitespace-nowrap">Description</th>                                                                                    -->
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                {% for u in upcoming %}
+                                                                                 <tr>
+                                                                                    <td>{{ u.AddedDate | date:"d M Y" }}</td>
+                                                                                    <td class="w-60 text-primary">
+                                                                                        MEETING-{{ u.id }}                                                                                        
+                                                                                    </td>
+                                                                                    <td class="w-60">
+                                                                                        {{ u.Description }}
+                                                                                    </td>
+                                                                                    <td>{{ u.Mode }}</td>
+                                                                                    <td class="text-primary w-60">{{ u.From }} - {{ u.To }}</td>
+                                                                                    <!-- <td class="">{{ u.Description }}</td>     -->
+                                                                                </tr>
+                                                                                {% endfor %}
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                            
+                                            </div>
+                                        </div>  
+                                    </div>
+                                {% endif %} 
+                            
+                            
+                            <!-- END: Wizard Layout -->
+                                    </div>
+                                </div> 
+                            </div>
+<!-- END: Content -->
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        }
+        
+    </style>
+    <script>
+        function pop(id){
+            $('#id').val(id)
+        }
+    </script>
+     <!-- BEGIN: New Order Modal -->
+    <div id="new-order-modal" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="modal-content">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h2 class="font-medium text-base mr-auto">Add Meeting Updates</h2>
+                    </div>
+                    <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                        <div class="col-span-12">
+                            <label for="pos-form-1" class="form-label">Date</label>
+                            <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400" style="height: 42px;">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        </div>
+                        <input name="date" type="date" class="pl-12" data-single-mode="true" style="width: 100%!important;">
+                        </div>
+                        <div class="col-span-12">
+                            <label for="pos-form-2" class="form-label">Description</label>
+                            <textarea name="update-description" id="update-profile-form-5" class="form-control" placeholder="Description"></textarea>
+                        </div>
+                        <div class="col-span-12">
+                            <label for="pos-form-3" class="form-label">Upload File</label>
+                            <input name="attachment" multiple id="pos-form-3" type="file" class="form-control flex-1" placeholder="Upload File">
+                        </div>
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-32 mr-1">Cancel</button>
+                        <button type="submit" class="btn btn-primary w-32">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: New Order Modal -->
+
+    <!-- BEGIN: New Order Modal -->
+    <div id="new-order-modal1" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="font-medium text-base mr-auto">Add Schedule</h2>
+                </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                        <div class="col-span-12">
+                            <label for="pos-form-1" class="form-label">Date</label>
+                            <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400" style="height: 42px;">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        </div>
+                        <input type="date" name="sdate" class="pl-12" data-single-mode="true" style="width: 100%!important;">
+                        </div>
+                        <div class="col-span-12">
+                        <label>Mode Of Meeting</label>
+                            <div class="mt-2">
+                                <select name="mode" data-placeholder="Select Mode Of Meeting" class="tom-select w-full">
+                                        <option>Online</option>
+                                        <option>Direct</option>
+                                        <option>Telephone</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-span-12">
+                            <label for="pos-form-2" class="form-label">Time(From)</label>
+                            <input id="pos-form-2" name="from" type="time" class="form-control flex-1" placeholder="Time(From)">
+                        </div>
+
+                        <div class="col-span-12">
+                            <label for="pos-form-2" class="form-label">Time(To)</label>
+                            <input id="pos-form-2" type="time" name="to" class="form-control flex-1" placeholder="Time(To)">
+                        </div>
+                        
+                        <div class="col-span-12">
+                            <label for="pos-form-2" class="form-label">Description</label>
+                        <textarea id="update-profile-form-5" name="sdescription" class="form-control" placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                <div class="modal-footer text-right">
+                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-32 mr-1">Cancel</button>
+                    <button type="submit" class="btn btn-primary w-32">Add Schedule</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <!-- END: New Order Modal -->
+
+    <!-- BEGIN: New Order Modal -->
+      <div id="new-order-modal2" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="modal-content">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" id="id">
+                    <div class="modal-header">
+                        <h2 class="font-medium text-base mr-auto">Update Status</h2>
+                    </div>
+                    <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                        <div class="col-span-12">
+                            <label for="pos-form-1" class="form-label">Date</label>
+                            <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400" style="height: 42px;">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        </div>
+                        <input name="udate" type="date" class="pl-12" data-single-mode="true" style="width: 100%!important;">
+                        </div>
+                        <div class="col-span-12">
+                            <label for="pos-form-2" class="form-label">Description</label>
+                            <textarea name="u-description" id="update-profile-form-5" class="form-control" placeholder="Description"></textarea>
+                        </div>
+                        <div class="col-span-12">
+                            <label for="pos-form-2" class="form-label">Participents</label>
+                            <input name="participents" id="pos-form-3" type="text" class="form-control flex-1" placeholder="Participents">
+                        </div>
+                        <div class="col-span-12">
+                            <label for="pos-form-3" class="form-label">Upload File</label>
+                            <input name="attach" multiple id="pos-form-3" type="file" class="form-control flex-1" placeholder="Upload File">
+                        </div>
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-32 mr-1">Cancel</button>
+                        <button type="submit" class="btn btn-primary w-32">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: New Order Modal -->
+
+
+
+    <!-- BEGIN: Modal Toggle -->
+    <!-- <div class="text-center">
+        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#button-modal-preview" class="btn btn-primary">Show Modal</a>
+    </div> -->
+    <!-- END: Modal Toggle -->
+    <!-- BEGIN: Modal Content -->
+    <div id="button-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <a data-tw-dismiss="modal" href="javascript:;">
+                    <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
+                </a>
+                <div class="modal-body p-0">
+                    <div class="p-5 text-center">
+                        <i data-lucide="check-circle" class="w-16 h-16 text-success mx-auto mt-3"></i>
+                        <div class="text-3xl mt-5">ARE YOU SURE</div>
+                        <div class="text-slate-500 mt-2">you want to convert to opportunity</div>
+                    </div>
+                    <div class="px-5 pb-8 text-center">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-danger w-32 mr-1">Cancel</button>
+                        <a href="{% url 'convert-op' lead.id %}"><button type="button" data-tw-dismiss="modal" class="btn btn-success text-white w-24">Confirm</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Modal Content -->                   
+
+        <!-- BEGIN: Dark Mode Switcher-->
+        <div data-url="top-menu-dark-regular-form.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+            <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+            <div class="dark-mode-switcher__toggle border"></div>
+        </div>
+        <!-- END: Dark Mode Switcher-->
+    </body>
+{% endblock content %}

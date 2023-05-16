@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Report</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/bootstrap.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/owl.theme.default.min.css' %}">
+  <!-- fresco for image viewing and navigation -->
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/fresco.css' %}">
+  <!-- google fonts -->
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/aos.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <style type="text/css">
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat');
+    .introduction {
+          padding: 30px 0px !important;
+          margin-top: 12px;
+    }
+  </style>
+  </head>
+  <body style="font-family: 'Montserrat', sans-serif; color:#253148 !important;">
+
+<!-- header -->
+<header>
+    <img src="{% static 'images/header.jpg' %}" alt=" Vertex Header Image" style="max-width: 100%;height:auto;">
+</header>
+<!-- //header -->
+
+  <div class="introduction1">
+    <div class="container">
+      <p style="text-align:center;"><b>BOQ</b></p>
+      <table>
+          <tr style="background-color: #feffe4;">
+           <td><b>#</b></td>
+              <td></td>
+            <td class="desc" colspan="2"><b>Description</b></td>
+            <td class="small"><b>Unit</b></td>
+            <td class="small"><b>Qty</b></td>
+            <td class="small"><b>Price</b></td>
+            <td class="small"><b>Total</b></td>
+          </tr>
+        {{ table | safe }}
+      </table>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+   <!-- header -->
+    <!-- <header>
+        <img src="{% static 'images/header.jpg' %}" alt=" Vertex Header Image" style="max-width: 100%;height:auto;">
+    </header> -->
+   <!-- //header -->
+
+  <!-- <div class="introduction1">
+    <div class="container">
+      
+      <table>
+          <tr style="background-color: #feffe4;">
+           <td><b>#</b></td>
+            <td></td>
+            <td class="desc" colspan="2"><b>Description</b></td>
+            <td class="small"><b>Unit</b></td>
+            <td class="small"><b>Qty</b></td>
+          </tr>
+          <tr>
+            <td>1.07</td>
+            <td class="small">NKFP24Y</td>
+            <td class="desc" colspan="2">Description</td>
+            <td class="small">Unit</td>
+            <td class="small">Qty</td>
+          </tr> 
+      </table>
+    </div>
+  </div> -->
+</main>
+
+
+<script type="text/javascript" src="{% static 'report/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/jquery-3.3.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/jquery-3.3.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/owl.carousel.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/main.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/fresco.js' %}"></script>
+
+
+</body>
+</html>

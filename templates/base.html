@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="light">
+    <!-- BEGIN: Head -->
+    <head>
+        <meta charset="utf-8">
+        <link href="{% static 'images/logo.png' %}" rel="shortcut icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Vertex Engineering LLC">
+        <meta name="keywords" content="Vertex Engineering LLC">
+        <meta name="author" content="Vertex Engineering LLC">
+        <title>Vertex Engineering LLC</title>
+        <!-- BEGIN: CSS Assets-->
+        <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+        <!-- END: CSS Assets-->
+    </head>
+    <!-- END: Head -->
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <!-- BEGIN: JS Assets-->
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/model.js' %}"></script>
+    <script src="{% static 'js/ajax.js' %}"></script>
+    <script src="{% static 'js/error_messages.js' %}"></script>
+    <script src="{% static 'js/custome.js' %}"></script>
+    <script src="{% static 'js/countries_list.js' %}"></script>
+    <!-- END: JS Assets-->
+</html>

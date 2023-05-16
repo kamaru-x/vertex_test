@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <body class="py-5">
+        {% include 'header.html' %}
+      <!-- BEGIN: Content -->
+    <div class="content">
+
+               <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">Pending Task</h2>
+         <!--   <div class="intro-y box py-10 sm:py-20 mt-5">
+        <h2 style=" font-size: 30px; font-weight: 500; text-align: center;
+        color: #1e40af;">Add Category</h2>
+    </div> -->
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 flex flex-wrap xl:flex-nowrap items-center mt-2">
+            
+            <div class="hidden xl:block mx-auto text-slate-500"></div>
+            <div class="w-full xl:w-auto flex items-center mt-3 xl:mt-0">
+               
+               
+                <a href="{% url 'create-task' %}"><button class="btn btn-primary shadow-md mr-2">Create Task</button></a>
+                
+            
+            </div>
+        </div>
+        <!-- BEGIN: Data List -->
+        {% if tasks %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                    <tr>
+                        
+                        <th class="whitespace-nowrap">COMPANY NAME</th>
+                        <th class="whitespace-nowrap">REFERENCE (LEAD REFERENCE)</th>
+                       
+                        <th class="whitespace-nowrap">
+                            <div class="pr-16">SALESMAN</div>
+                        </th>
+                         <th class="whitespace-nowrap" >TASK TITLE</th>
+                         
+                        <th class="whitespace-nowrap"style="text-align: left;"> PRIORITY </th>
+                        <th class="whitespace-nowrap mob" > DUE DATE </th>
+                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                        <tr class="intro-x">
+                            
+                            <td class="w-60">
+                                <a href="" class="font-medium whitespace-nowrap text-primary">{{ task.Lead.Company }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ task.Lead.Phone }} / {{ task.Lead.Email }}</div>
+                                </div>
+                            </td>
+                            <td class="w-60 ref">
+                                <a href="" class="font-medium whitespace-nowrap">{{ task.Lead.Reference }}</a>
+                                 
+                            </td>
+                           
+                           <td class="w-60">
+                                <a href="{% url 'salesman-view' task.Salesman.id %}" class="font-medium whitespace-nowrap text-primary">{{ task.Salesman.first_name }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ task.Salesman.Mobile }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ task.Salesman.email }}</div>
+                            </td>
+                            <td class="w-60 text-center">
+                                <div class="pr-16">{{ task.Title }}</div>
+                            </td>
+                            
+
+                            <td class="w-40 text-danger">
+                                <div class="pr-16">{{ task.Priority }}</div>
+                            </td>
+
+                             <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap text-danger">
+                                    {{ task.Due_Date | date:"d M Y" }}
+                                </div>
+                            </td>
+                            
+                            <td class="table-report__action">
+                                <div class="flex justify-center items-center">
+                                    <a class="flex items-center text-primary whitespace-nowrap" href="{% url 'edit-task' task.id %}" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal">
+                                        <i data-lucide="edit" class="w-4 h-4 mr-1"></i>
+                                    </a> &nbsp &nbsp
+
+                                    <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{% url 'pending-task-view' task.id %}">
+                                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i> 
+                                    </a>
+                                    <a style="cursor: pointer;" class="flex items-center text-success whitespace-nowrap mr-5" data-tw-toggle="modal" data-tw-target="#new-order-modal2" title="Mark As Completed">
+                                        <i onclick="call('{{task.id}}')" data-lucide="check-square" class="w-4 h-4 mr-2"></i> 
+                                    </a>
+                                    <a style="cursor: pointer;" class="flex items-center text-danger whitespace-nowrap" onclick="pop('{{task.id}}')" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal">
+                                        <i data-lucide="trash" class="w-4 h-4 mr-1"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}         
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <tbody>
+                    <tr class="intro-x width"> 
+                        <td class=" width" style="width:100%;">
+                            <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                                background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                            </i>
+                        <div style="text-align: center;">No pending tasks</div>
+                        </td>   
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        <!-- END: Data List -->
+
+
+
+
+        <!-- BEGIN: Pagination -->
+        {% if tasks %}
+        <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+            <nav class="w-full sm:w-auto sm:mr-auto">
+                <ul class="pagination">
+                    {% if clients.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{clients.previous_page_number}}">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-left"></i>
+                        </a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li> -->
+                    {% for n in nums %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+                    </li>
+                    {% endfor %}
+                    <!-- <li class="page-item active">
+                        <a class="page-link" href="#">2</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-right"></i>
+                        </a>
+                    </li> -->
+                    {% if clients.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{clients.next_page_number}}">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <select class="w-20 form-select box mt-3 sm:mt-0">
+                <option>10</option>
+                <option>25</option>
+                <option>35</option>
+                <option>50</option>
+            </select>
+        </div>
+        {% endif %}
+        <!-- END: Pagination -->
+    </div>
+    
+    </div>
+    <!-- END: Content -->
+
+    <!-- BEGIN: New Order Modal -->
+    <div id="new-order-modal2" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="font-medium text-base mr-auto">Add Remarks</h2>
+                </div>
+                <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="taskid" id="taskid">
+                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                    <div class="col-span-12">
+                        <label for="pos-form-1" class="form-label">Date</label>
+                         <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400" style="height: 42px;">
+                       <i data-lucide="calendar" class="w-4 h-4"></i>
+                    </div>
+                      <input type="date" name="date" class="pl-12" data-single-mode="true" style="width: 100%!important;">
+                    </div>
+                    <div class="col-span-12">
+                        <label for="pos-form-2" class="form-label">Description</label>
+                        <textarea id="update-profile-form-5" name="update-description" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                    <div class="col-span-12">
+                        <label for="pos-form-3" class="form-label">Upload File</label>
+                        <input id="pos-form-3" multiple name="attachment" type="file" class="form-control flex-1" placeholder="Upload File">
+                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-32 mr-1">Cancel</button>
+                    <button type="submit" class="btn btn-primary w-32">Submit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END: New Order Modal -->
+    <!-- BEGIN: Delete Confirmation Modal -->
+    <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="id" name="id">
+                <div class="modal-body p-0">
+                    <div class="p-5 text-center">
+                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                        <div class="text-3xl mt-5">Are you sure?</div>
+                        <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
+                    </div>
+                    <div class="px-5 pb-8 text-center">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                        <button type="submit" class="btn btn-danger w-24">Delete</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END: Delete Confirmation Modal --> 
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        }
+        .ref{
+            text-align: center!important;
+        }
+        .mob
+        {
+            text-align:center!important;
+        }
+        
+    </style>
+    <script>
+        function call(id){
+            $('#taskid').val(id);
+        }
+
+        function pop(id){
+            $('#id').val(id);
+        }
+    </script>
+        <!-- BEGIN: Dark Mode Switcher-->
+        <div data-url="top-menu-dark-regular-form.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+            <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+            <div class="dark-mode-switcher__toggle border"></div>
+        </div>
+        <!-- END: Dark Mode Switcher-->
+    </body>
+{% endblock content %}

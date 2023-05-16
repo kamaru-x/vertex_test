@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+         @media(max-width: 575px)
+            {
+                .intro-y .box {
+                    width: 100%!important;
+                }
+            }
+    </style>
+    <body class="py-5">
+         {% include 'header.html' %}
+        <!-- BEGIN: Content -->
+    <div class="content" style="padding-bottom:100px;">
+            <div class="flex items-center mt-8">
+        <!-- <h2 class="intro-y text-lg font-medium mr-auto">Add / Manage Category</h2> -->
+    </div>
+    <!-- BEGIN: Wizard Layout -->
+    <div class="intro-y box py-10 sm:py-20 mt-5">
+        <h2 style=" font-size: 30px; font-weight: 500; text-align: center;
+        color: #1e40af;"> Edit Task</h2>
+        
+        <div class="px-5 sm:px-20 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+            <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- <div class="font-medium text-base">Add / Manage Products</div> -->
+            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                
+                
+                <div class="intro-y col-span-12 sm:col-span-6">
+                   <label>Select Lead</label>
+                        <div class="mt-2">
+                            <select data-placeholder="Select Category" name="lead" class="tom-select w-full">
+                                <option value="{{ task.Lead.id }}">{{ task.Lead.Company }} ({{ task.Lead.Reference }})</option>
+                                {% for lead in leads %}
+                                    <option value="{{ lead.id }}">{{ lead.Company }} ({{ lead.Reference }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label>Select Lead</label>
+                         <div class="mt-2">
+                             <select data-placeholder="Select Category" name="salesman" class="tom-select w-full">
+                                <option value="{{ task.Salesman.id }}">{{ task.Salesman.first_name }} ({{ task.Salesman.Qatar_ID }})</option>
+                                {% for salesman in salesmans %}
+                                    <option value="{{ salesman.id }}">{{ salesman.first_name }} ({{ salesman.Qatar_ID }})</option>
+                                {% endfor %}
+                             </select>
+                         </div>
+                 </div>
+               
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Task Title</label>
+                    <input id="input-wizard-4" value="{{ task.Title }}" name="title" type="text" class="form-control" placeholder="Task Title" required>
+                </div>
+
+            
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                   <label>Select Priority</label>
+                        <div class="mt-2">
+                            <select data-placeholder="Select Priority" name="priority" class="tom-select w-full">
+                                <option>{{ task.Priority }}</option>
+                                <option>Normal</option>
+                                <option>Medium</option>
+                                <option>High</option>
+                            </select>
+                        </div>
+                </div>
+
+                 <div class="intro-y col-span-12 sm:col-span-6"> 
+
+                  <div class="relative  mx-auto">
+                    <label for="input-wizard-3" class="form-label">Due Date</label> 
+                     <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400" style="height: 42px;">
+                       <i data-lucide="calendar" class="w-4 h-4"></i>
+                    </div>
+                      <input required name="date" type="date" value='{{ task.Due_Date | date:"Y-m-d" }}' class="pl-12" data-single-mode="true" style="width: 100%!important;">
+                  </div>
+                </div>
+
+                 <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Description</label>
+                    <textarea name="description" id="update-profile-form-5" class="form-control" placeholder="Description" required>{{ task.Description }}</textarea>
+                </div>
+
+
+                 <div class="col-span-12 sm:col-span-6">
+                    <label for="pos-form-3" class="form-label">Attach File</label>
+                    <input id="pos-form-3" name="attach" multiple type="file" class="form-control flex-1" placeholder="Attach File">
+                </div>
+
+
+                {% if task.Attachment.all %}
+                <!-- <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5 mt-5">
+                    <div class="font-medium flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"> <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Files & Attachments </div>
+                    <div class="mt-5">
+                        
+                        <div class="flex items-center mt-5"> -->
+                            {% for u in task.Attachment.all %}
+                            {% if u.Format == 'image' %}
+                            <a href="{{ u.Attachment.url }}" target="_blank"><div class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in mr-5">
+                                <img class="rounded-md" alt="" src="{{ u.Attachment.url }}">
+                                <!-- <div title="Remove this image?" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2"> <i data-lucide="x" class="w-4 h-4"></i> </div> -->
+                            </div></a>
+                            {% else %}
+                                <div class="file">
+                                    <a href="{{ u.Attachment.url }}" class="">
+                                        <div><img src="{% static 'images/download.png' %}"></div>
+                                    </a>
+                                </div>
+
+                                <div class="ml-4">
+                                    <a class="font-medium" href="">{{ u.Name }}</a> 
+                                    <!-- <div class="text-slate-500 text-xs mt-0.5">40 KB</div> -->
+                                </div><br>
+                            {% endif %}
+                            {% endfor %}
+                    
+                    <!-- <div class="dropdown ml-auto">
+                        <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown"> <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i> </a>
+                        <div class="dropdown-menu w-40">
+                            <ul class="dropdown-content">
+                                <li>
+                                    <a href="" class="dropdown-item"> <i data-lucide="users" class="w-4 h-4 mr-2"></i> Share File </a>
+                                </li>
+                                <li>
+                                    <a href="" class="dropdown-item"> <i data-lucide="trash" class="w-4 h-4 mr-2"></i> Delete </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div> -->
+                {% endif %}
+
+
+                
+                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                    <!-- <button class="btn btn-secondary w-24">Add</button> -->
+                    <button type="submit" class="btn btn-primary w-40 ml-2">Edit Task</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: Wizard Layout -->
+
+    
+         
+
+    </div>
+
+
+    
+    <!-- END: Content -->
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        } 
+         .sm\:py-20 {
+            padding-top: 5rem;
+            padding-bottom: 1rem;
+        }
+        .content {
+            min-height: 75vh;
+           
+        }
+    </style>
+    </body>
+{% endblock content %}

@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- END: Head -->
+    <body class="py-5">
+        {% include 'header.html' %}
+      
+<!-- BEGIN: Content -->
+        <div class="content">
+            <div class="intro-y flex items-center mt-8">
+                <!-- <h2 class="text-lg font-medium mr-auto">
+                    Profile Layout
+                </h2> -->
+            </div>
+            <!-- BEGIN: Profile Info -->
+            <div class="intro-y box px-5 pt-5 mt-5">
+                <div class="flex flex-col lg:flex-row border-b border-slate-200/60 dark:border-darkmode-400 pb-5 -mx-5">
+                    <div class="flex flex-1 px-5 items-center justify-center lg:justify-start">
+                       <!--  <div class="w-20 h-20 sm:w-24 sm:h-24 flex-none lg:w-32 lg:h-32 image-fit relative">
+                            <img alt="Midone - HTML Admin Template" class="rounded-full" src="dist/images/profile-5.jpg">
+                            <div class="absolute mb-1 mr-1 flex items-center justify-center bottom-0 right-0 bg-primary rounded-full p-2"> <i class="w-4 h-4 text-white" data-lucide="camera"></i> </div>
+                        </div> -->
+                        <div class="">
+                            <div class="w-24 sm:w-40 truncate sm:whitespace-normal font-medium text-lg" style=" color: #2b53d8;">{{ salesman.first_name }}</div>
+                            <div class="text-slate-500">Salesman</div>
+                        </div>
+                    </div>
+                    <div class="mt-6 lg:mt-0 flex-1 px-5 border-l border-r border-slate-200/60 dark:border-darkmode-400 border-t lg:border-t-0 pt-5 lg:pt-0">
+                        <div class="font-medium text-center lg:text-left lg:mt-3">Contact Details</div>
+                        <div class="flex flex-col justify-center items-center lg:items-start mt-4">
+                             <div class="truncate sm:whitespace-normal flex items-center mt-3 mb-3"> <i data-lucide="phone" class="w-4 h-4 mr-2"></i> {{ salesman.Mobile }} </div>
+                            <div class="truncate sm:whitespace-normal flex items-center"> <i data-lucide="mail" class="w-4 h-4 mr-2"></i> {{ salesman.email }} </div>
+                           
+                        </div>
+                    </div>
+                    <!-- <div class="mt-6 lg:mt-0 flex-1 px-5 border-t lg:border-0 border-slate-200/60 dark:border-darkmode-400 pt-5 lg:pt-0">
+                        <div class="font-medium text-center lg:text-left lg:mt-5">Sales Growth</div>
+                        <div class="flex items-center justify-center lg:justify-start mt-2">
+                            <div class="mr-2 w-20 flex"> USP: <span class="ml-3 font-medium text-success">+23%</span> </div>
+                            <div class="w-3/4">
+                                <div class="h-[55px]">
+                                    <canvas class="simple-line-chart-1 -mr-5"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center lg:justify-start">
+                            <div class="mr-2 w-20 flex"> STP: <span class="ml-3 font-medium text-danger">-2%</span> </div>
+                            <div class="w-3/4">
+                                <div class="h-[55px]">
+                                    <canvas class="simple-line-chart-2 -mr-5"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+               
+            </div>
+        {% if pending %}
+            <!-- END: Profile Info -->
+             <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af; padding-top: 50px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc21;">Pending Task</h2>
+             <!-- BEGIN: Data List -->
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                    <tr>
+                        
+                        <th class="whitespace-nowrap">COMPANY NAME</th>
+                        <th class="whitespace-nowrap">REFERENCE (LEAD REFERENCE)</th>
+                         <th class="whitespace-nowrap" >TASK TITLE</th>
+                        <th class="whitespace-nowrap"style="text-align: left;"> PRIORITY </th>
+                        <th class="whitespace-nowrap" style="text-align: center;"> DUE DATE </th>
+                        <th class="whitespace-nowrap" style="text-align: center;"> ACTION </th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in pending %}
+                        <tr class="intro-x">
+                            
+                            <td class="w-60">
+                                <a href="" class="font-medium whitespace-nowrap text-primary">{{ p.Lead.Company }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ p.Lead.Phone }} / {{ p.Lead.Email }}</div>
+                                </div>
+                            </td>
+                            <td class="w-60 ref">
+                                <a href="" class="font-medium whitespace-nowrap">{{ p.Lead.Reference }}</a>
+                                 
+                            </td>
+                           
+                           
+                            <td class="w-60 text-left">
+                                <div class="pr-16">{{ p.Title }}</div>
+                            </td>
+                            
+
+                            <td class="w-40 text-right text-warning">
+                                <div class="pr-16">{{ p.Priority }}</div>
+                            </td>
+
+                             <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap text-danger">
+                                    {{ p.Due_Date }}
+                                </div>
+                            </td>
+
+                             <td class="table-report__action">
+                                <div class="flex justify-center items-center">
+                                    <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{% url 'pending-task-view' p.id %}">
+                                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i> 
+                                    </a>
+                                    <a style="cursor: pointer;" class="flex items-center text-success whitespace-nowrap mr-5" data-tw-toggle="modal" data-tw-target="#new-order-modal2" title="Mark As Completed">
+                                        <i onclick="call('{{p.id}}')" data-lucide="check-square" class="w-4 h-4 mr-2"></i> 
+                                    </a>
+                                </div>
+                            </td>  
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        <!-- END: Data List -->
+
+         <!-- END: Profile Info -->
+        {% if completed %}
+             <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af; padding-top: 50px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc21;">Completed Task</h2>
+             <!-- BEGIN: Data List -->
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                    <tr>
+                        
+                        <th class="whitespace-nowrap">COMPANY NAME</th>
+                        <th class="whitespace-nowrap">REFERENCE (LEAD REFERENCE)</th>
+                         <th class="whitespace-nowrap" >TASK TITLE</th>
+                        <th class="whitespace-nowrap"style="text-align: left;"> PRIORITY </th>
+                        <th class="whitespace-nowrap" style="text-align: center;"> DUE DATE </th>
+                        <th class="whitespace-nowrap"> ACTION </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for p in completed %}
+                    <tr class="intro-x">
+                        
+                        <td class="w-60">
+                            <a href="" class="font-medium whitespace-nowrap text-primary">{{ p.Lead.Company }}</a>
+                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ p.Lead.Phone }} / {{ p.Lead.Email }}</div>
+                            </div>
+                        </td>
+                        <td class="w-60 ref">
+                            <a href="" class="font-medium whitespace-nowrap">{{ p.Lead.Reference }}</a>
+                             
+                        </td>
+                       
+                        <td class="w-60 text-left">
+                            <div class="pr-16">{{ p.Title }}</div>
+                        </td>
+                        
+
+                        <td class="w-40 text-right text-warning">
+                            <div class="pr-16">{{ p.Priority }}</div>
+                        </td>
+
+                         <td class="text-center">
+                            <div class="flex items-center justify-center whitespace-nowrap text-danger">
+                                {{ p.Due_Date }}
+                            </div>
+                        </td>
+
+                         <td class="table-report__action">
+                            <div class="flex justify-center items-center">
+                                <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{% url 'completed-task-view' p.id %}">
+                                    <i data-lucide="eye" class="w-4 h-4 mr-1"></i> 
+                                </a>
+                            </div>
+                        </td>  
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        <!-- END: Data List -->
+           
+        <!-- END: Content -->
+
+        <!-- BEGIN: Dark Mode Switcher-->
+        <div data-url="top-menu-dark-regular-form.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+            <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+            <div class="dark-mode-switcher__toggle border"></div>
+        </div>
+        <!-- END: Dark Mode Switcher-->
+    <!-- BEGIN: New Order Modal -->
+    <div id="new-order-modal2" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="font-medium text-base mr-auto">Add Remarks</h2>
+                </div>
+                <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="taskid" id="taskid">
+                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                    <div class="col-span-12">
+                        <label for="pos-form-1" class="form-label">Date</label>
+                         <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400" style="height: 42px;">
+                       <i data-lucide="calendar" class="w-4 h-4"></i>
+                    </div>
+                      <input type="date" name="date" class="pl-12" data-single-mode="true" style="width: 100%!important;">
+                    </div>
+                    <div class="col-span-12">
+                        <label for="pos-form-2" class="form-label">Description</label>
+                        <textarea id="update-profile-form-5" name="update-description" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                    <div class="col-span-12">
+                        <label for="pos-form-3" class="form-label">Upload File</label>
+                        <input id="pos-form-3" multiple name="attachment" type="file" class="form-control flex-1" placeholder="Upload File">
+                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-32 mr-1">Cancel</button>
+                    <button type="submit" class="btn btn-primary w-32">Submit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END: New Order Modal -->
+        <style>
+        .dark-mode-switcher{
+            display: none;
+        }
+        .ref{
+            text-align: center!important;
+        }
+        
+    </style>
+    <script>
+        function call(id){
+            $('#taskid').val(id);
+        }
+    </script>
+    </body>
+{% endblock content %}

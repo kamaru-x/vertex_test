@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+         @media(max-width: 575px)
+            {
+                .intro-y .box {
+                    width: 100%!important;
+                }
+            }
+    </style>
+    <body class="py-5">
+         {% include 'header.html' %}
+        <!-- BEGIN: Content -->
+    <div class="content" style="padding-bottom:100px;">
+            <div class="flex items-center mt-8">
+        <!-- <h2 class="intro-y text-lg font-medium mr-auto">Add / Manage Category</h2> -->
+    </div>
+    <!-- BEGIN: Wizard Layout -->
+    <div class="intro-y box py-10 sm:py-20 mt-5">
+        <h2 style=" font-size: 30px; font-weight: 500; text-align: center;
+        color: #1e40af;"> Create Task</h2>
+        
+        <div class="px-5 sm:px-20 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+            <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- <div class="font-medium text-base">Add / Manage Products</div> -->
+            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                
+                
+                <div class="intro-y col-span-12 sm:col-span-6">
+                   <label>Select Lead</label>
+                    <div class="mt-2">
+                        <select data-placeholder="Select Category" name="lead" class="tom-select w-full" required>
+                            <option value=" ">select a lead</option>
+                            {% for lead in leads %}
+                                <option value="{{ lead.id }}">{{ lead.Company }} ({{ lead.Reference }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label>Select Salesman</label>
+                     <div class="mt-2">
+                         <select data-placeholder="Select Category" name="salesman" class="tom-select w-full" required>
+                             <option value=" ">Select a Salesman</option>
+                             {% for salesman in salesmans %}
+                                 <option value="{{ salesman.id }}">{{ salesman.first_name }} ({{ salesman.Qatar_ID }})</option>
+                             {% endfor %}
+                         </select>
+                     </div>
+                 </div>
+               
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Task Title</label>
+                    <input id="input-wizard-4" name="title" type="text" class="form-control" placeholder="Task Title" required>
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                   <label>Select Priority</label>
+                        <div class="mt-2">
+                            <select data-placeholder="Select Priority" name="priority" class="tom-select w-full" required>
+                                <option>None</option>
+                                <option>Normal</option>
+                                <option>Medium</option>
+                                <option>High</option>
+                            </select>
+                        </div>
+                </div>
+
+                 <div class="intro-y col-span-12 sm:col-span-6"> 
+
+                  <div class="relative  mx-auto">
+                    <label for="input-wizard-3" class="form-label">Due Date</label> 
+                     <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400" style="height: 42px;">
+                       <i data-lucide="calendar" class="w-4 h-4"></i>
+                    </div>
+                      <input name="date" type="date" class="pl-12" data-single-mode="true" style="width: 100%!important;" required>
+                  </div>
+                </div>
+
+                 <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Description</label>
+                    <textarea name="description" id="update-profile-form-5" class="form-control" placeholder="Description" required></textarea>
+                </div>
+
+
+                 <div class="col-span-12 sm:col-span-6">
+                    <label for="pos-form-3" class="form-label">Attach File</label>
+                    <input id="pos-form-3" name="attach" multiple type="file" class="form-control flex-1" placeholder="Attach File">
+                </div>
+
+
+                
+                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                    <!-- <button class="btn btn-secondary w-24">Add</button> -->
+                    <button type="submit" class="btn btn-primary w-40 ml-2">Create</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: Wizard Layout -->
+
+    
+         
+
+    </div>
+
+
+    
+    <!-- END: Content -->
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        } 
+         .sm\:py-20 {
+            padding-top: 5rem;
+            padding-bottom: 1rem;
+        }
+        .content {
+            min-height: 75vh;
+           
+        }
+    </style>
+    </body>
+{% endblock content %}

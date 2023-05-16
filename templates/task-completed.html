@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <body class="py-5">
+        {% include 'header.html' %} 
+      <!-- BEGIN: Content -->
+    <div class="content">
+
+              <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">Completed Task</h2>
+         <!--   <div class="intro-y box py-10 sm:py-20 mt-5">
+        <h2 style=" font-size: 30px; font-weight: 500; text-align: center;
+        color: #1e40af;">Add Category</h2>
+    </div> -->
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 flex flex-wrap xl:flex-nowrap items-center mt-2">
+            
+            <div class="hidden xl:block mx-auto text-slate-500"></div>
+            <div class="w-full xl:w-auto flex items-center mt-3 xl:mt-0">
+               
+               
+                <a href="{% url 'create-task' %}"><button class="btn btn-primary shadow-md mr-2">Create Task</button></a>
+                
+              <!--   <button class="btn btn-primary shadow-md mr-2">
+                    <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export to PDF
+                </button> -->
+                <!-- <div class="dropdown">
+                    <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
+                        <span class="w-5 h-5 flex items-center justify-center">
+                            <i class="w-4 h-4" data-lucide="plus"></i>
+                        </span>
+                    </button>
+                    <div class="dropdown-menu w-40">
+                        <ul class="dropdown-content">
+                            <li>
+                                <a href="" class="dropdown-item">
+                                    <i data-lucide="arrow-left-right" class="w-4 h-4 mr-2"></i> Change Status
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" class="dropdown-item">
+                                    <i data-lucide="bookmark" class="w-4 h-4 mr-2"></i> Bookmark
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        {% if tasks %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                    <tr>
+                        <!-- <th class="whitespace-nowrap">
+                            <input class="form-check-input" type="checkbox">
+                        </th> -->
+                        <th class="whitespace-nowrap">COMPANY NAME</th>
+                        <th class="whitespace-nowrap">REFERENCE (LEAD REFERENCE)</th>
+                       
+                        <th class="whitespace-nowrap">
+                            <div class="pr-16">SALESMAN</div>
+                        </th>
+                         <th class="whitespace-nowrap">TASK TITLE</th>
+                        <th class="whitespace-nowrap"> PRIORITY </th>
+                        <th class="whitespace-nowrap mob" style="text-align: center;"> TASK COMPLETED DATE </th>
+                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                        <tr class="intro-x">
+                            
+                            <td class="w-60">
+                                <a href="" class="font-medium whitespace-nowrap text-primary">{{ task.Lead.Company }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ task.Lead.Phone }} / {{ task.Lead.Email }}</div>
+                                </div>
+                            </td>
+                            <td class="w-60 ref">
+                                <a href="" class="font-medium whitespace-nowrap">{{ task.Lead.Reference }}</a>
+                                 
+                            </td>
+                           
+                           <td class="w-60">
+                                <a href="{% url 'salesman-view' task.Salesman.id %}" class="font-medium whitespace-nowrap text-primary">{{ task.Salesman.first_name }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ task.Salesman.Mobile }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ task.Salesman.email }}</div>
+                            </td>
+                            <td class="w-60">
+                                <div class="pr-16">{{ task.Title }}</div>
+                            </td>
+
+                            <td class="w-40  text-warning">
+                                <div class="pr-16">{{ task.Priority }}</div>
+                            </td>
+
+                             <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap text-success">
+                                     {{ task.Completed_Date }}
+                                </div>
+                            </td>
+                            
+                            <td class="table-report__action">
+                                <div class="flex justify-center items-center">
+                                   
+
+                                    <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{% url 'completed-task-view' task.id %}">
+                                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i> 
+                                    </a>
+                                  
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <tbody>
+                    <tr class="intro-x width"> 
+                        <td class=" width" style="width:100%;">
+                            <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                                background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                            </i>
+                        <div style="text-align: center;">No data available!</div>
+                        </td>   
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        <!-- END: Data List -->
+        <!-- BEGIN: Pagination -->
+        {% if tasks %}
+        <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+            <nav class="w-full sm:w-auto sm:mr-auto">
+                <ul class="pagination">
+                    {% if tasks.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{tasks.previous_page_number}}">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-left"></i>
+                        </a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li> -->
+                    {% for n in nums %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+                    </li>
+                    {% endfor %}
+                    <!-- <li class="page-item active">
+                        <a class="page-link" href="#">2</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-right"></i>
+                        </a>
+                    </li> -->
+                    {% if tasks.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{tasks.next_page_number}}">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <select class="w-20 form-select box mt-3 sm:mt-0">
+                <option>10</option>
+                <option>25</option>
+                <option>35</option>
+                <option>50</option>
+            </select>
+        </div>
+        {% endif %}
+        <!-- END: Pagination -->
+    </div>
+    
+    </div>
+    <!-- END: Content -->
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        }
+        .ref{
+            text-align: center!important;
+        }
+        .mob
+        {
+            text-align:center!important;
+        }
+        
+    </style>
+        <!-- BEGIN: Dark Mode Switcher-->
+        <div data-url="top-menu-dark-regular-form.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+            <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+            <div class="dark-mode-switcher__toggle border"></div>
+        </div>
+        <!-- END: Dark Mode Switcher-->
+    </body>
+{% endblock %}

@@ -1,0 +1,432 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <body class="py-5">
+        {% include 'header.html' %}
+      
+     <!-- BEGIN: Content -->
+    <div class="content">
+            <div class="flex items-center mt-8"></div>
+
+    <!-- BEGIN: Wizard Layout -->
+     <div class="intro-y box py-10 sm:py-20 mt-5">
+        <div class="relative before:hidden before:lg:block before:absolute before:w-[69%] before:h-[3px] before:top-0 before:bottom-0 before:mt-4 before:bg-slate-100 before:dark:bg-darkmode-400 flex flex-col lg:flex-row justify-center px-5 sm:px-20">
+            <div class="intro-x lg:text-center flex items-center lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary">1</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto">Lead Generated</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary">2</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto">Converted to Opportunity</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary">3</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto">Created Proposal</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary ">4</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400">Proposal Acceptance</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary">5</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400">Project</div>
+            </div>
+
+        </div>
+        <br><br><hr>
+<!--  -->
+<style>
+    .head{
+    font-weight: 500;
+    color: #455dbe;
+    }
+</style>
+<!-- BEGIN: General Report -->
+<div class="col-span-12 xl:col-span-9 mt-8">
+    
+    <div class="report-box-2 intro-y mt-5">
+        <div class="box grid grid-cols-12">
+            <div class="col-span-12 lg:col-span-4 px-8 py-12 flex flex-col justify-center" style="    background: #d4e1ff;">
+                <i data-lucide="pie-chart" class="w-10 h-10 text-pending"></i> 
+                <div class="justify-start flex items-center text-slate-600 dark:text-slate-300"> </div>
+                <div class="flex items-center justify-start mt-4">
+                    <div class="relative text-2xl font-medium ml-0.5"> <span class="absolute text-xl font-medium top-0 left-0 -ml-0.5"></span>{{ proposal.Lead.Company }}<br> {{ proposal.Lead.Phone }} / {{ proposal.Lead.Email }}</div>
+                    <a class="text-slate-500 ml-4" href=""></a>
+                </div>
+                <div class="flex-row mt-8">
+                <a data-tw-toggle="modal" onclick="invoice()" data-tw-target="#button-modal-preview" class="btn btn-primary inline-block mr-1 mb-2">ADD INVOICE AMOUNT</a> 
+                <a data-tw-toggle="modal" onclick="receipt()" data-tw-target="#receipt-model" class="btn btn-primary inline-block mr-1 mb-2">ADD RECEIPT AMOUNT</a>
+                </div>
+            </div>
+            <div class="col-span-12 lg:col-span-8 p-8 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-darkmode-300 border-dashed">
+                
+                <div class="tab-content px-5 pb-5">
+                    <div class="tab-pane active grid grid-cols-12 gap-y-8 gap-x-10" id="weekly-report" role="tabpanel" aria-labelledby="weekly-report-tab">
+                        <div class="col-span-6 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head">Lead Reference</div>
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-base">{{ proposal.Lead.Reference }}</div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head">Proposal Reference</div>
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-base">{{ proposal.Reference }}</div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head">Salesman</div>
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-base">{{ proposal.Lead.Salesman.first_name }}<br>{{ proposal.Lead.Salesman.Mobile }}<br>{{ proposal.Lead.Salesman.email }}</div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head">Created Date</div>
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-base">{{ proposal.Date }}</div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head">Primary Contact</div>
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-base">{{ proposal.Lead.CName }}<br>
+                                    {{ proposal.Lead.CNumber }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head">Status</div>
+                            {% if proposal.Proposal_Status == 0 %}
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-white btn-rounded btn-danger px-3 py-1">Rejected</div>
+                            </div>
+                            {% elif proposal.Proposal_Status == 1 %}
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-white btn-rounded btn-success px-3 py-1">Accepted</div>
+                            </div>
+                            {% else %}
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-warning btn-rounded btn-warning-soft px-3 py-1">Status Pending</div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                </div>
+                {% if proposal.PO_Date %}
+                <hr>
+                <div class="tab-content px-5 pb-5 mt-5">
+                    <div class="tab-pane active grid grid-cols-12 gap-y-8 gap-x-10" id="weekly-report" role="tabpanel" aria-labelledby="weekly-report-tab">
+                        <div class="col-span-6 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head">PO Date</div>
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-base">{{ proposal.PO_Date }}</div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head">PO Number</div>
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-base">{{ proposal.PO_Number }}</div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head">PO Value</div>
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-base">{{ proposal.PO_Value }}</div>
+                                
+                            </div>
+                        </div>
+                        <div class="flex items-center mt-5">
+                            {% for u in proposal.Attachments.all %}
+                            {% if u.Format == 'image' %}
+                            <a href="{{ u.Attachment.url }}" target="_blank"><div class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in mr-5">
+                                <img class="rounded-md" alt="" src="{{ u.Attachment.url }}">
+                                <!-- <div title="Remove this image?" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2"> <i data-lucide="x" class="w-4 h-4"></i> </div> -->
+                            </div></a>
+                            {% else %}
+                                <div class="file">
+                                    <a href="{{ u.Attachment.url }}" class="">
+                                        <div><img src="{% static 'images/download.png' %}"></div>
+                                    </a>
+                                </div>
+
+                                <div class="ml-4">
+                                    <a class="font-medium" href="">{{ u.Name }}</a> 
+                                    <!-- <div class="text-slate-500 text-xs mt-0.5">40 KB</div> -->
+                                </div><br>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<!--INVOICE STARTED HERE-->
+<!-- <div class="container-fluid" name="invoice">
+    <div class="col-md-12 mt-5 pt-5">
+        <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">INVOICE</h2>
+    </div>
+    <div class="container p-5 mt-5 text-center">
+        <img class="img-fluid text-center" style="margin-left: 15%;" width="70%" src="{% static 'images\vertex.png' %}" alt="">
+    </div>
+    <div class="container">
+        <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;">TECHNO COMMERCIAL PROPOSAL</h2>
+        <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 30px;color:#1e40af;padding-bottom: 30px;">Ref No : {{proposal.Reference}}</h2>
+    </div>
+    <div class="container">
+        <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;">STRUCTURED CABLING SOLUTION AT SKYLINE SERVICE CENTER</h2>
+    </div>
+    <div class="container mt-5 pt-5">
+        <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px; border-bottom: #1e40af solid 1px;">PREPARED FOR</h2>
+        <h2 class="intro-y text-lg font-medium mt-5" style="text-align: center;font-size: 35px;color:#1e40af;">{{proposal.Lead.Company}}</h2>
+        <h2 class="intro-y text-lg font-medium mt-2" style="text-align: center;font-size: 20px;color:#1e40af;padding-bottom: 30px;">{{proposal.Lead.Company}}</h2>
+    </div>
+</div> -->
+<div class="condainer">
+    <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">BOQ</h2>
+    <div class="intro-y overflow-x-auto col-span-12 overflow-auto 2xl:overflow-visible">
+        <!--<h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 25px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;">PRODUCTS</h2>-->
+        <table class="table table-report -mt-2">
+            <thead>
+                <tr>
+                    <!-- <th class="whitespace-nowrap">
+                        <input class="form-check-input" type="checkbox">
+                    </th> -->
+                    <th class="text-center whitespace-nowrap">Part Number</th>
+                    <th class="whitespace-nowrap text-center">Description</th>
+                    <th class="text-center whitespace-nowrap">Quantity</th>
+                    <!-- <th class="whitespace-nowrap">NUMBER OF PRODUCTS</th> -->
+                    <!-- <th class="text-center whitespace-nowrap">ACTIONS</th> -->
+                </tr>
+            </thead>
+            {% for c in catagories %}
+            <tbody>
+                <tr class="intro-x bg-primary" style="background-color: #1e40af;">
+                    <!-- <td class="w-40 text-center">
+                        <a href="" class="whitespace-nowrap">{{forloop.counter}}</a>
+                    </td> -->
+                    <td class="w-40 text-center" colspan="4">
+                        <a href="" class="whitespace-nowrap text-danger" id="category-name">{{c}}</a>    
+                    </td>
+                    <!-- <td class="w-40 text-center">
+                        <div class="whitespace-nowrap"></div>
+                    </td>
+                    <td class="w-40 text-center">
+                        <div class="whitespace-nowrap"></div>
+                    </td>      -->
+                </tr>
+                {% for product in products %}
+                    {% if product.Product.Category.Name == c %}
+                        <tr class="intro-x">
+                            <td class="text-center" style="width:25%;">
+                                <a href="">{{product.Product.Name}}</a>    
+                            </td>
+                            <td class="text-center" style="width:65%;word-break: break-all;">
+                                <a href="">{{product.Product.Description}}</a>    
+                            </td>
+                            <td class="text-center" style="width:10%;">
+                                <div>{{ product.Quantity }}</div>
+                            </td>     
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+
+
+    <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+        <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 25px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;">PAYMENT STATUS</h2>
+        <table class="table table-report -mt-2">
+            <thead>
+                <tr>
+                    <th class="text-center whitespace-nowrap">REFERENCE</th>
+                    <th class="text-center whitespace-nowrap">DATE</th>
+                    <th class="text-center whitespace-nowrap">AMOUNT</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for invoice in invoices %}
+                    <tr class="intro-x">
+                        <td class="w-64 text-center">
+                            <div>{{ invoice.Reference }}</div>
+                        </td>
+                        <td class="w-64 text-center">
+                            <div>{{ invoice.Date }}</div>
+                        </td>
+                        <td class="w-64 text-center text-danger">
+                            <div>{{ invoice.Amount }}</div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% for receipt in receipts %}
+                    <tr class="intro-x">
+                        <td class="w-64 text-center">
+                            <div>{{ receipt.Reference }}</div>
+                        </td>
+                        <td class="w-64 text-center">
+                            <div>{{ receipt.Date }}</div>
+                        </td>
+                        <td class="w-64 text-center text-success">
+                            <div>{{ receipt.Amount }}</div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                    <tr class="intro-x"></tr>
+                    <tr class="intro-x"></tr>
+                    <tr class="intro-x"></tr>
+                    {% if invoices %}
+                    <tr class="intro-x" style="    font-weight: 600;">
+                        <td class="w-64 text-center" style="font-size:14px;">Total Invoiced = <span id="it">{{ invoice_totals.sum }}</span></td>
+                        <td class="w-64 text-center" style="font-size:14px;">Total Received = <span id="rt">{{ receipt_totals.sum }}</span></td>
+                        <td class="w-64 text-center" style="font-size:14px;">Outstanding Balance = <span id="gt">{{ receipt_totals.sum|add:'invoice_totals.sum'|cut:"-" }}</span></td>
+                    </tr>
+                    {% else %}
+                    <tr class="intro-x width"> 
+                        <td class=" width" style="width:100%;" colspan="4">
+                            <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                                background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                            </i>
+                        <div style="text-align: center;">No data available!</div>
+                        </td>   
+                    </tr>
+                    {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- <div class="overflow-x-auto mt-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center whitespace-nowrap">SL. NO.</th>
+                    <th class="text-center whitespace-nowrap">PART NUMBER</th>
+                    <th class="whitespace-nowrap text-center">Description</th>
+                    <th class="text-center whitespace-nowrap">QUANTITY</th>
+                </tr>
+            </thead>
+            {% for c in catagories %}
+            <tbody>
+                <tr class="intro-x bg-primary" style="background-color: #1e40af;">
+                    <td class="w-40 text-center" colspan="4">
+                        <a href="" class="whitespace-nowrap text-danger" id="category-name">{{c}}</a>    
+                    </td>
+                </tr>
+                {% for product in products %}
+                    {% if product.Product.Category.Name == c %}
+                        <tr class="intro-x">
+                            <td class="w-40 text-center">
+                                <a href="" class="whitespace-nowrap">{{forloop.counter}}.1</a>
+                            </td>
+                            <td class="w-40 text-center">
+                                <a href="" class="whitespace-nowrap">{{product.Product.Name}}</a>    
+                            </td>
+                            <td class="w-40 text-center">
+                                <a href="" class="whitespace-nowrap">{{product.Product.Description}}</a>    
+                            </td>
+                            <td class="w-40 text-center">
+                                <div class="whitespace-nowrap">{{ product.Quantity }}</div>
+                            </td>     
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+            {% endfor %}
+        </table>
+    </div> -->
+</div>
+<!--INVOICE ENDED HERE-->
+<!-- END: General Report -->
+<!--  Updates -->
+<!-- END: Content -->
+  <style>
+    .dark-mode-switcher{
+        display: none;
+    }
+    
+</style>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script>
+
+    function invoice(){
+        $('#invoice').val('invoice')
+    }
+    function receipt(){
+        $('#receipt').val('receipt')
+    }
+
+    var it = $('#it').html()
+    var rt = $('#rt').html()
+    var gt = parseInt(rt) - parseInt(it)
+    if (gt > 0 ){
+        $('#gt').addClass('text-success')
+    }else if (gt < 0){
+        $('#gt').addClass('text-danger')
+    }
+    $('#gt').html(Math.abs(gt))
+
+</script>
+<!-- BEGIN: Modal Content -->
+<div id="button-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-content">
+            <input type="hidden" name="invoice" id="invoice">
+            <div class="modal-body p-0">
+                <div class="p-5 text-center">
+                    <label for="po-date" class="form-label">ADD INVOICE AMOUNT</label>
+                    <input class="form-control mb-5 mt-5" type="date" name="i-date" id="po-date" value="{{ today | date:'Y-m-d' }}" placeholder="Enter Date">
+                    <input class="form-control mb-5 mt-5" type="text" value="{{irefer}}" name="irefer" id="" placeholder="Reference">
+                    <input class="form-control mb-5 mt-5" type="text" name="i-amount" id="" placeholder="Enter Invoice Amount">
+                </div>
+                <div class="px-5 pb-8 text-center">
+                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Back</button>
+                    <button type="submit" class="btn btn-success text-white w-24">CREATE</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<!-- END: Modal Content --> 
+<!-- BEGIN: Modal Content -->
+<div id="receipt-model" class="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-content">
+            <input type="hidden" name="receipt" id="receipt">
+            <div class="modal-body p-0">
+                <div class="p-5 text-center">
+                    <label for="po-date" class="form-label">ADD RECEIPT AMOUNT</label>
+                    <input class="form-control mb-5 mt-5" type="date" name="r-date" id="r-date" value="{{ today | date:'Y-m-d' }}" placeholder="Enter Date">
+                    <input class="form-control mb-5 mt-5" type="text" value="{{rrefer}}" name="rrefer" id="" placeholder="Reference">
+                    <input class="form-control mb-5 mt-5" type="text" name="r-amount" id="" placeholder="Enter Receipt Amount">
+                </div>
+                <div class="px-5 pb-8 text-center">
+                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Back</button>
+                    <button type="submit" class="btn btn-success text-white w-24">CREATE</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<!-- END: Modal Content --> 
+<!-- BEGIN: Dark Mode Switcher-->
+<div data-url="top-menu-dark-regular-form.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+    <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+    <div class="dark-mode-switcher__toggle border"></div>
+</div>
+<!-- END: Dark Mode Switcher-->
+</body>
+{% endblock content %}

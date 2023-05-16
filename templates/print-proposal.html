@@ -1,0 +1,339 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Report</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/bootstrap.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/owl.theme.default.min.css' %}">
+  <!-- fresco for image viewing and navigation -->
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/fresco.css' %}">
+  <!-- google fonts -->
+  <link rel="stylesheet" type="text/css" href="{% static 'report/css/aos.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <style type="text/css">
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat');
+    .introduction {
+          padding: 30px 0px !important;
+          margin-top: 12px;
+    }
+  </style>
+  </head>
+  <body style="font-family: 'Montserrat', sans-serif; color:#253148 !important;">
+
+  <!-- header -->
+  <header>
+    <img src="{% static 'images/header.jpg' %}" alt=" Vertex Header Image" style="max-width: 100%;height:auto;">
+  </header>
+  <!-- //header -->
+    
+    <main>
+      <div class="introduction1 report-section">
+        <div class="container">
+          <h2 style="text-align: center;font-size: 50px;font-weight: 700;     margin-top: 30px;">TECHNO-COMMERCIAL PROPOSAL</h2>
+            <p style="text-align: center;font-size: 25px;font-style: italic;">Ref No : {{proposal.Reference}}</p>
+        </div>
+      </div><br><br>
+
+      
+    <div class="introduction ">
+        <div class="container">
+          <h2 style="font-size: 28px; text-transform: uppercase; font-weight:600;">{{ proposal.Proposal_Title }}</h2>
+        </div>
+    </div>
+
+    <div class="introduction"></div>
+      
+    <div class="introduction">
+        <div class="container">
+          <div style="margin: 0 25%;">
+            <h2 style="font-size: 28px; font-weight:600;    border-bottom: 2px solid #253148; padding-bottom: 10px;">PREPARED FOR</h2>
+          </div>
+          <h3 style="text-align: center; font-size: 28px; text-transform: uppercase; font-weight:600;">{{ proposal.Lead.Company }}</h3>
+          <p style="text-align: center; font-size: 22px;">{{ proposal.Lead.Address }}<br>
+          Tel: {{ proposal.Lead.Phone }} | Mobile: {{ proposal.Lead.CNumber }}<br>
+          </p>
+        </div>
+    </div>
+    <div class="introduction">
+      <div class="container">
+        <div style="margin: 0 25%;">
+          <h2 style="font-size: 28px; font-weight:600;    border-bottom: 2px solid #253148; padding-bottom: 10px;">PREPARED BY</h2>
+        </div>
+        <h3 style="text-align: center; font-size: 28px; text-transform: uppercase; font-weight:600;">{{ proposal.Lead.Salesman.first_name }}</h3>
+        <p style="text-align: center; font-size: 22px;">
+        Mobile: +974 40 172 172 | Email: info@vertex.com.qa<br>
+        </p>
+      </div>
+  </div>
+    <div class="introduction1"></div>
+
+    <!-- footer -->
+    <footer>
+        <img src="{% static 'images/footer.png' %}" alt=" Vertex Footer Image" style="max-width: 100%;height:auto;">
+    </footer>
+   <!-- //footer -->
+
+     <div class="page-break"></div>
+
+  <!-- header -->
+<header>
+    <img src="{% static 'images/header.jpg' %}" alt=" Vertex Header Image" style="max-width: 100%;height:auto;">
+</header>
+  <!-- //header -->
+
+<div>
+  <div class="introduction"  style="float:right!important; padding-top:70px; text-align:right; padding-bottom:15px !important;">
+        <div class="container">
+          <p>Quote Ref No: {{ proposal.Reference }}<br>
+              Date:  {{ proposal.Proposal_Date | date:"d M Y" }} <br>
+              Expires:  {{ proposal.Expire_Date | date:"d M Y" }} <br>
+              Contact:  {{ proposal.Lead.CName }}
+          </p>
+        </div>
+  </div>
+
+    <div class="introduction" style="padding-bottom:15px !important;">
+      <div class="container">
+      <p>Prepared For,</p>
+      <p><b style="text-transform: uppercase;">{{ proposal.Lead.Company }}</b><br>
+            {{ proposal.Lead.Address }}<br>
+        Tel: {{ proposal.Lead.Phone }} | Fax: {{ proposal.Lead.CNumber }}
+        </p>
+      </div>
+    </div>
+
+    <div class="introduction">
+      <div class="container">
+            <p>Attn: {{ proposal.Lead.CName }}<br>
+            {% if proposal.Lead.Designation %}
+              {{ proposal.Lead.Designation }}</p>
+            {% endif %}
+
+            <p>Project: {{ proposal.Project_Name }}<br>
+            Subject: {{ proposal.Subject }}</p>
+
+            <p>Dear Sir,</p>
+
+            <p>We refer to your above enquiry in connection with your requirement. We are pleased to submit our offer for Supply, installation, Testing and Commissioning of IP CCTV system as per below BOQ.
+            </p>
+
+            
+      </div>
+  </div>
+
+  <div class="introduction">
+    <div class="container">
+      <p><b>COMMERCIAL SUMMARY</b></p>
+
+<div class="table-container">
+  <div class="table-row table-header" style="background-color: #feffe4;">
+    <div class="table-cell">Part</div>
+    <div class="table-cell">Description</div>
+    <div class="table-cell">Total Price</div>
+  </div>
+  {% for sum in summery %}
+  <div class="table-row">
+    <div class="table-cell">{{ sum.category.Name }} <br></div>
+    <div class="table-cell">{{ sum.category.Description }}</div>
+    <div class="table-cell">QAR {{ sum.grand }}</div>
+  </div>
+  {% endfor %}
+  <div class="table-row">
+    <div class="table-cell"><br></div>
+    <div class="table-cell" style="text-align: end;">Total</div>
+    <div class="table-cell">{{total}}</div>
+  </div>
+  <div class="table-row">
+    <div class="table-cell"><br></div>
+    <div class="table-cell" style="text-align: end;">Discount</div>
+    {% if proposal.Method == 1 %}
+      <div class="table-cell">{{proposal.Discount}}</div>
+    {% elif proposal.method == 2 %}
+      <div class="table-cell">{{p}}</div>
+    {% else %}
+      <div class="table-cell">0</div>
+    {% endif %}
+  </div>
+  <div class="table-row">
+    <div class="table-cell"><br></div>
+    <div class="table-cell" style="text-align: end;">Grand total</div>
+    <div class="table-cell">{{grand}}</div>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+<div class="introduction" style="padding-bottom:70px;">
+  <div class="container">
+    <p>
+      We trust our proposal will meet your approval and look forward to your early response. <br>
+    Yours faithfully, </p>
+    <p style="font-weight:600;">For Vertex Engineering W.L.L.<br><br>
+    <!-- Aseeb Salim<br>Division Manager</p> -->
+  </div>
+</div>
+
+</div>
+    <div class="page-break"></div>
+
+<!-- header -->
+<header>
+    <img src="{% static 'images/header.jpg' %}" alt=" Vertex Header Image" style="max-width: 100%;height:auto;">
+</header>
+<!-- //header -->
+
+  <div class="introduction" >
+    <div class="container" style="padding-top:70px; padding-bottom:20px;">
+      <p><b>TERMS & CONDITIONS</b></p>
+        <ol>
+          {{proposal.Terms_Condition}}
+        </ol>
+        </div>
+
+        <div class="container" style="padding-top:20px; padding-bottom:20px;">
+          <p><b>SCOPE OF WORK</b></p>
+            <ol>
+              {{proposal.Scope}}
+            </ol>
+            </div>
+
+            <!-- <div class="page-break"></div> -->
+
+            <!-- header -->
+                <!-- <header>
+                    <img src="{% static 'images/header.jpg' %}" alt=" Vertex Header Image" style="max-width: 100%;height:auto;">
+                </header> -->
+            <!-- //header -->
+              </div>
+            </div>
+
+            <div class="container" style="padding-top:20px; padding-bottom:20px;">
+              <p><b>PAYMENT TERMS</b></p>
+                <ol>
+                  {{proposal.Payment | safe}}
+                </ol>
+                </div>
+
+                <div class="container" style="padding-top:20px; padding-bottom:20px;">
+                  <p><b>EXCLUSION</b></p>
+                    <ol>
+                      {{proposal.Exclusion | safe}}
+                    </ol>
+                    </div>
+
+<div class="page-break"></div>
+
+<!-- header -->
+    <!-- <header>
+        <img src="{% static 'images/header.jpg' %}" alt=" Vertex Header Image" style="max-width: 100%;height:auto;">
+    </header> -->
+<!-- //header -->
+
+  <!-- <div class="introduction1">
+    <div class="container">
+      <p style="text-align:center;"><b>BOQ</b></p>
+      <table>
+          <tr style="background-color: #feffe4;">
+           <td><b>#</b></td>
+           <td class="small"></td>
+            <td class="desc" colspan="2"><b>Description</b></td>
+            <td class="small"><b>Unit</b></td>
+            <td class="small"><b>Qty</b></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="small"></td>
+            <td class="desc" colspan="2" style="color:red; text-align: center;"><b>Structured Cabling System</b></td>
+            <td class="small"></td>
+            <td class="small"></td>
+          </tr>
+          <tr>
+            <td>1.14</td>
+            <td class="small"></td>
+            <td class="desc" colspan="2">Description</td>
+            <td class="small">Unit</td>
+            <td class="small">Qty</td>
+          </tr>
+      </table>
+    </div>
+  </div> -->
+
+
+<div class="page-break"></div>
+
+<!-- header -->
+<header>
+    <img src="{% static 'images/header.jpg' %}" alt=" Vertex Header Image" style="max-width: 100%;height:auto;">
+</header>
+<!-- //header -->
+
+  <div class="introduction1">
+    <div class="container">
+      <p style="text-align:center;"><b>BOQ</b></p>
+      <table>
+          <tr style="background-color: #feffe4;">
+           <td><b>#</b></td>
+              <td></td>
+            <td class="desc" colspan="2"><b>Description</b></td>
+            <td class="small"><b>Unit</b></td>
+            <td class="small"><b>Qty</b></td>
+            <td class="small"><b>Price</b></td>
+            <td class="small"><b>Total</b></td>
+          </tr>
+          {{ table | safe }}
+      </table>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+   <!-- header -->
+    <!-- <header>
+        <img src="{% static 'images/header.jpg' %}" alt=" Vertex Header Image" style="max-width: 100%;height:auto;">
+    </header> -->
+   <!-- //header -->
+
+  <!-- <div class="introduction1">
+    <div class="container">
+      
+      <table>
+          <tr style="background-color: #feffe4;">
+           <td><b>#</b></td>
+            <td></td>
+            <td class="desc" colspan="2"><b>Description</b></td>
+            <td class="small"><b>Unit</b></td>
+            <td class="small"><b>Qty</b></td>
+          </tr>
+          <tr>
+            <td>1.07</td>
+            <td class="small">NKFP24Y</td>
+            <td class="desc" colspan="2">Description</td>
+            <td class="small">Unit</td>
+            <td class="small">Qty</td>
+          </tr> 
+      </table>
+    </div>
+  </div> -->
+</main>
+
+
+<script type="text/javascript" src="{% static 'report/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/jquery-3.3.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/jquery-3.3.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/owl.carousel.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/main.js' %}"></script>
+<script type="text/javascript" src="{% static 'report/js/fresco.js' %}"></script>
+
+
+</body>
+</html>

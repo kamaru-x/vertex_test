@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <body class="py-5">
+         <style>
+            .form-control {
+                margin-bottom: 14px;
+            }
+        </style>
+        {% include 'header.html' %}
+         <!-- BEGIN: Content -->
+    <div class="content">
+        
+            <div class="flex items-center mt-8">
+        <!-- <h2 class="intro-y text-lg font-medium mr-auto">Leads</h2> -->
+    </div>
+    <!-- BEGIN: Wizard Layout -->
+    <div class="intro-y box py-10 sm:py-20 mt-5">
+        <h2 style=" font-size: 30px; font-weight: 500; text-align: center;
+        color: #1e40af;">Edit Lead</h2>
+        <form action="" method="post">
+        {% csrf_token %}
+        <div class="px-5 sm:px-20 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+            <!-- <div class="font-medium text-base">Add / Manage Products</div> -->
+            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-2" class="form-label">Reference</label>
+                    <input id="input-wizard-2" type="text" value="{{ lead.Reference }}" readonly class="form-control" placeholder="Reference">
+                </div>
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-3" class="form-label">Company name</label>
+                    <input id="input-wizard-3" type="text" class="form-control" name="company" value="{{ lead.Company }}" placeholder="Company name">
+                </div>
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Address</label>
+                    <input id="input-wizard-4" type="text" class="form-control" name="address" value="{{ lead.Address }}" placeholder="Address">
+                </div>
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Email ID</label>
+                    <input id="input-wizard-4" type="email" class="form-control" name="email" value="{{ lead.Email }}" placeholder="Email ID">
+                </div>
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Phone number</label>
+                    <input id="input-wizard-4" type="text" class="form-control" name="number" value="{{ lead.Phone }}" placeholder="Phone number">
+                </div>
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Expected Closing date</label>
+                    <input id="input-wizard-4" type="date" class="form-control" name="date" value='{{ lead.ECDate | date:"Y-m-d" }}' placeholder="Closing date">
+                </div>
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Expected Sales Value</label>
+                    <input id="input-wizard-4" type="text" class="form-control" name="value" value="{{ lead.ESValue }}" placeholder="Expected value">
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-6" class="form-label"> Lead  Possibility</label>
+                    <select id="input-wizard-6" class="form-select" name="state">
+                        {% if lead.State == 0 %}
+                            <option value="0">Cold</option>
+                            <option value="1">Hot</option>
+                        {% else %}
+                            <option value="1">Hot</option>
+                            <option value="0">Cold</option>
+                        {% endif %}   
+                    </select>
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Contact Person</label>
+                    <input id="input-wizard-4" type="text" name="cname" value="{{ lead.CName }}" class="form-control" placeholder="Contact Person">
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Contact Number</label>
+                    <input id="input-wizard-4" type="text" name="cnumber" value="{{ lead.CNumber }}" class="form-control" placeholder="Contact Number">
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Contact Mail</label>
+                    <input id="input-wizard-4" type="email" name="cmail" value="{{ lead.CMail }}" class="form-control" name="value" placeholder="Contact Email">
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-4" class="form-label">Designation</label>
+                    <input id="input-wizard-4" type="text" name="designation" value="{{ lead.Designation }}" class="form-control" name="value" placeholder="Enter Designation">
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-6" class="form-label">Select salesman</label>
+                    <select id="input-wizard-6" class="form-select" name="salesman">
+                            <option value="{{ lead.Salesman.id }}">{{ lead.Salesman.first_name }}</option>
+                        {% for salesman in salesmans %}
+                            <option value="{{ salesman.id }}">{{salesman.first_name}}</option>
+                        {% endfor %}  
+                    </select>
+                </div>
+                
+                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                    <!-- <button class="btn btn-secondary w-24">Add</button> -->
+                    <button class="btn btn-primary w-24 ml-2" type="submit">Create</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <!-- END: Wizard Layout -->
+    </div>
+    <!-- END: Content -->
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        }
+        
+    </style>
+        <!-- BEGIN: Dark Mode Switcher-->
+        <div data-url="top-menu-dark-regular-form.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+            <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+            <div class="dark-mode-switcher__toggle border"></div>
+        </div>
+        <!-- END: Dark Mode Switcher-->
+    </body>
+{% endblock content %}

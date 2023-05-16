@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <body class="py-5">
+        {% include 'header.html' %}
+     <!-- BEGIN: Content -->
+    <div class="content">
+
+    <!-- BEGIN: Wizard Layout -->
+    <!-- <div class="intro-y box py-10 sm:py-20 mt-5">
+        <br><br><hr>
+    </div> -->
+
+
+<!--  -->
+<style>
+    .head{
+    font-weight: 500;
+    color: #455dbe;
+    }
+</style>
+
+<h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc21;">Product Details</h2>
+<!-- BEGIN: General Report -->
+<div class="col-span-12 xl:col-span-9 mt-8">
+    
+    <div class="report-box-2 intro-y mt-5">
+        <div class="box grid grid-cols-12">
+            <div class="col-span-12 lg:col-span-4 px-8 py-12 flex flex-col justify-center" style="    background: #d4e1ff;">
+                <!-- <i data-lucide="pie-chart" class="w-10 h-10 text-pending"></i>  -->
+                <div class="justify-start flex items-center text-slate-600 dark:text-slate-300"></div>
+                <div class="flex items-center justify-start mt-4">
+                    <div class="relative text-2xl font-medium ml-0.5"> <span class="absolute text-xl font-medium top-0 left-0 -ml-0.5"></span>{{ product.Name }}<br class="mb-5 mt-5">{{ product.Reference }}</div>
+                    <a class="text-slate-500 ml-4" href=""></a>
+                </div>
+                <!-- <div class="mt-4 text-slate-500 text-xs">Last updated 1 hour ago</div> -->
+                <!-- <button class="btn btn-outline-secondary relative justify-start rounded-full w-40 mt-12" style="    background: #36a920; color:#fff;">
+                    Create Proposal 
+                <span class="w-8 h-8 absolute flex justify-center items-center  text-white rounded-full right-0 top-0 bottom-0 my-auto ml-auto mr-0.5"> <i data-lucide="arrow-right" class="w-4 h-4"></i> </span>
+                </button> -->
+            </div>
+            <div class="col-span-12 lg:col-span-8 p-8 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-darkmode-300 border-dashed">
+                
+                <div class="tab-content px-5 pb-5">
+                    <div class="tab-pane active grid grid-cols-12 gap-y-8 gap-x-10" id="weekly-report" role="tabpanel" aria-labelledby="weekly-report-tab">
+                        <!-- <div class="col-span-6 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head text-center">Reference No</div>
+                            <div class="mt-1.5 flex justify-center">
+                                <div class="text-base text-center">{{ product.Reference }}</div> 
+                            </div>
+                        </div> -->
+                        <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head text-center">Part Number</div>
+                            <div class="mt-1.5 flex justify-center">
+                                <div class="text-base">{{ product.Name }}</div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head text-center">Reference</div>
+                            <div class="mt-1.5 flex justify-center">
+                                <div class="text-base">{{ product.Reference }}</div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head text-center">Section</div>
+                            <div class="mt-1.5 flex justify-center">
+                                <div class="text-base">{{ product.Category.Name }}</div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head text-center">Buying Price</div>
+                            <div class="mt-1.5 flex justify-center">
+                                <div class="text-base">{{ product.Buying_Price }}</div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head text-center">Selling Price</div>
+                            <div class="mt-1.5 flex justify-center">
+                                <div class="text-base">{{ product.Selling_Price }}</div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head text-center">Product Unit</div>
+                            <div class="mt-1.5 flex justify-center">
+                                <div class="text-base">{{ product.Unit }}</div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-12 md:col-span-8">
+                            <div class="text-slate-500 head text-center">Product Description</div>
+                            <div class="mt-1.5 flex justify-center">
+                                <div class="text-base">{{ product.Description }}</div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500 head">Status</div>
+                            <div class="mt-1.5 flex items-center">
+                                {% if lead.State == '1' %}
+                                    <div class="text-base">Hot</div>
+                                {% else %}
+                                    <div class="text-base">Cold</div>
+                                {% endif %}
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                            <div class="text-slate-500">Phone</div>
+                            <div class="mt-1.5 flex items-center">
+                                <div class="text-base">$72.000</div>
+                                
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: General Report -->                         
+<!-- END: Content -->
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        }
+        
+    </style>
+    <script>
+        function pop(id){
+            $('#id').val(id)
+        }
+    </script>
+<!-- BEGIN: New Order Modal -->                                   
+    </body>
+{% endblock content %}

@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <body class="py-5">
+        {% include 'header.html' %} 
+        <!-- BEGIN: Content -->
+    <div class="content">
+    <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">Top Customers</h2>
+    {% if leads %}
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 flex flex-wrap xl:flex-nowrap items-center mt-2">
+           
+            <!-- <div class="hidden xl:block mx-auto text-slate-500" style="text-align: center;">Showing 1 to 10 of 150 entries</div> -->
+            <div class="w-full xl:w-auto flex items-center mt-3 xl:mt-0">
+                
+            </div>
+        </div>
+        <!-- BEGIN: Data List -->
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                    <tr>
+                        <!-- <th class="whitespace-nowrap">
+                            <input class="form-check-input" type="checkbox">
+                        </th> -->
+                        
+                       
+                        <th class="whitespace-nowrap">COMPANY NAME</th>
+                         <th class="whitespace-nowrap">REFERENCE </th>
+                        
+                        <th class="text-center whitespace-nowrap" style="text-align: center;">TOTAL PROPOSALS</th>
+                        <th class="whitespace-nowrap">
+                            <div class="pr-16">SALESMAN</div>
+                        </th>
+                        <th class="whitespace-nowrap" style="text-align: center;">SALES VOLUME </th>
+                        <!-- <th class="text-center whitespace-nowrap">ACTIONS</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lead in leads %}
+                        <tr class="intro-x">
+                            <td class="w-72 text-primary">
+                                <a href="" class="font-medium whitespace-nowrap">{{ lead.Company }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Mobile }} / {{ lead.Email }}</div>
+                               
+                            </td>
+                            <td class="w-40">
+                                <a href="" class="font-medium whitespace-nowrap">{{ lead.Reference }}</a>
+                                 
+                            </td>
+                            
+                            <td class="w-60 text-right">
+                                <div class="pr-16">{{ lead.proposals }}</div>
+                            </td>
+                            <td class="w-60">
+                                <a href="" class="font-medium whitespace-nowrap text-primary">{{ lead.Salesman }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.smobile }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.semail }}</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap text-primary">
+                                     {{ lead.Percentage }}% ( {{ lead.volume }} )
+                                </div>
+                            </td>
+                            
+                            <!-- <td class="table-report__action">
+                                <div class="flex justify-center items-center">
+                                    <a class="flex items-center text-primary whitespace-nowrap mr-5" href="" title="View">
+                                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                    </a>
+                                    <a class="flex items-right text-danger whitespace-nowrap" href="javascript:;" title="Cancel">
+                                        <i data-lucide="x-circle" class="w-4 h-4 mr-1"></i> 
+                                    </a> 
+                                </div>
+                            </td> -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- END: Data List -->
+    {% else %}
+    <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+        <table class="table table-report -mt-2">
+            <tbody>
+                <tr class="intro-x width"> 
+                    <td class=" width" style="width:100%;">
+                        <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                            background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                        </i>
+                    <div style="text-align: center;">No data available!</div>
+                    </td>   
+                </tr>    
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+        <!-- BEGIN: Pagination -->
+    {% if leads %}
+        <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+            <nav class="w-full sm:w-auto sm:mr-auto">
+                <ul class="pagination">
+                    {% if leads.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{leads.previous_page_number}}">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-left"></i>
+                        </a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li> -->
+                    {% for n in nums %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+                    </li>
+                    {% endfor %}
+                    <!-- <li class="page-item active">
+                        <a class="page-link" href="#">2</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li> -->
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-right"></i>
+                        </a>
+                    </li> -->
+                    {% if leads.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{leads.next_page_number}}">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <select class="w-20 form-select box mt-3 sm:mt-0">
+                <option>10</option>
+                <option>25</option>
+                <option>35</option>
+                <option>50</option>
+            </select>
+        </div>
+    {% endif %}
+        <!-- END: Pagination -->
+    </div>
+    <!-- BEGIN: Delete Confirmation Modal -->
+    <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="p-5 text-center">
+                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                        <div class="text-3xl mt-5">Are you sure?</div>
+                        <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
+                    </div>
+                    <div class="px-5 pb-8 text-center">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                        <button type="button" class="btn btn-danger w-24">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Delete Confirmation Modal -->
+    </div>
+    <!-- END: Content -->
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        }
+        
+    </style>
+        <!-- BEGIN: Dark Mode Switcher-->
+        <div data-url="top-menu-dark-regular-form.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+            <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+            <div class="dark-mode-switcher__toggle border"></div>
+        </div>
+        <!-- END: Dark Mode Switcher-->
+    </body>
+{% endblock content %}

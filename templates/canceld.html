@@ -1,0 +1,642 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <body class="py-5">
+    {% include 'header.html' %}
+        <!-- BEGIN: Content -->
+    <div class="content">
+<div class="intro-y box mt-5">
+
+<h2 class="intro-y text-lg font-medium pt-5 mt-5" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 60px;padding-bottom: 60px; margin-top: 60px; border-bottom: solid 1px #bcbcbc;">Unawarded items</h2>
+<div class="container" style="padding: 40px;">
+<ul class="nav nav-link-tabs" role="tablist">
+    <li id="example-5-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2 active" data-tw-toggle="pill" data-tw-target="#example-tab-5" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+            Leads
+        </button>
+    </li>
+    <li id="example-6-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-6" type="button" role="tab" aria-controls="example-tab-6" aria-selected="false">
+            Opportunity
+        </button>
+    </li>
+    <!-- <li id="example-7-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-7" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+            Clients
+        </button>
+    </li> -->
+    <!-- <li id="example-8-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-8" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+            Projects
+        </button>
+    </li> -->
+    
+    <!-- <li id="example-10-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-10" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+          Opportunity Info
+        </button>
+    </li> -->
+    
+</ul>
+<div class="tab-content mt-5">
+    <div id="example-tab-5" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-5-tab">
+        
+       
+    <!-- <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">List Of Leads</h2> -->
+         <!--   <div class="intro-y box py-10 sm:py-20 mt-5">
+        <h2 style=" font-size: 30px; font-weight: 500; text-align: center;
+        color: #1e40af;">Add Category</h2>
+    </div> -->
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        
+         <!-- BEGIN: Data List -->
+        {% if leads %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                    <tr>
+                        <!-- <th class="whitespace-nowrap">
+                            <input class="form-check-input" type="checkbox">
+                        </th> -->
+                        <th class="whitespace-nowrap">SL. NO.</th>
+                        <th class="whitespace-nowrap">COMPANY NAME</th>
+                        <th class="whitespace-nowrap">PRIMARY CONTACT</th>
+                        <!-- <th class="whitespace-nowrap">SALESMAN</th> -->
+                        <th class="text-center whitespace-nowrap">MEETINGS</th>
+                        <th class="text-center whitespace-nowrap">SUMMARY</th>
+                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lead in leads %}
+                        <tr class="intro-x">
+                            
+                            <td class="w-20">
+                                <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                            </td>
+                            <td class="w-60">
+                                <a href="{% url 'view-canceled' lead.id %}" class="font-medium whitespace-nowrap text-primary">{{ lead.Company }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Phone }} / {{ lead.Email }}</div>
+                                
+                            </td>
+                            <td class="w-60">
+                                <div class="font-medium whitespace-nowrap">{{ lead.CName }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.CNumber }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.CMail }}</div>
+                            </td>
+                            <!-- <td class="w-60">
+                                <a href="" class="font-medium whitespace-nowrap">{{ lead.Salesman.first_name }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Salesman.Mobile }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Salesman.email }}</div>
+                            </td> -->
+                            <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap"><span>Done: {{ lead.Previous_Meetings }}</span></div> 
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-success">Upcoming: {{ lead.Upcoming_Meetings }}</span></div>
+                            </td>
+                            <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap"><span>Lead Created on: {{ lead.Date }}</span></div>
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-primary">Expected Value: {{ lead.ESValue }}</span></div>
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-danger">Expected Closing: {{ lead.ECDate }}</span></div>
+                            </td>
+                            <td class="table-report__action">
+                                <div class="flex justify-center items-center">
+                                    <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{% url 'view-canceled' lead.id %}" title="view">
+                                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                    </a>
+                                </div>
+                            </td>  
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <tbody>
+                    <tr class="intro-x width"> 
+                        <td class=" width" style="width:100%;">
+                            <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                                background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                            </i>
+                        <div style="text-align: center;">No Leads available!</div>
+                        </td>   
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        <!-- END: Data List -->
+        <!-- BEGIN: Pagination -->
+        {% if leads %}
+        <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+            <nav class="w-full sm:w-auto sm:mr-auto">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <select class="w-20 form-select box mt-3 sm:mt-0">
+                <option>10</option>
+                <option>25</option>
+                <option>35</option>
+                <option>50</option>
+            </select>
+        </div>
+        {% endif %}
+        <!-- END: Pagination -->
+
+    </div>
+    </div>
+    <!--  -->
+    <div id="example-tab-6" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-6-tab">
+
+        
+        <!-- <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">Opportunities</h2> -->
+        <div class="grid grid-cols-12 gap-6 mt-5">
+        
+        <!-- BEGIN: Data List -->
+        {% if opportunities %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                    <tr>
+                        <!-- <th class="whitespace-nowrap">
+                            <input class="form-check-input" type="checkbox">
+                        </th> -->
+                        <th class="whitespace-nowrap">SL. NO.</th>
+                        <th class="whitespace-nowrap">COMPANY NAME</th>
+                        <th class="whitespace-nowrap">PRIMARY CONTACT</th>
+                        <!-- <th class="whitespace-nowrap">SALESMAN</th> -->
+                        <th class="text-center whitespace-nowrap">MEETINGS</th>
+                        <th class="text-center whitespace-nowrap">SUMMARY</th>
+                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lead in opportunities %}
+                        <tr class="intro-x">
+                            
+                            <td class="w-20">
+                                <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                            </td>
+                            <td class="w-60">
+                                <a href="{% url 'canceled-opportunity' lead.id %}" class="font-medium whitespace-nowrap text-primary">{{ lead.Company }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Phone }} / {{ lead.Email }}</div>
+                                
+                            </td>
+                            <td class="w-60">
+                                <div class="font-medium whitespace-nowrap">{{ lead.CName }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.CNumber }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.CMail }}</div>
+                            </td>
+                            <!-- <td class="w-60">
+                                <a href="" class="font-medium whitespace-nowrap">{{ lead.Salesman.first_name }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Salesman.Mobile }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Salesman.email }}</div>
+                            </td> -->
+                            <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap"><span>Done: {{ lead.Previous_Meetings }}</span></div> 
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-success">Upcoming: {{ lead.Upcoming_Meetings }}</span></div>
+                            </td>
+                            <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap"><span>Lead Created on: {{ lead.Date }}</span></div>
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-primary">Expected Value: {{ lead.ESValue }}</span></div>
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-danger">Expected Closing: {{ lead.ECDate }}</span></div>
+                            </td>
+                            <td class="table-report__action">
+                                <div class="flex justify-center items-center">
+                                    <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{% url 'canceled-opportunity' lead.id %}" title="view">
+                                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <tbody>
+                    <tr class="intro-x width"> 
+                        <td class=" width" style="width:100%;">
+                            <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                                background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                            </i>
+                        <div style="text-align: center;">No data available!</div>
+                        </td>   
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        <!-- END: Data List -->
+        <!-- BEGIN: Pagination -->
+        {% if opportunities %}
+        <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+            <nav class="w-full sm:w-auto sm:mr-auto">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <select class="w-20 form-select box mt-3 sm:mt-0">
+                <option>10</option>
+                <option>25</option>
+                <option>35</option>
+                <option>50</option>
+            </select>
+        </div>
+        {% endif %}
+        <!-- END: Pagination -->
+   
+    
+         </div>
+    </div>
+
+    <!-- Timeline -->
+
+    <div id="example-tab-7" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-7-tab">
+
+        <div class="post__content tab-content">
+    <!-- <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">Clients</h2> -->
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 flex flex-wrap xl:flex-nowrap items-center mt-2">
+           
+            <!-- <div class="hidden xl:block mx-auto text-slate-500" style="text-align: center;">Showing 1 to 10 of 150 entries</div> -->
+            <div class="w-full xl:w-auto flex items-center mt-3 xl:mt-0">
+                
+            </div>
+        </div>
+        <!-- BEGIN: Data List -->
+        {% if clients %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                    <tr>
+                        <!-- <th class="whitespace-nowrap">
+                            <input class="form-check-input" type="checkbox">
+                        </th> -->
+                        <th class="whitespace-nowrap">SL. NO.</th>
+                        <th class="whitespace-nowrap">COMPANY NAME</th>
+                        <th class="whitespace-nowrap">PRIMARY CONTACT</th>
+                        <!-- <th class="whitespace-nowrap">SALESMAN</th> -->
+                        <th class="text-center whitespace-nowrap">MEETINGS</th>
+                        <th class="text-center whitespace-nowrap">SUMMARY</th>
+                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lead in clients %}
+                        <tr class="intro-x">
+                            
+                            <td class="w-20">
+                                <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                            </td>
+                            <td class="w-60">
+                                <a href="{% url 'canceled-client' lead.id %}" class="font-medium whitespace-nowrap text-primary">{{ lead.Company }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Phone }} / {{ lead.Email }}</div>
+                                
+                            </td>
+                            <td class="w-60">
+                                <div class="font-medium whitespace-nowrap">{{ lead.CName }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.CNumber }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.CMail }}</div>
+                            </td>
+                            <!-- <td class="w-60">
+                                <a href="" class="font-medium whitespace-nowrap">{{ lead.Salesman.first_name }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Salesman.Mobile }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Salesman.email }}</div>
+                            </td> -->
+                            <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap"><span>Done: {{ lead.Previous_Meetings }}</span></div> 
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-success">Upcoming: {{ lead.Upcoming_Meetings }}</span></div>
+                            </td>
+                            <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap"><span>Lead Created on: {{ lead.Date }}</span></div>
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-primary">Expected Value: {{ lead.ESValue }}</span></div>
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-danger">Expected Closing: {{ lead.ECDate }}</span></div>
+                            </td>
+                            <td class="table-report__action">
+                                <div class="flex justify-center items-center">
+                                    <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{% url 'canceled-client' lead.id %}" title="view">
+                                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <tbody>
+                    <tr class="intro-x width"> 
+                        <td class=" width" style="width:100%;">
+                            <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                                background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                            </i>
+                        <div style="text-align: center;">No data available!</div>
+                        </td>   
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        <!-- END: Data List -->
+        <!-- BEGIN: Pagination -->
+        {% if clients %}
+        <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+            <nav class="w-full sm:w-auto sm:mr-auto">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <select class="w-20 form-select box mt-3 sm:mt-0">
+                <option>10</option>
+                <option>25</option>
+                <option>35</option>
+                <option>50</option>
+            </select>
+        </div>
+        {% endif %}
+        <!-- END: Pagination -->
+    </div>
+    
+                    </div>
+    </div>
+
+    <!-- Status -->
+    <div id="example-tab-8" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-8-tab">
+
+        <div class="post__content tab-content">
+    <!-- <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">Projects</h2> -->
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <!-- <div class="intro-y col-span-12 flex flex-wrap xl:flex-nowrap items-center mt-2">
+           
+            <div class="hidden xl:block mx-auto text-slate-500" style="text-align: center;">Showing 1 to 10 of 150 entries</div>
+            <div class="w-full xl:w-auto flex items-center mt-3 xl:mt-0">
+                
+            </div>
+        </div> -->
+        <!-- BEGIN: Data List -->
+        {% if projects %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                    <tr>
+                        <!-- <th class="whitespace-nowrap">
+                            <input class="form-check-input" type="checkbox">
+                        </th> -->
+                        <th class="whitespace-nowrap">SL. NO.</th>
+                        <th class="whitespace-nowrap">COMPANY NAME</th>
+                        <th class="whitespace-nowrap">PRIMARY CONTACT</th>
+                        <!-- <th class="whitespace-nowrap">SALESMAN</th> -->
+                        <th class="text-center whitespace-nowrap">MEETINGS</th>
+                        <th class="text-center whitespace-nowrap">SUMMARY</th>
+                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lead in projects %}
+                        <tr class="intro-x">
+                            
+                            <td class="w-20">
+                                <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                            </td>
+                            <td class="w-60">
+                                <a href="{% url 'canceled-project' lead.id %}" class="font-medium whitespace-nowrap text-primary">{{ lead.Company }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Phone }} / {{ lead.Email }}</div>
+                                
+                            </td>
+                            <td class="w-60">
+                                <div class="font-medium whitespace-nowrap">{{ lead.CName }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.CNumber }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.CMail }}</div>
+                            </td>
+                            <!-- <td class="w-60">
+                                <a href="" class="font-medium whitespace-nowrap">{{ lead.Salesman.first_name }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Salesman.Mobile }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ lead.Salesman.email }}</div>
+                            </td> -->
+                            <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap"><span>Done: {{ lead.Previous_Meetings }}</span></div> 
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-success">Upcoming: {{ lead.Upcoming_Meetings }}</span></div>
+                            </td>
+                            <td class="text-center">
+                                <div class="flex items-center justify-center whitespace-nowrap"><span>Lead Created on: {{ lead.Date }}</span></div>
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-primary">Expected Value: {{ lead.ESValue }}</span></div>
+                                <div class="flex items-center justify-center whitespace-nowrap"><span class="text-danger">Expected Closing: {{ lead.ECDate }}</span></div>
+                            </td>
+                            <td class="table-report__action">
+                                <div class="flex justify-center items-center">
+                                    <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{% url 'canceled-project' lead.id %}" title="view">
+                                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <tbody>
+                    <tr class="intro-x width"> 
+                        <td class=" width" style="width:100%;">
+                            <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                                background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                            </i>
+                        <div style="text-align: center;">No data available!</div>
+                        </td>   
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        <!-- END: Data List -->
+        <!-- BEGIN: Pagination -->
+        {% if projects %}
+        <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+            <nav class="w-full sm:w-auto sm:mr-auto">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevron-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <select class="w-20 form-select box mt-3 sm:mt-0">
+                <option>10</option>
+                <option>25</option>
+                <option>35</option>
+                <option>50</option>
+            </select>
+        </div>
+        {% endif %}
+        <!-- END: Pagination -->
+    </div>
+    
+ </div>
+</div>
+</div>
+</div>
+</div>
+        <!-- END: Dark Mode Switcher-->
+        <style>
+        .dark-mode-switcher{
+            display: none;
+        }
+        
+        </style>
+        <script>
+            function pop(id){
+                $('#id').val(id)
+            }
+            function call(id){
+            $('#taskid').val(id);
+        }
+        </script>
+    </body>
+    </div>
+{% endblock content %}

@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <body class="py-5">
+        <style>
+            .form-control {
+                margin-bottom: 14px;
+            }
+            @media(max-width: 575px)
+            {
+                .intro-y .box {
+                    width: 100%!important;
+                }
+            }
+            
+        </style>
+        {% include 'header.html' %}
+        <!-- BEGIN: Content -->
+    <div class="content">
+            <div class="flex items-center mt-8">
+        <!-- <h2 class="intro-y text-lg font-medium mr-auto"></h2> -->
+    </div>
+    <!-- BEGIN: Wizard Layout -->
+    <div class="intro-y box py-10  mt-5">
+        <h2 style=" font-size: 30px; font-weight: 500; text-align: center;
+        color: #1e40af;">Upcoming Meetings</h2>
+        <div  style="float:right; margin-right:20px;"><a href="#" data-tw-toggle="modal" data-tw-target="#new-order-modal1"><button class="btn btn-primary shadow-md mr-2">Add Schedule</button></a></div>
+
+        {% if upcoming %}
+        <div class="px-5 sm:px-20 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+            <!-- <div class="font-medium text-base">Add / Manage Products</div> -->
+            <div class="col-span-12">
+
+                <div class="overflow-x-auto">
+                    <table class="table">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="whitespace-nowrap">Date</th>
+                                <th class="whitespace-nowrap">Company Name</th>
+                                <th class="whitespace-nowrap">Salesman</th>
+                                <th class="whitespace-nowrap">Mode Of Meeting</th>
+                                <th class="whitespace-nowrap">Time</th>
+                                <th class="whitespace-nowrap">Description</th>
+                                
+                                <th class="whitespace-nowrap">Action</th> 
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for u in upcoming %}
+                                <tr>
+                                <td>{{ u.AddedDate | date:"d M Y" }}</td>
+                                    <td class="w-60 text-primary">
+                                    <a href="" class="font-medium whitespace-nowrap">{{ u.Lead.Company }}</a>
+                                    <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ u.Lead.Phone }} / {{ u.Lead.Email }}</div>
+                                    
+                                </td>
+                                    <td class="w-60">
+                                <a href="" class="font-medium whitespace-nowrap text-primary">{{ u.Lead.Salesman.first_name }}</a>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ u.Lead.Salesman.Mobile }}</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ u.Lead.Salesman.email }}</div>
+                                </td>
+                                <td>{{ u.Mode }}</td>
+                                <td class="text-primary">{{ u.From }} - {{ u.To }}</td>
+                                <td>{{ u.Description }}</td>
+                                <td class="table-report__action">
+                                <div class="flex justify-center items-center">
+                                
+                                <a style="cursor: pointer;" title="Delete" class="flex items-center text-danger whitespace-nowrap" onclick="pop('{{u.id}}')" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal">
+                                    <i data-lucide="trash" class="w-4 h-4 ml-1 mr-1"></i>
+                                </a>
+                                <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{% url 'edit-meeting' u.id %}">
+                                    <i data-lucide="edit" class="w-4 h-4 ml-1 mr-1"></i>
+                                </a>
+                                </div>
+                                </td>   
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-5">
+                    <nav class="w-full sm:w-auto sm:mr-auto">
+                        <ul class="pagination">
+                            {% if upcoming.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{upcoming.previous_page_number}}">
+                                    <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="">
+                                    <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                                </a>
+                            </li>
+                            {% endif %}
+                            <!-- <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="w-4 h-4" data-lucide="chevron-left"></i>
+                                </a>
+                            </li> -->
+                            <!-- <li class="page-item">
+                                <a class="page-link" href="#">...</a>
+                            </li> -->
+                            {% for n in nums %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+                            </li>
+                            {% endfor %}
+                            <!-- <li class="page-item active">
+                                <a class="page-link" href="#">2</a>
+                            </li> -->
+                            <!-- <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                            </li> -->
+                            <!-- <li class="page-item">
+                                <a class="page-link" href="#">...</a>
+                            </li> -->
+                            <!-- <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="w-4 h-4" data-lucide="chevron-right"></i>
+                                </a>
+                            </li> -->
+                            {% if upcoming.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{upcoming.next_page_number}}">
+                                    <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="">
+                                    <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    <select class="w-20 form-select box mt-3 sm:mt-0" name="count">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>35</option>
+                        <option>50</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+        {% else %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table class="table table-report -mt-2">
+                <tbody>
+                    <tr class="intro-x width"> 
+                        <td class=" width" style="width:100%;">
+                            <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
+                                background: #e8e4e4;" class="w-4 h-4 mr-2">  
+                            </i>
+                        <div style="text-align: center;">No data available!</div>
+                        </td>   
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+    <!-- END: Wizard Layout -->
+    </div>
+    <!-- END: Content -->
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        }
+        
+    </style>
+    <script>
+        function pop(id){
+            $('#id').val(id)
+        }
+    </script>
+    <!-- BEGIN: New Order Modal -->
+    <div id="new-order-modal1" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="" method="post">
+            {% csrf_token %}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="font-medium text-base mr-auto">Add Schedule</h2>
+                </div>
+                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                    <div class="col-span-12">
+                        <label for="pos-form-1" class="form-label">Date</label>
+                         <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400" style="height: 42px;">
+                       <i data-lucide="calendar" class="w-4 h-4"></i>
+                    </div>
+                      <input type="date" class="pl-12" name="date" data-single-mode="true" style="width: 100%!important;">
+                    </div>
+                    <div class="col-span-12">
+                    <label>Mode Of Meeting</label>
+                        <div class="mt-2">
+                            <select data-placeholder="Select Mode Of Meeting" name="mode" class="tom-select w-full">
+                                <option>Online</option>
+                                <option>Direct</option>
+                                <option>Telephone</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-span-12">
+                        <label>Select Lead</label>
+                        <div class="mt-2">
+                            <select data-placeholder="Select Mode Of Meeting" class="tom-select w-full" name="lead">
+                                <option value=" ">Select Lead</option>
+                                {% for lead in leads %}
+                                    <option value="{{ lead.id }}">{{ lead.Company }} ( {{ lead.Reference }} )</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-span-12">
+                        <label for="pos-form-2" class="form-label">Time(From)</label>
+                        <input id="pos-form-2" type="time" name="from" class="form-control flex-1" placeholder="Time(From)">
+                    </div>
+
+                    <div class="col-span-12">
+                        <label for="pos-form-2" class="form-label">Time(To)</label>
+                        <input id="pos-form-2" type="time" name="to" class="form-control flex-1" placeholder="Time(To)">
+                    </div>
+                    
+                     <div class="col-span-12">
+                        <label for="pos-form-2" class="form-label">Description</label>
+                       <textarea id="update-profile-form-5" name="description" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-32 mr-1">Cancel</button>
+                    <button type="submit" class="btn btn-primary w-32">Add Schedule</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: New Order Modal -->
+        <!-- BEGIN: Delete Confirmation Modal -->
+        <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" id="id" name="id">
+                    <div class="modal-body p-0">
+                        <div class="p-5 text-center">
+                            <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                            <div class="text-3xl mt-5">Are you sure?</div>
+                            <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
+                        </div>
+                        <div class="px-5 pb-8 text-center">
+                            <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                            <button type="submit" class="btn btn-danger w-24">Delete</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END: Delete Confirmation Modal --> 
+        <!-- BEGIN: Dark Mode Switcher-->
+        <div data-url="top-menu-dark-regular-form.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+            <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+            <div class="dark-mode-switcher__toggle border"></div>
+        </div>
+        <!-- END: Dark Mode Switcher-->
+    </body>
+{% endblock content %}

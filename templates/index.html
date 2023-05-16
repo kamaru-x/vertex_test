@@ -1,0 +1,292 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <body class="py-5">
+        {% include 'header.html' %}
+        <!-- BEGIN: Content -->
+        <div class="content">
+            <div class="grid grid-cols-12 gap-6">
+                <div class="col-span-12 2xl:col-span-12">
+                    <div class="grid grid-cols-12 gap-6">
+                        <!-- BEGIN: General Report -->
+                        <div class="col-span-12 mt-8">
+                            <div class="intro-y flex items-center h-10">
+                                <h2 class="text-lg font-medium truncate mr-5">
+                                    General Summary
+                                </h2>
+                                <a href="{% url 'upcoming-meetings' %}" class="ml-auto flex items-center text-danger"> <i data-lucide="alert-triangle" class="w-4 h-4 mr-3"></i> You have {{ meetings_today }} meetings today </a>
+                                <a href="{% url 'list-proposals' 'pending' %}" class="ml-auto flex items-center text-danger"> <i data-lucide="alert-triangle" class="w-4 h-4 mr-3"></i> {{ proposal_expair_today }} proposals expire today </a>
+                                <a href="" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
+                            </div>
+                            <div class="grid grid-cols-12 gap-6 mt-5">
+                                <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                                    <div class="report-box zoom-in">
+                                    <a href="{% url 'list-lead' %}">
+                                        <div class="box p-5">
+                                            <div class="flex">
+                                                <i data-lucide="briefcase" class="report-box__icon text-primary"></i> 
+                                                <div class="ml-auto">
+                                                    <div class="report-box__indicator bg-success tooltip cursor-pointer mr-3" title="{{success_percentage}}% Success" style="float: left;"> {{ lead_success }} <i data-lucide="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
+                                                    <div class="report-box__indicator bg-danger tooltip cursor-pointer" title="{{faild_percentage}}% Failed" style="float: left;"> {{ lead_faild }} <i data-lucide="chevron-down" class="w-4 h-4 ml-0.5"></i> </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-3xl font-medium leading-8 mt-6">{{ total_leads }}</div>
+                                            <div class="text-base text-slate-500 mt-1">Total Leads</div>
+                                            <!-- <div class="pt-3 pb-5" style="width:100%;">
+                                                <div class="alert-success p-1" style="width:60%; float: left; text-align: center;" title="60% Success">300</div>
+                                                <div class="alert-danger p-1" style="width:40%; float: left; text-align: center;" title="40% Failed">171</div>
+                                            </div> -->
+                                        </div>
+                                    </a>
+                                    </div>
+                                </div>
+                                <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                                    <a href="{% url 'list-opportunities' %}">
+                                        <div class="report-box zoom-in">
+                                            <div class="box p-5">
+                                                <div class="flex">
+                                                    <i data-lucide="credit-card" class="report-box__icon text-pending"></i> 
+                                                    <div class="ml-auto">
+                                                        <div class="report-box__indicator bg-success tooltip cursor-pointer mr-3" title="{{os_percentage}}% Success" style="float: left;"> {{ opportunity_success }} <i data-lucide="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
+                                                        <div class="report-box__indicator bg-danger tooltip cursor-pointer" title="{{of_percentage}}% Failed" style="float: left;"> {{ opportunity_failed }} <i data-lucide="chevron-down" class="w-4 h-4 ml-0.5"></i> </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-3xl font-medium leading-8 mt-6">{{ total_opportunities }}</div>
+                                                <div class="text-base text-slate-500 mt-1">Total Opportunities</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                                    <div class="report-box zoom-in">
+                                        <a href="{% url 'list-proposals' 'pending' %}">
+                                            <div class="box p-5">
+                                                <div class="flex">
+                                                    <i data-lucide="clipboard" class="report-box__icon text-warning"></i> 
+                                                    <div class="ml-auto">
+                                                        <div class="report-box__indicator bg-success tooltip cursor-pointer mr-3" title="{{ ps_percentage }}% Success" style="float: left;"> {{ proposal_success }} <i data-lucide="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
+                                                        <div class="report-box__indicator bg-warning tooltip cursor-pointer mr-3" title="{{ pp_percentage }}% Pending" style="float: left;"> {{ proposal_pending }} <i data-lucide="chevron-down" class="w-4 h-4 ml-0.5"></i> </div>
+                                                        <div class="report-box__indicator bg-danger tooltip cursor-pointer" title="{{ pf_percentage }}% Failed" style="float: left;"> {{ proposal_failed }} <i data-lucide="chevron-down" class="w-4 h-4 ml-0.5"></i> </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-3xl font-medium leading-8 mt-6">{{ total_proposals }}</div>
+                                                <div class="text-base text-slate-500 mt-1">Total Proposals</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                                    <div class="report-box zoom-in">
+                                        <a href="{% url 'clients' %}">
+                                            <div class="box p-5">
+                                                <div class="flex">
+                                                    <i data-lucide="users" class="report-box__icon text-success"></i> 
+                                                    <div class="ml-auto">
+                                                        <!-- <div class="report-box__indicator bg-success tooltip cursor-pointer" title="22 new this month"> 22 new this month <i data-lucide="chevron-up" class="w-4 h-4 ml-0.5"></i> </div> -->
+                                                    </div>
+                                                </div>
+                                                <div class="text-3xl font-medium leading-8 mt-6">{{ total_clients }}</div>
+                                                <div class="text-base text-slate-500 mt-1">Total Clients</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: General Report -->
+                        <!-- BEGIN: Sales Report -->
+                        <div class="col-span-12 lg:col-span-6 mt-8">
+                            <div class="intro-y block sm:flex items-center h-10">
+                                <h2 class="text-lg font-medium truncate mr-5">
+                                    Overall Sales Target
+                                </h2>
+                                <div class="sm:ml-auto mt-3 sm:mt-0 relative text-slate-500">
+                                    <!-- <i data-lucide="calendar" class="w-4 h-4 z-10 absolute my-auto inset-y-0 ml-3 left-0"></i> 
+                                    <input type="text" class="datepicker form-control sm:w-56 box pl-10"> -->
+                                </div>
+                            </div>
+                            <div class="intro-y box p-5 mt-12 sm:mt-5">
+                                <div class="flex flex-col md:flex-row md:items-center">
+                                    <div class="flex">
+                                        <div>
+                                            <div class="text-primary dark:text-slate-300 text-lg xl:text-xl font-medium">{{overall_given_target}}</div>
+                                            <div class="mt-0.5 text-slate-500">Target Given</div>
+                                        </div>
+                                        <div class="w-px h-12 border border-r border-dashed border-slate-200 dark:border-darkmode-300 mx-4 xl:mx-5"></div>
+                                        <div>
+                                            <div class="text-slate-500 text-lg xl:text-xl font-medium">{{overall_achived_target}}</div>
+                                            <div class="mt-0.5 text-slate-500">Achieved</div>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown md:ml-auto mt-5 md:mt-0">
+                                        <!-- <button class="dropdown-toggle btn btn-outline-secondary font-normal" aria-expanded="false" data-tw-toggle="dropdown"> Filter by Category <i data-lucide="chevron-down" class="w-4 h-4 ml-2"></i> </button>
+                                        <div class="dropdown-menu w-40">
+                                            <ul class="dropdown-content overflow-y-auto h-32">
+                                                <li><a href="" class="dropdown-item">PC & Laptop</a></li>
+                                                <li><a href="" class="dropdown-item">Smartphone</a></li>
+                                                <li><a href="" class="dropdown-item">Electronic</a></li>
+                                                <li><a href="" class="dropdown-item">Photography</a></li>
+                                                <li><a href="" class="dropdown-item">Sport</a></li>
+                                            </ul>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="report-chart">
+                                    <div>
+                                        <canvas id="myChart"></canvas>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: Sales Report -->
+                        <!-- BEGIN: Weekly Top Seller -->
+                        <div class="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
+                            <div class="intro-y flex items-center h-10">
+                                <h2 class="text-lg font-medium truncate mr-5">
+                                    Sales Target (2023)
+                                </h2>
+                                {% if user.is_superuser %}
+                                    <a href="{% url 'target-report' %}" class="ml-auto text-primary truncate">Show More</a> 
+                                {% endif %}
+                            </div>
+                            <div class="intro-y box p-5 mt-5">
+                                <div class="mt-3">
+                                    <div class="h-[213px]">
+                                        <canvas id="report-pie-chart"></canvas>
+                                    </div>
+                                </div>
+                                {% if request.user.is_superuser %}
+                                <div class="w-52 sm:w-auto mx-auto mt-8">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                                        <span class="truncate">80% - 100% Achieved</span> <span class="font-medium ml-auto">{{ab80}} Salesman</span> 
+                                    </div>
+                                    <div class="flex items-center mt-4">
+                                        <div class="w-2 h-2 bg-warning rounded-full mr-3"></div>
+                                        <span class="truncate">50% - 80% Achieved</span> <span class="font-medium ml-auto">{{ab50}} Salesman</span> 
+                                    </div>
+                                    <div class="flex items-center mt-4">
+                                        <div class="w-2 h-2 bg-pending rounded-full mr-3"></div>
+                                        <span class="truncate">below 50% Achieved</span> <span class="font-medium ml-auto">{{bl50}} Salesman</span> 
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="w-52 sm:w-auto mx-auto mt-8">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                                        <span class="truncate">Target This Year</span> <span class="font-medium ml-auto">{{ab80}}</span> 
+                                    </div>
+                                    <!-- <div class="flex items-center mt-4">
+                                        <div class="w-2 h-2 bg-warning rounded-full mr-3"></div>
+                                        <span class="truncate">50% - 80% Achieved</span> <span class="font-medium ml-auto">{{ab50}} Salesman</span> 
+                                    </div> -->
+                                    <div class="flex items-center mt-4">
+                                        <div class="w-2 h-2 bg-pending rounded-full mr-3"></div>
+                                        <span class="truncate">Achieved This Year</span> <span class="font-medium ml-auto">{{bl50}}</span> 
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- END: Weekly Top Seller -->
+                        <!-- BEGIN: Sales Report -->
+                        <div class="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
+                            <div class="intro-y flex items-center h-10">
+                                <h2 class="text-lg font-medium truncate mr-5">
+                                    Proposal Volume
+                                </h2>
+                                {% if request.user.is_superuser %}
+                                    <a href="{% url 'total-propose' %}" class="ml-auto text-primary truncate">Show More</a>
+                                {% endif %} 
+                            </div>
+                            <div class="intro-y box p-5 mt-5">
+                                <div class="mt-3">
+                                    <div class="h-[213px]">
+                                        <canvas id="report-donut-chart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="w-52 sm:w-auto mx-auto mt-8">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                                        <span class="truncate">Success</span> <span class="font-medium ml-auto">{{psv}}</span> 
+                                    </div>
+                                    <div class="flex items-center mt-4">
+                                        <div class="w-2 h-2 bg-pending rounded-full mr-3"></div>
+                                        <span class="truncate">Failed</span> <span class="font-medium ml-auto">{{pfv}}</span> 
+                                    </div>
+                                    <div class="flex items-center mt-4">
+                                        <div class="w-2 h-2 bg-warning rounded-full mr-3"></div>
+                                        <span class="truncate">Pending</span> <span class="font-medium ml-auto">{{ppv}}</span> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: Sales Report -->
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="vals">
+            <input type="hidden" name="" id="above_80" value="{{ab80}}">
+            <input type="hidden" name="" id="above_50" value="{{ab50}}">
+            <input type="hidden" name="" id="below_50" value="{{bl50}}">
+
+            <input type="hidden" name="" id="success_value" value="{{psv}}">
+            <input type="hidden" name="" id="pending_value" value="{{ppv}}">
+            <input type="hidden" name="" id="failed_value" value="{{pfv}}">
+
+            <input type="hidden" name="" value="{{reports}}" id="reports">
+        </div>
+        <!-- END: Content -->
+        <style>
+            .dark-mode-switcher{
+                display: none;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- <script>
+            value = $('#reports').val()
+            alert(value)
+        </script> -->
+        <script>
+            const ctx = document.getElementById('myChart');
+          
+            new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: [{% for report in reports %} '{{report.year}}', {% endfor %}],
+                datasets: [{
+                  label: 'given target',
+                  data: [{% for report in reports %} '{{report.total_target}}', {% endfor %}],
+                  borderWidth: 1,
+                  backgroundColor : ['#2196f3'],
+                  maxBarThickness : 20,
+                },
+                {
+                  label: 'achived',
+                  data: [{% for report in reports %} '{{report.archived}}', {% endfor %}],
+                  borderWidth: 1,
+                  backgroundColor : ['blue'],
+                  maxBarThickness : 20,
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          </script>
+        <!-- BEGIN: Dark Mode Switcher-->
+        <div data-url="#" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+            <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+            <div class="dark-mode-switcher__toggle border"></div>
+        </div>
+        <!-- END: Dark Mode Switcher-->
+    </body>
+{% endblock content %}

@@ -1,0 +1,488 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+{{ block.super }}
+{% endblock %}
+{% block content %}
+    <body class="py-5">
+        {% include 'header.html' %}
+      
+     <!-- BEGIN: Content -->
+    <div class="content">
+        <div class="mt-8">
+            {% if messages %}
+            <div class="mt-6 -mb-6 intro-y">
+                {% for message in messages %}<div class="alert alert-success text-white show flex items-center mb-2" role="alert"> <i data-lucide="alert-circle" class="w-6 h-6 mr-2"></i>{{message}}<button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button></div>{% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+    <!-- BEGIN: Wizard Layout -->
+    <div class="intro-y box py-5 sm:py-8">
+        <!-- <div class="relative before:hidden before:lg:block before:absolute before:w-[69%] before:h-[3px] before:top-0 before:bottom-0 before:mt-4 before:bg-slate-100 before:dark:bg-darkmode-400 flex flex-col lg:flex-row justify-center px-5 sm:px-20">
+            <div class="intro-x lg:text-center flex items-center lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary">1</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto">Lead Generated</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary">2</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto">Converted to Opportunity</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn btn-primary">3</button>
+                <div class="lg:w-32 font-medium text-base lg:mt-3 ml-3 lg:mx-auto">Created Proposal / Client</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400">4</button>
+                <div class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400">Proposal Acceptance</div>
+            </div>
+            <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
+                <button class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400">5</button>
+                <div class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400">Project</div>
+            </div>
+
+        </div> -->
+        <!-- <br><br><hr>  -->
+        <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;border-bottom: solid 1px #bcbcbc21;">Create New Proposal</h2>
+
+
+
+
+<div class="container" style="padding: 40px;">
+<ul class="nav nav-link-tabs" role="tablist">
+    <li id="example-4-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2 active" data-tw-toggle="pill" data-tw-target="#example-tab-4" type="button" role="tab" aria-controls="example-tab-4" aria-selected="true">
+            Primary Details
+        </button>
+    </li>
+    <li id="example-5-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-5" type="button" role="tab" aria-controls="example-tab-5" aria-selected="false">
+            Add Products
+        </button>
+    </li>
+    <li id="example-6-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-6" type="button" role="tab" aria-controls="example-tab-6" aria-selected="false">
+            Scope of Work
+        </button>
+    </li>
+    <li id="example-7-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-7" type="button" role="tab" aria-controls="example-tab-7" aria-selected="false">
+            Payment Terms
+        </button>
+    </li>
+    <li id="example-8-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-8" type="button" role="tab" aria-controls="example-tab-8" aria-selected="false">
+            Exclusions
+        </button>
+    </li>
+    <li id="example-9-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-9" type="button" role="tab" aria-controls="example-tab-9" aria-selected="false">
+          Terms & Conditions
+        </button>
+    </li>
+    <!-- <li id="example-10-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-10" type="button" role="tab" aria-controls="example-tab-5" aria-selected="true">
+          Opportunity Info
+        </button>
+    </li> -->
+    
+</ul>
+<form action="" method="post">
+{% csrf_token %}
+<div class="tab-content mt-5">
+    <div id="example-tab-4" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-4-tab">
+
+        <div class="post__content tab-content">
+        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
+            
+            </div>
+            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+
+                <div class="intro-y col-span-6">
+                    <label>Proposal Title</label>
+                    <div class="mt-2">
+                    <input type="text" name="proposal_title" {% if proposal.Proposal_Title %}  value="{{proposal.Proposal_Title}}" {% endif %} placeholder="enter proposal Title" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="intro-y col-span-6">
+                    <label>Project Name</label>
+                    <div class="mt-2">
+                    <input type="text" name="project_name" {% if proposal.Project_Name %}  value="{{proposal.Project_Name}}" {% endif %} placeholder="Enter Project Name" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="intro-y col-span-3">
+                    <label>Proposal Date</label>
+                    <div class="mt-2">
+                        <input type="date" {% if proposal.Proposal_Date %}  value="{{proposal.Proposal_Date | date:'Y-m-d'}}" {% endif %} name="proposal_date" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="intro-y col-span-3">
+                    <label>Expire Date</label>
+                    <div class="mt-2">
+                        <input type="date" {% if proposal.Expire_Date %}  value="{{proposal.Expire_Date | date:'Y-m-d'}}" {% endif %}  name="expire_date" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="intro-y col-span-6">
+                    <label>Subject</label>
+                    <div class="mt-2">
+                        <input type="text" name="subject" {% if proposal.Subject %}  value="{{proposal.Subject}}" {% endif %} placeholder="Enter Subject" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="example-tab-5" class="tab-pane leading-relaxed text-center" role="tabpanel" aria-labelledby="example-5-tab">
+        <div class="intro-y box">
+            <div class="px-5 sm:px-20 mt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+                <button class="btn btn-primary btn-lg m-5" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview">create new section</button>
+            </div>
+            <table class="table table-report -mt-2" id="table2excel">
+                <!-- <thead>
+                    <tr>
+                        <th class="text-center whitespace-nowrap">SL. NO.</th>
+                        <th class="text-center whitespace-nowrap">SECTION NAME</th>
+                        <th class="text-center whitespace-nowrap">SECTION DESCRIPTION</th>
+                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                    </tr>
+                </thead> -->
+                <tbody>
+                    {% for section in sections %}
+                        <tr class="intro-x">
+                            <!-- <td class="text-center whitespace-nowrap"></td>
+                            <td class="text-center whitespace-nowrap"></td>
+                            <td class="text-center whitespace-nowrap"></td> -->
+                            <td class="text-center whitespace-nowrap" colspan="6">
+                                <h6 style="font-size: 25px;" class="text-primary">{{ section.Name }}</h6>
+                            </td>
+                            <!-- <td class="text-center whitespace-nowrap"></td>
+                            <td class="text-center whitespace-nowrap"></td> -->
+                            <td class="table-report__action">
+                                <div class="flex justify-center items-center">
+                                    <i data-lucide="plus" class="w-4 h-4 mr-1" data-tw-toggle="modal" data-tw-target="#product_model" onclick="pop('{{section.id}}')"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        {% for p in pros %}
+                            {% if p.Section == section %}
+                                <tr class="intro-x">
+                                    <td class="text-center whitespace-nowrap">
+                                        <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <a href="" class="font-medium whitespace-nowrap">{{ p.Product.Name }}</a>     
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div>{{ p.Product.Description }}</div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div>{{ p.Product.Selling_Price }}</div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div><input type="number" name="" id="sell_price-{{p.id}}" onchange="save_product('{{p.id}}')" class="form-control" value="{{ p.Sell_Price }}"></div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div><input type="number" name="" id="quantity-{{p.id}}" onchange="save_product('{{p.id}}')" class="form-control" value="{{ p.Quantity }}"></div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div><input type="number" name="" id="total-{{p.id}}" readonly class="form-control" value="{{ p.Total }}"></div>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <input type="hidden" name="grand_total" id="grand_total" value="{{proposal.Grand_Total}}">
+    <input type="hidden" value="{{proposal.Grand_Total}}" name="current_value" id="current_value">
+    <input type="hidden" id="current_method" value="{{proposal.Method}}">
+    <input type="hidden" id="desplay" value="">
+    <!--Scope of Work  -->
+    <div id="example-tab-6" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-6-tab">
+
+        <div class="post__content tab-content">
+        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
+            
+            </div>
+            <div class="">
+                <!-- <div class="font-medium flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
+                    <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Description
+                </div> -->
+                    <div class="mt-5">
+                        <!-- <div  style="float:right;"><a href="#" data-tw-toggle="modal" data-tw-target="#new-order-modal2"><button class="btn btn-primary shadow-md mr-2">Reply</button></a></div> -->
+                        <div>
+                            <textarea class="form-control editor" name="scope" id="" cols="30" rows="10" placeholder="Enter Scope of work">
+                                o	Supply of materials as per the BOQ
+                                o	Installation of the materials as per the BOQ
+                                o	Testing & Labeling
+                                o	Reporting
+                            </textarea>
+                        </div>
+                    </div>
+                <!--  -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Payment Terms -->
+
+    <div id="example-tab-7" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-7-tab">
+
+        <div class="post__content tab-content">
+        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
+            </div>
+            <div class="">
+                <div class="mt-5">
+                    <div>
+                        <textarea class="form-control" name="payment" id="" cols="30" rows="10" placeholder="Enter payment terms">
+                            o	50% of the contract value as advance.
+                            o	Balance 50% on progressive valuation. (80% against material &amp; 20% against installation).
+                            o	(Payment to be settled within 15 days of date of progressive invoice)
+                            o	Prices quoted are subjected to change if any change in the vendor price list at the time of ordering if PO is released after quote validity period mentioned above.
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exclusions -->
+    <div id="example-tab-8" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-8-tab">
+
+        <div class="post__content tab-content">
+        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
+            </div>
+            <div class="">
+                <div class="mt-5">
+                    <div>
+                        <textarea class="form-control" name="exclusion" id="" cols="30" rows="10" placeholder="Enter Exclusion">
+                            o	Permit approval, Gate pass, Engineering works Any 3rd party approval
+                            o	Work times as per approved schedule
+                            o	Cable pulling, Civil works and Containment are excluded from our offer
+                            o	Any additional qty for the cables based on containment routing will consider as Variation.
+                            o	CONTROL ROOM SPECIAL CONSONLE, CCTV SPECIAL POLES
+                            o	Any other items other than mentioned in the BOQ is excluded from our offer
+                            o	Metallic Face plate, UPS for passive system, WIFI and Active switch for Tel & data
+                            o	IIP PABX, Telephone handset,
+                            o	Fire Alarm
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions-->
+    <div id="example-tab-9" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-9-tab">
+        <div class="post__content tab-content">
+        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
+            </div>
+            <div class="">
+                <div class="mt-5">
+                    <div>
+                        <textarea class="form-control editor" name="terms" id="" cols="30" rows="10" placeholder="Enter Terms And condition">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                        </textarea>
+                    </div>
+                    <div style="margin-left: auto;
+                        margin-right: auto;display: block;margin-top: 10px; width:90px;"><button type="submit" class="btn btn-primary shadow-md mr-2">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+    
+  
+
+    <!-- Opportunity-->
+<!--/previous meeting  -->
+</div>
+</div>  
+</div> 
+
+
+    <!-- END: Wizard Layout -->
+    </div>
+
+    <!--  -->
+
+
+
+    <!-- END: Content -->
+    <style>
+        .dark-mode-switcher{
+            display: none;
+        }   
+    </style>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/proposal.js' %}"></script>
+    <script>
+        // CKEDITOR.replace('scope');
+        // CKEDITOR.replace('payment');
+        // CKEDITOR.replace('exclusion');
+        // CKEDITOR.replace('terms');
+        function pop(id){
+            $('#section_id').val(id);
+        }
+
+        function save_product(id){
+            sell_price = $('#sell_price-'+id).val()
+            quantity = $('#quantity-'+id).val()
+            total = (sell_price*quantity)
+            $('#total-'+id).val(total)
+
+            mydata = {'proposal_item':id,'sell_price':sell_price,'quantity':quantity,'total':total}
+
+            $.ajax({
+                url : '/save-product/',
+                type : 'POST',
+                data : mydata,
+                success : function(data){
+                    console.log('Status:',data)
+                }
+            })
+        }
+    </script>
+    <!--  -->
+    <!-- BEGIN: Delete Confirmation Modal -->
+    <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="id" name="id">
+                <div class="modal-body p-0">
+                    <div class="p-5 text-center">
+                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                        <div class="text-3xl mt-5">Are you sure?</div>
+                        <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
+                    </div>
+                    <div class="px-5 pb-8 text-center">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                        <button type="submit" class="btn btn-danger w-24">Delete</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END: Delete Confirmation Modal -->
+
+        <!-- BEGIN: Super Large Modal Content -->
+        <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                    <h2 class="intro-y text-lg font-medium mt-5 mb-5" style="text-align: center;font-size: 35px;color:#1e40af;">Create New Section</h2>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <!-- <div class="font-medium text-base">Add / Manage Products</div> -->
+                            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                                <div class="intro-y col-span-12">
+                                    <label for="input-wizard-2" class="form-label">Section Name</label>
+                                    <input id="part_number" type="text" class="form-control" name="section_name" placeholder="Enter Part Number" required>
+                                </div>
+                                <div class="intro-y col-span-12">
+                                    <label for="input-wizard-4" class="form-label">Description</label>
+                                    <textarea class="form-control" name="section_description" placeholder="Description" id="" cols="30" rows="5"></textarea>
+                                </div>
+                                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                                    <!-- <button class="btn btn-secondary w-24">Add</button> -->
+                                    <button class="btn btn-primary w-24 ml-2" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Super Large Modal Content -->
+
+        <!-- BEGIN: Super Large Modal Content -->
+        <div id="product_model" class="modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <div class="container" style="padding: 40px;">
+                            <ul class="nav nav-link-tabs" role="tablist">
+                                {% for category in categories %}
+                                    <li id="example-{{forloop.counter}}-tab" class="nav-item flex-1" role="presentation">
+                                        <button class="nav-link w-full py-2 active" data-tw-toggle="pill" data-tw-target="#example-tab-{{ forloop.counter }}" type="button" role="tab" aria-controls="example-tab-{{ forloop.counter }}" aria-selected="true">
+                                            {{ category }}
+                                        </button>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="section_id" id="section_id">
+                            <div class="tab-content mt-5">
+                                {% for category in categories %}
+                                    <div id="example-tab-{{ forloop.counter }}" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-{{ forloop.counter }}-tab">
+                                        <table class="table table-report -mt-2" id="table2excel">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th class="whitespace-nowrap">
+                                                        <input class="form-check-input" type="checkbox">
+                                                    </th> -->
+                                                    <th class="text-center whitespace-nowrap">SL. NO.</th>
+                                                    <th class="text-center whitespace-nowrap">PRODUCT NAME</th>
+                                                    <th class="text-center whitespace-nowrap">PRODUCT DESCRIPTION</th>
+                                                    <th class="text-center whitespace-nowrap">ACTION</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for product in products %}
+                                                    {% if product.Category.id == category.id %}
+                                                        <tr class="intro-x">
+                                                            
+                                                            <td class="text-center whitespace-nowrap">
+                                                                <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                                                            </td>
+                                                            <td class="text-center whitespace-nowrap">
+                                                                <a href="" class="font-medium whitespace-nowrap">{{ product.Name }}</a>     
+                                                            </td>
+                                                            <td class="text-center whitespace-nowrap">
+                                                                <div>{{ product.Description }}</div>
+                                                            </td>
+                                                            <td class="table-report__action text-center">
+                                                                <input type="checkbox" name="checks" id="" value="{{ product.id }}">
+                                                            </td>
+                                                            <script></script>
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endfor %}
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Super Large Modal Content -->
+        <!-- BEGIN: Dark Mode Switcher-->
+        <div data-url="top-menu-dark-regular-form.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+            <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+            <div class="dark-mode-switcher__toggle border"></div>
+        </div>
+        <!-- END: Dark Mode Switcher-->
+    </body>
+{% endblock content %}
