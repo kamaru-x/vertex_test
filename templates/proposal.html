@@ -143,7 +143,7 @@
             <div class="px-5 sm:px-20 mt-10 border-t border-slate-200/60 dark:border-darkmode-400">
                 <button class="btn btn-primary btn-lg m-5" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview">create new section</button>
             </div>
-            <table class="table table-report -mt-2" id="table2excel">
+            <table class="table table-report -mt-2" id="table">
                 <!-- <thead>
                     <tr>
                         <th class="text-center whitespace-nowrap">SL. NO.</th>
@@ -199,6 +199,60 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <table class="table table-report -mt-2">
+                <tbody>
+                    <tr class="intro-x">    
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64">Total Amount</td>
+                        <td class="w-64 text-center" id="product_total">{{t}}</td>
+                        <td class="w-64"></td>
+                    </tr>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <tr class="intro-x">
+                            <td class="w-40 text-center">Discount</td>
+                            <td class="w-64" colspan="2">
+                                <select class="form-control" name="method" id="method">
+                                    {% if proposal.Method == 1 %}
+                                        <option value="1">flat</option>
+                                        <option value="2">percentage</option>
+                                    {% elif proposal.Method == 2 %}
+                                        <option value="2">percentage</option>
+                                        <option value="1">flat</option>
+                                    {% else %}
+                                        <option value="">Apply Discount</option>
+                                        <option value="1">flat</option>
+                                        <option value="2">percentage</option>
+                                    {% endif %}
+                                </select>
+                            </td>
+                            <td class="w-40" colspan="2">
+                                <input type="number" name="discount" id="discount_amount" class="form-control" {% if proposal.Discount %} value="{{proposal.Discount}}" {% endif %}>
+                            </td>
+                            <!-- <td class="w-40" colspan="2">
+                                <input type="number" id="desplay" class="form-control">
+                            </td> -->
+                            <td class="w-64">Discount</td>
+                            <td class="w-64 text-center" id="temp_discount">{% if proposal.Discount %}{{ proposal.Discount }}{% endif %}</td>
+                            <td></td>
+                        </tr>
+                    </form>
+                    <tr class="intro-x">    
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64"></td>
+                        <td class="w-64">Grand Total</td>
+                        <td class="w-64 text-center" id="temp_grand">{% if proposal.Grand_Total %}{{ proposal.Grand_Total }}{% else %}{{t}}{% endif %}</td>
+                        <td class="w-64"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     
@@ -206,6 +260,7 @@
     <input type="hidden" value="{{proposal.Grand_Total}}" name="current_value" id="current_value">
     <input type="hidden" id="current_method" value="{{proposal.Method}}">
     <input type="hidden" id="desplay" value="">
+    <input type="hidden" name="" id="proposal" value="{{ proposal.id }}">
     <!--Scope of Work  -->
     <div id="example-tab-6" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-6-tab">
 
@@ -343,9 +398,12 @@
             sell_price = $('#sell_price-'+id).val()
             quantity = $('#quantity-'+id).val()
             total = (sell_price*quantity)
+            proposal = '{{proposal.id}}'
+            temp_grand = $('#temp_grand').html()
             $('#total-'+id).val(total)
+            let discount_amount = $('#discount_amount').val()
 
-            mydata = {'proposal_item':id,'sell_price':sell_price,'quantity':quantity,'total':total}
+            mydata = {'proposal_item':id,'sell_price':sell_price,'quantity':quantity,'total':total,'proposal':proposal,'temp_grand':temp_grand}
 
             $.ajax({
                 url : '/save-product/',
@@ -353,6 +411,10 @@
                 data : mydata,
                 success : function(data){
                     console.log('Status:',data)
+                    $('#product_total').html(data.total)
+                    if(discount_amount == null){
+                        $('#temp_grand').html(data.total)
+                    }
                 }
             })
         }

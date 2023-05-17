@@ -195,7 +195,7 @@ def create_proposal(request,lid):
             proposal.Payment = request.POST.get('payment')
             proposal.Exclusion = request.POST.get('exclusion')
             proposal.Terms_Condition = request.POST.get('terms')
-            proposal.Grand_Total = request.POST.get('current_value')
+            # proposal.Grand_Total = request.POST.get('current_value')
             proposal.save()
             if proposal.Proposal_Title and proposal.Project_Name:
                 messages.success(request,'proposal created successfully and added to pending proposals')
@@ -223,7 +223,7 @@ def create_proposal(request,lid):
             product_list = request.POST.getlist('checks')
             qty_list = request.POST.getlist('qty')
             price_list = request.POST.getlist('price')
-            print(f'products list = {product_list} | price list = {price_list} | quantity list = {qty_list}')
+            # print(f'products list = {product_list} | price list = {price_list} | quantity list = {qty_list}')
             section = Section.objects.get(id=section_id)
             for product in product_list:
                 pro = Product.objects.get(id=product)
@@ -280,12 +280,14 @@ def add_percentage(request):
         p = request.POST.get('proposal')
         mode = request.POST.get('method')
         discount = request.POST.get('discount')
+        grand = request.POST.get('grand')
 
         proposal = Proposal.objects.get(id=p)
+        proposal.Grand_Total = grand
         proposal.Discount = discount
         proposal.Method = mode
         proposal.save()
-        return JsonResponse({'status':'data updated'})
+        return JsonResponse({'status':'percentage changed'})
 
 #################################################################################
 
@@ -1911,10 +1913,20 @@ def reviced_proposal(request,lid):
 @csrf_exempt
 def save_product(request):
     if request.method == 'POST':
+        p = request.POST.get('proposal')
+        proposal = Proposal.objects.get(id=p)
         proposal_item = request.POST.get('proposal_item')
         pi = Proposal_Items.objects.get(id=proposal_item)
         pi.Sell_Price = request.POST.get('sell_price')
         pi.Quantity = request.POST.get('quantity')
         pi.Total = request.POST.get('total')
         pi.save()
-        return JsonResponse({'status':'data updated'})
+
+        pros = Proposal_Items.objects.filter(Proposal=proposal)
+
+        t = 0
+
+        for p in pros:
+            t += p.Total
+        
+        return JsonResponse({'status':'data updated','total':t})
