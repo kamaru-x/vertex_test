@@ -21,7 +21,7 @@ $(document).ready(function(){
 		})
 	})
 
-    $('#discount_amount , #table').change(function(e){
+    $('#discount_amount , #table ,#product_total').change(function(e){
         e.preventDefault()
         let method_id = $('#method').val()
         let discount_amount = $('#discount_amount').val()
