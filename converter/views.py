@@ -227,7 +227,10 @@ def create_proposal(request,lid):
             section = Section.objects.get(id=section_id)
             for product in product_list:
                 pro = Product.objects.get(id=product)
-                Proposal_Items.objects.create(Proposal=proposal,Section=section,Product=pro,Sell_Price=pro.Selling_Price,Quantity=1,Total=pro.Selling_Price)
+                if pro.Selling_Price:
+                    Proposal_Items.objects.create(Proposal=proposal,Section=section,Product=pro,Sell_Price=pro.Selling_Price,Quantity=1,Total=pro.Selling_Price)
+                else:
+                    Proposal_Items.objects.create(Proposal=proposal,Section=section,Product=pro,Sell_Price=pro.Buying_Price,Quantity=1,Total=pro.Buying_Price)
             return redirect('.')
 
     context = {
