@@ -44,21 +44,21 @@
 
         </div> -->
         <!-- <br><br><hr>  -->
-        <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;border-bottom: solid 1px #bcbcbc21;">Edit proposal</h2>
+        <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;border-bottom: solid 1px #bcbcbc21;">Edit Proposal</h2>
 
 
 
 
 <div class="container" style="padding: 40px;">
 <ul class="nav nav-link-tabs" role="tablist">
-    <li id="example-4-tab" class="nav-item flex-1" role="presentation">
-        <button class="nav-link w-full py-2 active" data-tw-toggle="pill" data-tw-target="#example-tab-4" type="button" role="tab" aria-controls="example-tab-4" aria-selected="true">
-            Primary Details
+    <li id="example-5-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2 active" data-tw-toggle="pill" data-tw-target="#example-tab-5" type="button" role="tab" aria-controls="example-tab-5" aria-selected="false">
+            Add Products
         </button>
     </li>
-    <li id="example-5-tab" class="nav-item flex-1" role="presentation">
-        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-5" type="button" role="tab" aria-controls="example-tab-5" aria-selected="false">
-            Add Products
+    <li id="example-4-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-4" type="button" role="tab" aria-controls="example-tab-4" aria-selected="true">
+            Primary Details
         </button>
     </li>
     <li id="example-6-tab" class="nav-item flex-1" role="presentation">
@@ -91,178 +91,64 @@
 <form action="" method="post">
 {% csrf_token %}
 <div class="tab-content mt-5">
-    <div id="example-tab-4" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-4-tab">
-
-        <div class="post__content tab-content">
-        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
-            
-            </div>
-            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
-
-                <div class="intro-y col-span-6">
-                    <label>Proposal Title</label>
-                    <div class="mt-2">
-                    <input type="text" name="proposal_title" value="{{proposal.Proposal_Title}}" placeholder="enter proposal Title" class="form-control" required>
-                    </div>
-                </div>
-
-                <div class="intro-y col-span-6">
-                    <label>Project Name</label>
-                    <div class="mt-2">
-                    <input type="text" name="project_name"  value="{{proposal.Project_Name}}" placeholder="Enter Project Name" class="form-control" required>
-                    </div>
-                </div>
-
-                <div class="intro-y col-span-3">
-                    <label>Proposal Date</label>
-                    <div class="mt-2">
-                        <input type="date" value="{{proposal.Proposal_Date | date:'Y-m-d'}}" name="proposal_date" class="form-control" required>
-                    </div>
-                </div>
-
-                <div class="intro-y col-span-3">
-                    <label>Expire Date</label>
-                    <div class="mt-2">
-                        <input type="date" value="{{proposal.Expire_Date | date:'Y-m-d'}}" name="expire_date" class="form-control" required>
-                    </div>
-                </div>
-
-                <div class="intro-y col-span-6">
-                    <label>Subject</label>
-                    <div class="mt-2">
-                        <input type="text" name="subject" value="{{proposal.Subject}}" placeholder="Enter Subject" class="form-control" required>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div id="example-tab-5" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-5-tab">
+    <div id="example-tab-5" class="tab-pane leading-relaxed text-center active" role="tabpanel" aria-labelledby="example-5-tab">
         <div class="intro-y box">
-        
-        <div class="px-5 sm:px-20 mt-10 border-t border-slate-200/60 dark:border-darkmode-400">
-           <!--  <div class="font-medium text-base">Add / Manage Products</div> -->
-           <!-- <form action="" method="post" id="product-form">
-            {% csrf_token %} -->
-                <!-- <input type="hidden" name="grand_total" id="grand_total"> -->
-                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
-                    
-                    <div class="intro-y col-span-2">
-                        <label>Select Section</label>
-                        <div class="mt-2">
-                            <select data-placeholder="Select Product" name="category" id="category" class="tom-select w-full">
-                                <option value=" ">Select Section</option>
-                                {% for category in categories %}
-                                    <option value="{{ category.id }}">{{ category.Name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>        
-                    </div>
-                    
-                    <div class="intro-y col-span-2">
-                        <label>Select Product</label>
-                        <div class="mt-2">
-                            <select data-placeholder="Select Product" name="product" id="product" class="form-control">
-                                <option value=" ">Select Product</option>
-                            </select>
-                        </div>        
-                    </div>
-
-                    <div class="intro-y col-span-2">
-                        <label>Selling Price</label>
-                        <div class="mt-2">
-                        <input type="number" id='p_p' class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="intro-y col-span-2">
-                        <label>Offer Price</label>
-                        <div class="mt-2">
-                        <input type="number" name="price" id='s_p' class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="intro-y col-span-2">
-                        <label>Quantity</label>
-                        <div class="mt-2">
-                            <input type="number" name="quantity" id='p_q' class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="intro-y col-span-2">
-                        <label>Total Price</label>
-                        <div class="mt-2">
-                            <input type="number" name="total" id='total' class="form-control" readonly>
-                        </div>
-                    </div>
-
-                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mb-5">
-                        <!-- <button class="btn btn-secondary w-24">Add</button> -->
-                        <input type="hidden" name="" id="ProposalId" value="{{ proposal.id }}">
-                        <button class="btn btn-primary w-24 ml-2" type="button" style="width: 12rem;" id="AddProduct">Add Product</button>
-                    </div>  
-                </div>
-            <!-- </form> -->
-        </div>
-
-         <!--   <div class="intro-y box py-10 sm:py-20 mt-5">
-        <h2 style=" font-size: 30px; font-weight: 500; text-align: center;
-        color: #1e40af;">Add Category</h2>
-    </div> -->
-    <div class="grid grid-cols-12 gap-6 mt-5">
-        
-        <!-- BEGIN: Data List -->
-         <div class="col-span-12 overflow-auto 2xl:overflow-visible">
-            <table class="table table-report -mt-2" id="mytable">
-                <thead>
+            <div class="px-5 sm:px-20 mt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+                <i class="btn btn-primary btn-lg m-5" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview">create new section</i>
+            </div>
+            <table class="table table-report -mt-2" id="table">
+                <!-- <thead>
                     <tr>
-                        <!-- <th class="whitespace-nowrap">
-                            <input class="form-check-input" type="checkbox">
-                        </th> -->
-                        <th class="whitespace-nowrap">SL. NO.</th>
-                        <th class="whitespace-nowrap">REF. NO.</th>
-                        <th class="whitespace-nowrap">PART NUMBER</th>
-                        <th class="whitespace-nowrap">SECTION NAME</th>
-                        <th class="whitespace-nowrap">PRICE</th>
-                        <th class="whitespace-nowrap">QUANTITY</th>
-                        <th class="whitespace-nowrap">TOTAL</th>
+                        <th class="text-center whitespace-nowrap">SL. NO.</th>
+                        <th class="text-center whitespace-nowrap">SECTION NAME</th>
+                        <th class="text-center whitespace-nowrap">SECTION DESCRIPTION</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
-                </thead>
-                <tbody id="mytablebody">
-                    {% for product in pros %}
+                </thead> -->
+                <tbody>
+                    {% for section in sections %}
                         <tr class="intro-x">
-                            
-                            <td class="w-40">
-                                <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                            <!-- <td class="text-center whitespace-nowrap"></td>
+                            <td class="text-center whitespace-nowrap"></td>
+                            <td class="text-center whitespace-nowrap"></td> -->
+                            <td class="text-center whitespace-nowrap" colspan="6">
+                                <h6 style="font-size: 25px;" class="text-primary">{{ section.Name }}</h6>
                             </td>
-                            <td class="w-40">
-                                <a href="" class="font-medium whitespace-nowrap">{{ product.Product.Reference }}</a>  
-                            </td>
-                            <td>
-                                <div class="whitespace-nowrap">{{ product.Product.Name }}</div>
-                            </td>
-                            <td class="w-64">
-                                <div>{{ product.Product.Category.Name }}</div>
-                            </td>
-                            <td class="w-64">
-                                <div>{{ product.Sell_Price }}</div>
-                            </td>
-                            <td class="w-64">
-                                <div>{{ product.Quantity }}</div>
-                            </td>
-                            <td class="w-64">
-                                <div id="total" class="total-{{forloop.counter}}">{{ product.Total }}</div>
-                            </td>
+                            <!-- <td class="text-center whitespace-nowrap"></td>
+                            <td class="text-center whitespace-nowrap"></td> -->
                             <td class="table-report__action">
                                 <div class="flex justify-center items-center">
-                                    <!--  -->
-                                    <a class="flex items-center text-danger whitespace-nowrap" style="cursor: pointer;" onclick="pop('{{product.id}}')" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal">
-                                        <i data-lucide="trash" class="w-4 h-4 mr-1"></i> Remove
-                                    </a>
+                                    <i data-lucide="plus" class="w-4 h-4 mr-1" data-tw-toggle="modal" data-tw-target="#product_model" onclick="pop('{{section.id}}')"></i>
                                 </div>
                             </td>
                         </tr>
+                        {% for p in pros %}
+                            {% if p.Section == section %}
+                                <tr class="intro-x">
+                                    <td class="text-center whitespace-nowrap">
+                                        <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <a href="" class="font-medium whitespace-nowrap">{{ p.Product.Name }}</a>     
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div>{{ p.Product.Description }}</div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div>{{ p.Product.Selling_Price }}</div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div><input type="number" name="" id="sell_price-{{p.id}}" onchange="save_product('{{p.id}}')" class="form-control" value="{{ p.Sell_Price }}"></div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div><input type="number" name="" id="quantity-{{p.id}}" onchange="save_product('{{p.id}}')" class="form-control" value="{{ p.Quantity }}"></div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div><input type="number" name="" id="total-{{p.id}}" readonly class="form-control" value="{{ p.Total }}"></div>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
                     {% endfor %}
                 </tbody>
             </table>
@@ -298,13 +184,13 @@
                                 </select>
                             </td>
                             <td class="w-40" colspan="2">
-                                <input type="number" name="discount" id="discount_percentage" class="form-control" {% if proposal.Discount %} value="{{proposal.Discount}}" {% endif %}>
+                                <input type="number" name="discount" id="discount_amount" class="form-control" {% if proposal.Discount %} value="{{proposal.Discount}}" {% endif %}>
                             </td>
                             <!-- <td class="w-40" colspan="2">
                                 <input type="number" id="desplay" class="form-control">
                             </td> -->
                             <td class="w-64">Discount</td>
-                            <td class="w-64 text-center" id="temp_discount"></td>
+                            <td class="w-64 text-center" id="temp_discount">{% if proposal.Discount %}{{ proposal.Discount }}{% endif %}</td>
                             <td></td>
                         </tr>
                     </form>
@@ -315,66 +201,65 @@
                         <td class="w-64"></td>
                         <td class="w-64"></td>
                         <td class="w-64">Grand Total</td>
-                        <td class="w-64 text-center" id="temp_grand">{{t}}</td>
+                        <td class="w-64 text-center" id="temp_grand">{% if proposal.Grand_Total %}{{ proposal.Grand_Total }}{% else %}{{t}}{% endif %}</td>
                         <td class="w-64"></td>
                     </tr>
                 </tbody>
             </table>
-            <!-- <table class="table table-report -mt-2">
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <tr class="intro-x">    
-                        <td class="w-40"></td>
-                        <td class="w-40"></td>
-                        <td class="w-40"><b>Discount</b></td>
-                        <td class="w-64" colspan="2">
-                            <select class="form-control" name="method" id="method">
-                                {% if proposal.Method == 1 %}
-                                    <option value="1">flat</option>
-                                    <option value="2">percentage</option>
-                                {% elif proposal.Method == 2 %}
-                                    <option value="2">percentage</option>
-                                    <option value="1">flat</option>
-                                {% else %}
-                                    <option value="">selet method</option>
-                                    <option value="1">flat</option>
-                                    <option value="2">percentage</option>
-                                {% endif %}
-                            </select>
-                        </td>
-                        <td class="w-40" colspan="2">
-                            <input type="number" name="discount" id="discount_percentage" class="form-control" {% if proposal.Discount %} value="{{proposal.Discount}}" {% endif %}>
-                        </td>
-                        <td class="w-40" colspan="2">
-                            <input type="number" id="desplay" class="form-control">
-                        </td>
-                    </tr>
-                </form>
-            </table> -->
         </div>
-        <!-- <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
-            <table class="table table-report -mt-2">
-                <tbody>
-                    <tr class="intro-x width"> 
-                        <td class=" width" style="width:100%;">
-                            <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; color:blue; color: #1e40af;padding: 10px; border-radius: 50%;
-                                background: #e8e4e4;" class="w-4 h-4 mr-2">  
-                            </i>
-                        <div style="text-align: center;">No data available!</div>
-                        </td>   
-                    </tr>    
-                </tbody>
-            </table>
-        </div> -->
     </div>
+    <div id="example-tab-4" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-4-tab">
 
-    </div>
+        <div class="post__content tab-content">
+        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
+            
+            </div>
+            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+
+                <div class="intro-y col-span-6">
+                    <label>Proposal Title</label>
+                    <div class="mt-2">
+                    <input type="text" name="proposal_title" {% if proposal.Proposal_Title %}  value="{{proposal.Proposal_Title}}" {% endif %} placeholder="enter proposal Title" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="intro-y col-span-6">
+                    <label>Project Name</label>
+                    <div class="mt-2">
+                    <input type="text" name="project_name" {% if proposal.Project_Name %}  value="{{proposal.Project_Name}}" {% endif %} placeholder="Enter Project Name" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="intro-y col-span-3">
+                    <label>Proposal Date</label>
+                    <div class="mt-2">
+                        <input type="date" {% if proposal.Proposal_Date %}  value="{{proposal.Proposal_Date | date:'Y-m-d'}}" {% endif %} name="proposal_date" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="intro-y col-span-3">
+                    <label>Expire Date</label>
+                    <div class="mt-2">
+                        <input type="date" {% if proposal.Expire_Date %}  value="{{proposal.Expire_Date | date:'Y-m-d'}}" {% endif %}  name="expire_date" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="intro-y col-span-6">
+                    <label>Subject</label>
+                    <div class="mt-2">
+                        <input type="text" name="subject" {% if proposal.Subject %}  value="{{proposal.Subject}}" {% endif %} placeholder="Enter Subject" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     
     <input type="hidden" name="grand_total" id="grand_total" value="{{proposal.Grand_Total}}">
     <input type="hidden" value="{{proposal.Grand_Total}}" name="current_value" id="current_value">
     <input type="hidden" id="current_method" value="{{proposal.Method}}">
     <input type="hidden" id="desplay" value="">
+    <input type="hidden" name="" id="proposal" value="{{ proposal.id }}">
     <!--Scope of Work  -->
     <div id="example-tab-6" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="example-6-tab">
 
@@ -390,7 +275,7 @@
                         <!-- <div  style="float:right;"><a href="#" data-tw-toggle="modal" data-tw-target="#new-order-modal2"><button class="btn btn-primary shadow-md mr-2">Reply</button></a></div> -->
                         <div>
                             <textarea class="form-control editor" name="scope" id="" cols="30" rows="10" placeholder="Enter Scope of work">
-                                {{ proposal.Scope }}
+                                {{proposal.Scope}}
                             </textarea>
                         </div>
                     </div>
@@ -429,7 +314,7 @@
                 <div class="mt-5">
                     <div>
                         <textarea class="form-control" name="exclusion" id="" cols="30" rows="10" placeholder="Enter Exclusion">
-                            {{ proposal.Exclusion }}
+                            {{proposal.Exclusion}}
                         </textarea>
                     </div>
                 </div>
@@ -446,7 +331,7 @@
                 <div class="mt-5">
                     <div>
                         <textarea class="form-control editor" name="terms" id="" cols="30" rows="10" placeholder="Enter Terms And condition">
-                            {{ proposal.Terms_Condition }}
+                            {{proposal.Terms_Condition}}
                         </textarea>
                     </div>
                     <div style="margin-left: auto;
@@ -491,7 +376,32 @@
         // CKEDITOR.replace('exclusion');
         // CKEDITOR.replace('terms');
         function pop(id){
-            $('#id').val(id);
+            $('#section_id').val(id);
+        }
+
+        function save_product(id){
+            sell_price = $('#sell_price-'+id).val()
+            quantity = $('#quantity-'+id).val()
+            total = (sell_price*quantity)
+            proposal = '{{proposal.id}}'
+            temp_grand = $('#temp_grand').html()
+            $('#total-'+id).val(total)
+            let discount_amount = $('#discount_amount').val()
+
+            mydata = {'proposal_item':id,'sell_price':sell_price,'quantity':quantity,'total':total,'proposal':proposal,'temp_grand':temp_grand}
+
+            $.ajax({
+                url : '/save-product/',
+                type : 'POST',
+                data : mydata,
+                success : function(data){
+                    console.log('Status:',data)
+                    $('#product_total').html(data.total)
+                    if(discount_amount == null){
+                        $('#temp_grand').html(data.total)
+                    }
+                }
+            })
         }
     </script>
     <!--  -->
@@ -518,6 +428,103 @@
         </div>
     </div>
     <!-- END: Delete Confirmation Modal -->
+
+        <!-- BEGIN: Super Large Modal Content -->
+        <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                    <h2 class="intro-y text-lg font-medium mt-5 mb-5" style="text-align: center;font-size: 35px;color:#1e40af;">Create New Section</h2>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <!-- <div class="font-medium text-base">Add / Manage Products</div> -->
+                            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                                <div class="intro-y col-span-12">
+                                    <label for="input-wizard-2" class="form-label">Section Name</label>
+                                    <input id="part_number" type="text" class="form-control" name="section_name" placeholder="Enter Section Name" required>
+                                </div>
+                                <div class="intro-y col-span-12">
+                                    <label for="input-wizard-4" class="form-label">Description</label>
+                                    <textarea class="form-control" name="section_description" placeholder="Description" id="" cols="30" rows="5"></textarea>
+                                </div>
+                                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                                    <!-- <button class="btn btn-secondary w-24">Add</button> -->
+                                    <button class="btn btn-primary w-24 ml-2" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Super Large Modal Content -->
+
+        <!-- BEGIN: Super Large Modal Content -->
+        <div id="product_model" class="modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <div class="container" style="padding: 40px;">
+                            <ul class="nav nav-link-tabs" role="tablist">
+                                {% for category in categories %}
+                                    <li id="example-{{forloop.counter}}-tab" class="nav-item flex-1" role="presentation">
+                                        <button class="nav-link w-full py-2 active" data-tw-toggle="pill" data-tw-target="#example-tab-{{ forloop.counter }}" type="button" role="tab" aria-controls="example-tab-{{ forloop.counter }}" aria-selected="true">
+                                            {{ category }}
+                                        </button>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="section_id" id="section_id">
+                            <div class="tab-content mt-5">
+                                {% for category in categories %}
+                                    <div id="example-tab-{{ forloop.counter }}" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-{{ forloop.counter }}-tab">
+                                        <table class="table table-report -mt-2" id="table2excel">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th class="whitespace-nowrap">
+                                                        <input class="form-check-input" type="checkbox">
+                                                    </th> -->
+                                                    <th class="text-center whitespace-nowrap">SL. NO.</th>
+                                                    <th class="text-center whitespace-nowrap">PRODUCT NAME</th>
+                                                    <th class="text-center whitespace-nowrap">PRODUCT DESCRIPTION</th>
+                                                    <th class="text-center whitespace-nowrap">ACTION</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for product in products %}
+                                                    {% if product.Category.id == category.id %}
+                                                        <tr class="intro-x">
+                                                            
+                                                            <td class="text-center whitespace-nowrap">
+                                                                <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                                                            </td>
+                                                            <td class="text-center whitespace-nowrap">
+                                                                <a href="" class="font-medium whitespace-nowrap">{{ product.Name }}</a>     
+                                                            </td>
+                                                            <td class="text-center whitespace-nowrap">
+                                                                <div>{{ product.Description }}</div>
+                                                            </td>
+                                                            <td class="table-report__action text-center">
+                                                                <input type="checkbox" name="checks" id="" value="{{ product.id }}">
+                                                            </td>
+                                                            <script></script>
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endfor %}
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Super Large Modal Content -->
         <!-- BEGIN: Dark Mode Switcher-->
         <div data-url="top-menu-dark-regular-form.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
             <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>

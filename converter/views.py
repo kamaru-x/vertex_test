@@ -185,7 +185,7 @@ def create_proposal(request,lid):
         t += p.Total
 
     if request.method == 'POST':
-        if request.POST.get('scope'):
+        if request.POST.get('proposal_title'):
             proposal.Proposal_Title = request.POST.get('proposal_title')
             proposal.Project_Name = request.POST.get('project_name')
             proposal.Proposal_Date = request.POST.get('proposal_date')
@@ -512,6 +512,7 @@ def edit_proposal(request,pid):
     proposal = Proposal.objects.get(id=pid)
     lead = proposal.Lead
     pros = Proposal_Items.objects.filter(Proposal=proposal)
+    sections = Section.objects.filter(Proposal=proposal)
 
     t = 0
     for p in pros:
@@ -538,12 +539,33 @@ def edit_proposal(request,pid):
             proposal.save()
             messages.success(request,'proposal edited successfully')
             return redirect('/list-proposals/pending/')
+        
+        if request.POST.get('section_name'):
+            section_name = request.POST.get('section_name')
+            section_description = request.POST.get('section_description')
+
+            Section.objects.create(Proposal=proposal,Name=section_name,Description=section_description)
+
+            return redirect('.')
+        
+        if request.POST.get('section_id'):
+            section_id = request.POST.get('section_id')
+            product_list = request.POST.getlist('checks')
+            qty_list = request.POST.getlist('qty')
+            price_list = request.POST.getlist('price')
+            # print(f'products list = {product_list} | price list = {price_list} | quantity list = {qty_list}')
+            section = Section.objects.get(id=section_id)
+            for product in product_list:
+                pro = Product.objects.get(id=product)
+                Proposal_Items.objects.create(Proposal=proposal,Section=section,Product=pro,Sell_Price=pro.Selling_Price,Quantity=1,Total=pro.Selling_Price)
+            return redirect('.')
     context = {
         'products' : products,
         'pros' : pros,
         'proposal' : proposal,
         't' : t,
-        'categories':categories
+        'categories':categories,
+        'sections' : sections,
     }
 
     return render(request,'proposal_edit.html',context)
