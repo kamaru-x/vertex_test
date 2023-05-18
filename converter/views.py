@@ -536,7 +536,7 @@ def edit_proposal(request,pid):
             proposal.Payment = request.POST.get('payment')
             proposal.Exclusion = request.POST.get('exclusion')
             proposal.Terms_Condition = request.POST.get('terms')
-            proposal.Grand_Total = request.POST.get('current_value')
+            # proposal.Grand_Total = request.POST.get('current_value')
             proposal.Proposal_Status = 10
             proposal.Proposal_Title = request.POST.get('proposal_title')
             proposal.Project_Name = request.POST.get('project_name')
