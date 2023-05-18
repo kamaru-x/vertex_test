@@ -214,7 +214,11 @@ def create_proposal(request,lid):
             section_name = request.POST.get('section_name')
             section_description = request.POST.get('section_description')
 
-            Section.objects.create(Proposal=proposal,Name=section_name,Description=section_description)
+            try:
+                Section.objects.get(Proposal=proposal,Name=section_name)
+                messages.error(request,'section already exist with same name')
+            except:
+                Section.objects.create(Proposal=proposal,Name=section_name,Description=section_description)
 
             return redirect('.')
         
@@ -1525,7 +1529,6 @@ def get_product(request):
     data = '<option value="">Select Product</option>'
     if request.method == 'POST':
         id = request.POST.get('cat')
-        print(id)
         c = Category.objects.get(id=id)
         products = Product.objects.filter(Category=c)
         for product in products:
@@ -1554,21 +1557,18 @@ def print_proposal(request,pid):
     Enddate = Begindate + timedelta(days=30)
 
     summery = []
-    catagories = []
+    sections = []
 
     total = 0
 
-    for product in products:
-        catagories.append(product.Product.Category.Name)
-        catagories = [*set(catagories)]
+    sections = Section.objects.filter(Proposal=proposal)
 
-    for c in catagories:
+    for section in sections:
         grand_total = 0
         for p in products:
-            if p.Product.Category.Name == c :
+            if p.Section.Name == section.Name :
                 grand_total += p.Total
-                category = Category.objects.get(Name=c)
-        cat = {'category':category,'grand':grand_total}
+        cat = {'section':section,'grand':grand_total}
         total += cat['grand']
         summery.append(cat)
 
@@ -1584,11 +1584,11 @@ def print_proposal(request,pid):
     table = ''
     category_index = 1
 
-    for c in catagories:
+    for section in sections:
         table += f'''<tr>
                         <td></td>
                         <td></td>
-                        <td class="desc" colspan="2" style="color:red; text-align: center;"><b>{c}</b></td>
+                        <td class="desc" colspan="2" style="color:red; text-align: center;"><b>{section.Name}</b></td>
                         <td class="small"></td>
                         <td class="small"></td>
                         <td class="small"></td>
@@ -1597,7 +1597,7 @@ def print_proposal(request,pid):
         product_index = 1
 
         for product in products:
-            if product.Product.Category.Name == c :
+            if product.Section.Name == section.Name :
                 table += f'''<tr>
                                 <td>{category_index}.{ product_index }</td>
                                 <td class="small">{ product.Product.Name }</td>
@@ -1612,7 +1612,7 @@ def print_proposal(request,pid):
 
     context = {
         'proposal':proposal,
-        'catagories':catagories,
+        'sections':sections,
         'products':products,
         'date':date,
         'Enddate':Enddate,
@@ -1634,20 +1634,18 @@ def print_proposal_boq(request,pid):
     Enddate = Begindate + timedelta(days=30)
 
     summery = []
-    catagories = []
+    sections = []
 
     total = 0
 
-    for product in products:
-        catagories.append(product.Product.Category.Name)
-        catagories = [*set(catagories)]
+    sections = Section.objects.filter(Proposal=proposal)
 
-    for c in catagories:
+    for section in sections:
         grand_total = 0
         for p in products:
-            if p.Product.Category.Name == c :
+            if p.Section.Name == section.Name :
                 grand_total += p.Total
-        cat = {'category':c,'grand':grand_total}
+        cat = {'section':section,'grand':grand_total}
         total += cat['grand']
         summery.append(cat)
 
@@ -1663,11 +1661,11 @@ def print_proposal_boq(request,pid):
     table = ''
     category_index = 1
 
-    for c in catagories:
+    for section in sections:
         table += f'''<tr>
                         <td></td>
                         <td></td>
-                        <td class="desc" colspan="2" style="color:red; text-align: center;"><b>{c}</b></td>
+                        <td class="desc" colspan="2" style="color:red; text-align: center;"><b>{section.Name}</b></td>
                         <td class="small"></td>
                         <td class="small"></td>
                         <td class="small"></td>
@@ -1676,7 +1674,7 @@ def print_proposal_boq(request,pid):
         product_index = 1
 
         for product in products:
-            if product.Product.Category.Name == c :
+            if product.Section.Name == section.Name :
                 table += f'''<tr>
                                 <td>{category_index}.{ product_index }</td>
                                 <td class="small">{ product.Product.Name }</td>
@@ -1691,7 +1689,7 @@ def print_proposal_boq(request,pid):
 
     context = {
         'proposal':proposal,
-        'catagories':catagories,
+        'sections':sections,
         'products':products,
         'date':date,
         'Enddate':Enddate,
@@ -1713,21 +1711,18 @@ def print_proposal_noboq(request,pid):
     Enddate = Begindate + timedelta(days=30)
 
     summery = []
-    catagories = []
+    sections = []
 
     total = 0
 
-    for product in products:
-        catagories.append(product.Product.Category.Name)
-        catagories = [*set(catagories)]
+    sections = Section.objects.filter(Proposal=proposal)
 
-    for c in catagories:
+    for section in sections:
         grand_total = 0
         for p in products:
-            if p.Product.Category.Name == c :
+            if p.Section.Name == section.Name :
                 grand_total += p.Total
-                category = Category.objects.get(Name=c)
-        cat = {'category':category,'grand':grand_total}
+        cat = {'section':section,'grand':grand_total}
         total += cat['grand']
         summery.append(cat)
 
@@ -1742,7 +1737,7 @@ def print_proposal_noboq(request,pid):
 
     context = {
         'proposal':proposal,
-        'catagories':catagories,
+        'sections':sections,
         'products':products,
         'date':date,
         'Enddate':Enddate,
@@ -1763,21 +1758,18 @@ def print_proposal_noprice(request,pid):
     Enddate = Begindate + timedelta(days=30)
 
     summery = []
-    catagories = []
+    sections = []
 
     total = 0
 
-    for product in products:
-        catagories.append(product.Product.Category.Name)
-        catagories = [*set(catagories)]
+    sections = Section.objects.filter(Proposal=proposal)
 
-    for c in catagories:
+    for section in sections:
         grand_total = 0
         for p in products:
-            if p.Product.Category.Name == c :
+            if p.Section.Name == section.Name :
                 grand_total += p.Total
-                category = Category.objects.get(Name=c)
-        cat = {'category':category,'grand':grand_total}
+        cat = {'section':section,'grand':grand_total}
         total += cat['grand']
         summery.append(cat)
 
@@ -1793,18 +1785,18 @@ def print_proposal_noprice(request,pid):
     table = ''
     category_index = 1
 
-    for c in catagories:
+    for section in sections:
         table += f'''<tr>
                         <td></td>
                         <td></td>
-                        <td class="desc" colspan="2" style="color:red; text-align: center;"><b>{c}</b></td>
+                        <td class="desc" colspan="2" style="color:red; text-align: center;"><b>{section}</b></td>
                         <td class="small"></td>
                         <td class="small"></td>
                     </tr>'''
         product_index = 1
 
         for product in products:
-            if product.Product.Category.Name == c :
+            if product.Product.Category.Name == section.Name :
                 table += f'''<tr>
                                 <td>{category_index}.{ product_index }</td>
                                 <td class="small">{ product.Product.Name }</td>
@@ -1817,7 +1809,7 @@ def print_proposal_noprice(request,pid):
 
     context = {
         'proposal':proposal,
-        'catagories':catagories,
+        'sections':sections,
         'products':products,
         'date':date,
         'Enddate':Enddate,
@@ -1873,10 +1865,6 @@ def reviced_proposal(request,lid):
 
     i = proposal.Reviced
     base_proposal = Proposal.objects.get(id=i)
-
-    print('base proposal number : ' , i)
-    print('base proposal reference : ', base_proposal.Reference)
-
 
     while i != None:
         reviced = Proposal.objects.get(id=i)
