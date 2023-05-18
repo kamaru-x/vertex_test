@@ -118,7 +118,7 @@
                             <td class="text-center whitespace-nowrap"></td> -->
                             <td class="table-report__action">
                                 <div class="flex justify-center items-center">
-                                    <i data-lucide="plus" class="w-4 h-4 mr-1" data-tw-toggle="modal" data-tw-target="#product_model" onclick="pop('{{section.id}}')"></i>
+                                    <i data-lucide="plus-circle" class="w-4 h-4 mr-1" data-tw-toggle="modal" data-tw-target="#product_model" onclick="pop('{{section.id}}')"></i>
                                 </div>
                             </td>
                         </tr>
@@ -371,6 +371,21 @@
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <script src="{% static 'js/proposal.js' %}"></script>
     <script>
+        let method_id = $('#method').val()
+        let discount_amount = $('#discount_amount').val()
+        let total_amount = $('#product_total').html()
+
+        if (method_id == 1){
+            new_discount = (total_amount-discount_amount)
+            $('#temp_discount').html(discount_amount)
+            $('#temp_grand').html(new_discount)
+            
+        }else if(method_id == 2){
+            p = (total_amount*discount_amount)/100
+            new_discount = total_amount-p
+            $('#temp_discount').html(p)
+            $('#temp_grand').html(new_discount)
+        }
         // CKEDITOR.replace('scope');
         // CKEDITOR.replace('payment');
         // CKEDITOR.replace('exclusion');
@@ -397,8 +412,22 @@
                 success : function(data){
                     console.log('Status:',data)
                     $('#product_total').html(data.total)
-                    if(discount_amount == null){
-                        $('#temp_grand').html(data.total)
+                    // $('#temp_grand').html(data.total)
+
+                    let method_id = $('#method').val()
+                    let discount_amount = $('#discount_amount').val()
+                    let total_amount = $('#product_total').html()
+
+                    if (method_id == 1){
+                        new_discount = (total_amount-discount_amount)
+                        $('#temp_discount').html(discount_amount)
+                        $('#temp_grand').html(new_discount)
+                        
+                    }else if(method_id == 2){
+                        p = (total_amount*discount_amount)/100
+                        new_discount = total_amount-p
+                        $('#temp_discount').html(p)
+                        $('#temp_grand').html(new_discount)
                     }
                 }
             })

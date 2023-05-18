@@ -21,15 +21,17 @@ $(document).ready(function(){
 		})
 	})
 
-    $('#discount_amount , #table ,#product_total').change(function(e){
+    $('#discount_amount').change(function(e){
         e.preventDefault()
         let method_id = $('#method').val()
         let discount_amount = $('#discount_amount').val()
         let = total_amount = $('#product_total').html()
+
         if (method_id == 1){
             new_discount = (total_amount-discount_amount)
             $('#temp_discount').html(discount_amount)
             $('#temp_grand').html(new_discount)
+            
         }else if(method_id == 2){
             p = (total_amount*discount_amount)/100
             new_discount = total_amount-p
@@ -88,27 +90,27 @@ $(document).ready(function(){
     // new script for discount grandtotal and percentage
 
     // save percentage and discount without reloading
-    $('#discount_percentage').change(function(){
-        var grand_total = $('#product_total').html()
-        var percentage = $('#discount_percentage').val()
-        var method = $('#method').val()
-        let proposal = $('#ProposalId').val()
-        p = (grand_total*percentage) / 100
-        grand = grand_total - p
-        $('#desplay').val(p)
+    // $('#discount_percentage').change(function(){
+    //     var grand_total = $('#product_total').html()
+    //     var percentage = $('#discount_percentage').val()
+    //     var method = $('#method').val()
+    //     let proposal = $('#ProposalId').val()
+    //     p = (grand_total*percentage) / 100
+    //     grand = grand_total - p
+    //     $('#desplay').val(p)
 
-        mydata = {'proposal':proposal,'method':method,'discount':percentage}
+    //     mydata = {'proposal':proposal,'method':method,'discount':percentage}
 
-        alert(mydata)
+    //     alert(mydata)
 
-        $.ajax({
-            url : '/add_percentage/',
-            type : 'POST',
-            data : mydata,
-            success : function(data){
-                console.log('Status:',data)
-                set_temp()
-            }
-        })
-    })
+    //     $.ajax({
+    //         url : '/add_percentage/',
+    //         type : 'POST',
+    //         data : mydata,
+    //         success : function(data){
+    //             console.log('Status:',data)
+    //             set_temp()
+    //         }
+    //     })
+    // })
 })
