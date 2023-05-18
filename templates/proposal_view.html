@@ -338,80 +338,76 @@
         
         <!-- BEGIN: Data List -->
          <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
-            <table class="table table-report -mt-2" id="mytable">
+            <table class="table table-report -mt-2" id="table">
                 <thead>
                     <tr>
-                        <!-- <th class="whitespace-nowrap">
-                            <input class="form-check-input" type="checkbox">
-                        </th> -->
-                        <th class="whitespace-nowrap">SL. NO.</th>
-                        <th class="whitespace-nowrap">REF. NO.</th>
-                        <th class="whitespace-nowrap">PART NUMBER</th>
-                        <th class="whitespace-nowrap">CATEGORY</th>
-                        <th class="whitespace-nowrap">PRICE</th>
-                        <th class="whitespace-nowrap">QUANTITY</th>
-                        <th class="whitespace-nowrap">TOTAL</th>
-                        <!-- <th class="text-center whitespace-nowrap">ACTIONS</th> -->
+                        <th class="text-center whitespace-nowrap">SL. NO.</th>
+                        <th class="text-center whitespace-nowrap">PRODUCT REFERENCE</th>
+                        <th class="text-center whitespace-nowrap">PRODUCT NAME</th>
+                        <th class="text-center whitespace-nowrap">PRODUCT DESCRIPTION</th>
+                        <th class="text-center whitespace-nowrap">CATEGORY</th>
+                        <th class="text-center whitespace-nowrap">PRICE</th>
+                        <th class="text-center whitespace-nowrap">QUANTITY</th>
+                        <th class="text-center whitespace-nowrap">TOTAL</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for product in pros %}
+                    {% for section in sections %}
                         <tr class="intro-x">
-                            
-                            <td class="w-40">
-                                <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
-                            </td>
-                            <td class="w-40">
-                                <a href="" class="font-medium whitespace-nowrap">{{ product.Product.Reference }}</a>  
-                            </td>
-                            <td>
-                                <div class="whitespace-nowrap">{{ product.Product.Name }}</div>
-                            </td>
-                            <td class="w-64">
-                                <div>{{ product.Product.Category.Name }}</div>
-                            </td>
-                            <td class="w-64">
-                                <div>{{ product.Sell_Price }}</div>
-                            </td>
-                            <td class="w-64">
-                                <div>{{ product.Quantity }}</div>
-                            </td>
-                            <td class="w-64">
-                                <div id="total" class="total-{{forloop.counter}}">{{ product.Total }}</div>
+                            <td class="text-center" colspan="9">
+                                <h6 style="font-size: 25px;" class="text-primary">{{ section.Name }}</h6>
                             </td>
                         </tr>
-                    {% endfor %}
-                        <tr class="intro-x">    
-                            <td class="w-40"></td>
-                            <td class="w-40"></td>
-                            <td class="w-64"></td>
-                            <td class="w-64"></td>
-                            <td class="w-64"></td>
-                            <td class="w-64">Total</td>
-                            <td class="w-64">{{ total }}</td>
-                        </tr>
-                        <tr class="intro-x">    
-                            <td class="w-40"></td>
-                            <td class="w-40"></td>
-                            <td class="w-64"></td>
-                            <td class="w-64"></td>
-                            <td class="w-64"></td>
-                            <td class="w-64">Discount</td>
-                            {% if proposal.Method == 1 %}
-                                <td class="w-64">{{ proposal.Discount }}</td>
-                            {% else %}
-                                <td class="w-64">{{ dis }}</td>
+                        {% for p in pro_items %}
+                            {% if p.Section == section %}
+                                <tr class="intro-x">
+                                    <td class="text-center whitespace-nowrap">
+                                        <a href="" class=" whitespace-nowrap">{{ forloop.counter }}</a>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <a href="" class="font-medium whitespace-nowrap">{{ p.Product.Reference }}</a>     
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <a href="" class="font-medium whitespace-nowrap">{{ p.Product.Name }}</a>     
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div>{{ p.Product.Description }}</div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div>{{ p.Product.Category.Name }}</div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div>{{ p.Product.Buying_Price }}/{{ p.Product.Selling_Price }}</div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div>{{ p.Quantity }}</div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <div>{{ p.Total }}</div>
+                                    </td>
+                                </tr>
                             {% endif %}
-                        </tr>
-                        <tr class="intro-x">    
-                            <td class="w-40"></td>
-                            <td class="w-40"></td>
-                            <td class="w-64"></td>
-                            <td class="w-64"></td>
-                            <td class="w-64"></td>
-                            <td class="w-64">Grand Total</td>
-                            <td class="w-64">{{ grand_total }}</td>
-                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    <tr class="intro-x">
+                        <td class="text-center whitespace-nowrap" colspan="6"></td>
+                        <td class="text-center whitespace-nowrap">Total</td>
+                        <td class="text-center whitespace-nowrap">{{ total }}</td>
+                    </tr>
+                    <tr class="intro-x">
+                        <td class="text-center whitespace-nowrap" colspan="6"></td>
+                        <td class="text-center whitespace-nowrap">Discount</td>
+                        {% if proposal.Method == 1 %}
+                            <td class="text-center whitespace-nowrap">{{ proposal.Discount }}</td>
+                        {% else %}
+                            <td class="text-center whitespace-nowrap">{{ dis }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr class="intro-x">    
+                        <td class="text-center whitespace-nowrap" colspan="6"></td>
+                        <td class="text-center whitespace-nowrap">Grand Total</td>
+                        <td class="text-center whitespace-nowrap">{{ grand_total }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -372,6 +372,8 @@ def list_proposals(request,status):
 @login_required
 def view_proposal(request,pid):
     proposal = Proposal.objects.get(id=pid)
+    pro_items = Proposal_Items.objects.filter(Proposal=proposal)
+    sections = Section.objects.filter(Proposal=proposal)
 
     count = Proposal.objects.all().count()
 
@@ -502,7 +504,9 @@ def view_proposal(request,pid):
         'list_upward' : list_upward,
         'total' : total,
         'grand_total' : grand_total,
-        'dis' : dis
+        'dis' : dis,
+        'pro_items' : pro_items,
+        'sections' : sections
     }
     return render(request,'proposal_view.html',context)
 
