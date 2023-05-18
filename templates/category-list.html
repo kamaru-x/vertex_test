@@ -5,7 +5,7 @@
         <!-- BEGIN: Content -->
         {% include 'header.html' %}
     <div class="content">
-    <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">Product Sections</h2>
+    <h2 class="intro-y text-lg font-medium mt-10" style="text-align: center;font-size: 35px;color:#1e40af;padding-top: 30px;padding-bottom: 30px;border-bottom: solid 1px #bcbcbc;">Product Categoris</h2>
          <!--   <div class="intro-y box py-10 sm:py-20 mt-5">
         <h2 style=" font-size: 30px; font-weight: 500; text-align: center;
         color: #1e40af;">Add Category</h2>
@@ -19,7 +19,7 @@
                 <a href="{% url 'export_catagories' %}"><button class="btn btn-outline-secondary shadow-md mr-2">
                     <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export to Excel
                 </button></a>
-                <a href="{% url 'add-category' %}"><button class="btn btn-primary shadow-md mr-2">Add New Section</button></a>
+                <a href="{% url 'add-category' %}"><button class="btn btn-primary shadow-md mr-2">Add New Category</button></a>
                 <div class="dropdown ml-auto sm:ml-0">
                         <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                             <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i> </span>
@@ -27,7 +27,7 @@
                         <div class="dropdown-menu w-40">
                             <ul class="dropdown-content">
                                 <li>
-                                    <a href="{% url 'add-category' %}" class="dropdown-item"> <i data-lucide="file-plus" class="w-4 h-4 mr-2"></i> New Section </a>
+                                    <a href="{% url 'add-category' %}" class="dropdown-item"> <i data-lucide="file-plus" class="w-4 h-4 mr-2"></i> New Category </a>
                                 </li>
                                 <li>
                                     <a href="{% url 'add-product' %}" class="dropdown-item"> <i data-lucide="users" class="w-4 h-4 mr-2"></i> New Product </a>
@@ -73,7 +73,7 @@
                         <th class="whitespace-nowrap">SL. NO.</th>
                         <th class="whitespace-nowrap">REF. NO.</th>
                         <th class="text-center whitespace-nowrap">ADDED ON</th>
-                        <th class="whitespace-nowrap">SECTION NAME</th>
+                        <th class="whitespace-nowrap">CATEGORY NAME</th>
                         <th class="whitespace-nowrap">NUMBER OF PRODUCTS</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
